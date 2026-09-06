@@ -1,11 +1,11 @@
 CC       = gcc
 CFLAGS   = -Wall -Wextra
-LDFLAGS  =
+LDFLAGS  = -lm
 
 BUILD_DIR = build
 SRC_DIR = src
 
-CFLAGS += -I$(SRC_DIR)/platform
+CFLAGS += -I$(SRC_DIR) -I$(SRC_DIR)/platform
 
 UNAME_S := $(shell uname -s 2>/dev/null || echo "Unknown")
 ifeq ($(UNAME_S),Linux)
@@ -34,7 +34,9 @@ else
     $(error Platform not supported)
 endif
 
-OBJS = $(BUILD_DIR)/socket.o $(BUILD_DIR)/client.o $(BUILD_DIR)/server.o
+OBJS = $(BUILD_DIR)/socket.o $(BUILD_DIR)/protocol.o
+OBJ_CLIENT = $(BUILD_DIR)/client.o 
+OBJ_SERVER = $(BUILD_DIR)/server.o
 TARGETS = $(TARGET_CLIENT) $(TARGET_SERVER)
 
 .PHONY: all clean
@@ -47,16 +49,13 @@ $(BUILD_DIR):
 $(BUILD_DIR)/socket.o: $(SOCKET_SRC) $(SRC_DIR)/platform/socket.h $(SRC_DIR)/platform/error.h | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(BUILD_DIR)/client.o: $(SRC_DIR)/client.c $(SRC_DIR)/platform/socket.h $(SRC_DIR)/platform/error.h | $(BUILD_DIR)
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(SRC_DIR)/platform/socket.h $(SRC_DIR)/platform/error.h $(SRC_DIR)/protocol.h | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(BUILD_DIR)/server.o: $(SRC_DIR)/server.c $(SRC_DIR)/platform/socket.h $(SRC_DIR)/platform/error.h | $(BUILD_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-client: $(BUILD_DIR)/client.o $(BUILD_DIR)/socket.o
+client: $(BUILD_DIR)/client.o $(OBJS)
 	$(CC) $^ $(LDFLAGS) -o $@
 
-server: $(BUILD_DIR)/server.o $(BUILD_DIR)/socket.o
+server: $(BUILD_DIR)/server.o $(OBJS)
 	$(CC) $^ $(LDFLAGS) -o $@
 
 clean:

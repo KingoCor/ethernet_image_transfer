@@ -1,10 +1,13 @@
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stb_image_write.h"
+
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
 #include "socket.h"
 #include "error.h"
+#include "protocol.h"
 
 int main() {
-    Error err;
     Socket s;
     Addr local, server;
 
@@ -37,24 +40,32 @@ int main() {
         return 1;
     }
 
-    char *msg = "Hello from client";
-    int sent;
-    err = Socket_Send(&s, msg, strlen(msg), &sent);
-    if (err != ERROR_OK) {
-        fprintf(stderr, "Send error\n");
-    } else {
-        printf("Sent %d bytes\n", sent);
+	uint8_t data[1024*1024*3];
+
+    ImageTranferer img;
+    img.data = data;
+    img.dataCapacity = 1024*1024*3;
+
+    ImageTranferer_Recv(&img, &s, 5000);
+
+    printf("Received image: %dx%d, %d channels\n", img.width, img.height, img.channels);
+
+	FILE *f = fopen("raw_received.bin", "wb");
+	int total_size = img.width * img.height * img.channels;
+	fwrite(img.data, 1, total_size, f);
+	fclose(f);
+
+    // Save as PNG
+    int success = stbi_write_png("received.png", img.width, img.height, img.channels, img.data, 0);
+    if (!success) {
+        fprintf(stderr, "Failed to save image received.png\n");
+        free(img.data);
+        Socket_Close(&s);
+        Socket_Deinit();
+        return 1;
     }
 
-    char buf[1024];
-    int recvd;
-    err = Socket_Recv(&s, buf, sizeof(buf)-1, &recvd);
-    if (err != ERROR_OK) {
-        fprintf(stderr, "Recv error\n");
-    } else {
-        buf[recvd] = '\0';
-        printf("Received: %s\n", buf);
-    }
+    printf("Image saved as received.png\n");
 
     Socket_Close(&s);
     Socket_Deinit();

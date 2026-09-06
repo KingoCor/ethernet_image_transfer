@@ -35,6 +35,6 @@ void Socket_Close(Socket *s);
 Error Socket_Bind(Socket *s, const Addr *addr);
 Error Socket_Connect(Socket *s, const Addr *addr);
 Error Socket_Send(Socket *s, const char *buf, int len, int *sentLen);
-Error Socket_Recv(Socket *s, char *buf, int len, int *receivedLen);
+Error Socket_Recv(Socket *s, char *buf, int len, int *receivedLen, int timeout);
 
 #endif

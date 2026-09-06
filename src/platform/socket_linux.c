@@ -58,14 +58,25 @@ Error Socket_Send(Socket *s, const char *buf, int len, int *sentLen) {
     return ERROR_OK;
 }
 
-Error Socket_Recv(Socket *s, char *buf, int len, int *receivedLen) {
-	if (receivedLen) *receivedLen = 0;
+Error Socket_Recv(Socket *s, char *buf, int len, int *receivedLen, int timeout) {
+    if (receivedLen) *receivedLen = 0;
     if (!s || !buf || len < 0) return ERROR_ARG;
     if (!s->is_connected) return ERROR_ARG;
 
-    ssize_t recvd = recv(s->fd, buf, (size_t)len, 0);
-    if (recvd<0) return ERROR_READ;
-    if (receivedLen) *receivedLen = (int)recvd;
+    if (timeout>0) {
+        fd_set readfds;
+        FD_ZERO(&readfds);
+        FD_SET(s->fd, &readfds);
+        struct timeval tv;
+        tv.tv_sec = timeout/1000;
+        tv.tv_usec = (timeout%1000)*1000;
+        int ret = select(s->fd + 1, &readfds, NULL, NULL, &tv);
+        if (ret<0) return ERROR_READ;
+        if (ret==0) return ERROR_TIMEOUT;
+    }
 
+    ssize_t recvd = recv(s->fd, buf, (size_t)len, 0);
+    if (recvd < 0) return ERROR_READ;
+    if (receivedLen) *receivedLen = (int)recvd;
     return ERROR_OK;
 }

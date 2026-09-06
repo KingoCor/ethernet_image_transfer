@@ -6,7 +6,8 @@ typedef enum {
 	ERROR_INIT,
 	ERROR_ARG,
 	ERROR_WRITE,
-	ERROR_READ
+	ERROR_READ,
+	ERROR_TIMEOUT
 } Error;
 
 #endif
