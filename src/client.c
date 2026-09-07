@@ -40,20 +40,14 @@ int main() {
         return 1;
     }
 
-	uint8_t data[1024*1024*3];
 
     ImageTranferer img;
-    img.data = data;
+    img.data = malloc(1024*1024*3);
     img.dataCapacity = 1024*1024*3;
 
-    ImageTranferer_Recv(&img, &s, 5000);
+	for (int i=0; i<30; ++i) ImageTranferer_Recv(&img, &s, 5000);
 
     printf("Received image: %dx%d, %d channels\n", img.width, img.height, img.channels);
-
-	FILE *f = fopen("raw_received.bin", "wb");
-	int total_size = img.width * img.height * img.channels;
-	fwrite(img.data, 1, total_size, f);
-	fclose(f);
 
     // Save as PNG
     int success = stbi_write_png("received.png", img.width, img.height, img.channels, img.data, 0);
@@ -66,6 +60,8 @@ int main() {
     }
 
     printf("Image saved as received.png\n");
+
+	free(img.data);
 
     Socket_Close(&s);
     Socket_Deinit();

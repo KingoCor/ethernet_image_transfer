@@ -7,11 +7,13 @@
 #include "socket.h"
 
 #define MAX_PACKET_DATA_SIZE 1024
+#define REPEATS 5
 
 typedef enum {
 	PACKET_GET_IMAGE,
 	PACKET_SET_IMAGE_INFO,
-	PACKET_SET_IMAGE
+	PACKET_SET_IMAGE,
+	PACKET_ACK
 } PacketType;
 
 typedef struct {

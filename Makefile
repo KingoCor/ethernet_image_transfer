@@ -52,10 +52,10 @@ $(BUILD_DIR)/socket.o: $(SOCKET_SRC) $(SRC_DIR)/platform/socket.h $(SRC_DIR)/pla
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(SRC_DIR)/platform/socket.h $(SRC_DIR)/platform/error.h $(SRC_DIR)/protocol.h | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-client: $(BUILD_DIR)/client.o $(OBJS)
+$(TARGET_CLIENT): $(BUILD_DIR)/client.o $(OBJS)
 	$(CC) $^ $(LDFLAGS) -o $@
 
-server: $(BUILD_DIR)/server.o $(OBJS)
+$(TARGET_SERVER): $(BUILD_DIR)/server.o $(OBJS)
 	$(CC) $^ $(LDFLAGS) -o $@
 
 clean:

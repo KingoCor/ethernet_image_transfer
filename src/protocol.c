@@ -4,6 +4,8 @@
 
 // type+PacketData/PacketInfo+data
 uint8_t buf[1+6+MAX_PACKET_DATA_SIZE] = {0};
+uint8_t ackBuf;
+uint8_t ACK = PACKET_ACK;
 
 Error Packet_Send(const Packet *p, Socket *s) {
 	if (!p || !s) return ERROR_ARG;
@@ -30,7 +32,15 @@ Error Packet_Send(const Packet *p, Socket *s) {
 		bufSize = 8+p->data.size;
 	} else return ERROR_ARG;
 	
-	return Socket_Send(s, (char *)buf, bufSize, NULL);
+	for (int i=0; i<REPEATS; ++i) {
+		Error err = Socket_Send(s, (char *)buf, bufSize, NULL);
+		if (err) continue;
+		err = Socket_Recv(s, (char *)&ackBuf, 1, NULL, 10);
+		if (err) continue;
+		if (ackBuf==PACKET_ACK) return ERROR_OK;
+	}
+
+	return ERROR_WRITE;
 }
 
 Error Packet_Recv(Packet *p, Socket *s, int timeout) {
@@ -64,7 +74,15 @@ Error Packet_Recv(Packet *p, Socket *s, int timeout) {
 		memcpy(p->data.data, &buf[7], p->data.size);
 	} else return ERROR_ARG;
 
-	return ERROR_OK;
+	Packet ack;
+	ack.type = PACKET_ACK;
+	int sentLen = 0;
+	for (int i=0; i<REPEATS; ++i) {
+		Error err = Socket_Send(s, (char *)&ACK, 1, &sentLen);
+		if (!err && sentLen>0) return ERROR_OK;
+	}
+
+	return ERROR_READ;
 }
 
 
@@ -90,7 +108,6 @@ Error ImageTranferer_Send(ImageTranferer *img, Socket *s) {
 		Packet_Send(&p, s);
 		count += 1;
 	}
-	printf("Sent blocks: %d\n", count);
 
 	return ERROR_OK;
 }
