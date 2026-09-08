@@ -7,13 +7,12 @@
 #include "socket.h"
 
 #define MAX_PACKET_DATA_SIZE 1024
-#define REPEATS 5
 
 typedef enum {
-	PACKET_GET_IMAGE,
+	PACKET_GET_IMAGE_INFO,
 	PACKET_SET_IMAGE_INFO,
-	PACKET_SET_IMAGE,
-	PACKET_ACK
+	PACKET_GET_IMAGE_DATA,
+	PACKET_SET_IMAGE_DATA
 } PacketType;
 
 typedef struct {
@@ -37,7 +36,8 @@ typedef struct {
 } Packet;
 
 Error Packet_Send(const Packet *p, Socket *s);
-Error Packet_Recv(Packet *p, Socket *s, int timeout);
+Error Packet_Recv(Packet *p, Socket *s);
+Error Packet_Req(const Packet *req, Socket *s, int repeats, Packet *p);
 
 typedef struct {
 	uint16_t width;
@@ -47,7 +47,7 @@ typedef struct {
 	uint32_t dataCapacity;
 } ImageTranferer;
 
-Error ImageTranferer_Send(ImageTranferer *img, Socket *s);
-Error ImageTranferer_Recv(ImageTranferer *img, Socket *s, int timeout);
+Error ImageTranferer_Req(ImageTranferer *img, Socket *s, int repeats);
+Error ImageTranferer_Res(ImageTranferer *img, Socket *s);
 
 #endif

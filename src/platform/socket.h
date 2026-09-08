@@ -32,9 +32,10 @@ void Socket_Deinit();
 
 Error Socket_Open(Socket *s);
 void Socket_Close(Socket *s);
+Error Socket_SetTimeout(Socket *s, int timeout);
 Error Socket_Bind(Socket *s, const Addr *addr);
 Error Socket_Connect(Socket *s, const Addr *addr);
 Error Socket_Send(Socket *s, const char *buf, int len, int *sentLen);
-Error Socket_Recv(Socket *s, char *buf, int len, int *receivedLen, int timeout);
+Error Socket_Recv(Socket *s, char *buf, int len, int *receivedLen);
 
 #endif

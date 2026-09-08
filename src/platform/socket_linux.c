@@ -1,10 +1,13 @@
 #include "socket.h"
+#include <errno.h>
+#include <stdio.h>
 
 Error Socket_Init(void) {
     return ERROR_OK;
 }
 
 void Socket_Deinit(void) {}
+
 
 Error Socket_Open(Socket *s) {
 	if (!s) return ERROR_ARG;
@@ -16,6 +19,16 @@ Error Socket_Open(Socket *s) {
 
 void Socket_Close(Socket *s) {
     if (s) close(s->fd);
+}
+
+Error Socket_SetTimeout(Socket *s, int timeout) {
+	struct timeval tv;
+	tv.tv_sec = timeout/1000;
+	tv.tv_usec = (timeout%1000)*1000;
+	if (setsockopt(s->fd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof(tv))<0) {
+		return ERROR_INIT;
+	}
+	return ERROR_OK;
 }
 
 Error Addr_SetPort(Addr *addr, int port) {
@@ -58,25 +71,16 @@ Error Socket_Send(Socket *s, const char *buf, int len, int *sentLen) {
     return ERROR_OK;
 }
 
-Error Socket_Recv(Socket *s, char *buf, int len, int *receivedLen, int timeout) {
+Error Socket_Recv(Socket *s, char *buf, int len, int *receivedLen) {
     if (receivedLen) *receivedLen = 0;
     if (!s || !buf || len < 0) return ERROR_ARG;
     if (!s->is_connected) return ERROR_ARG;
 
-    if (timeout>0) {
-        fd_set readfds;
-        FD_ZERO(&readfds);
-        FD_SET(s->fd, &readfds);
-        struct timeval tv;
-        tv.tv_sec = timeout/1000;
-        tv.tv_usec = (timeout%1000)*1000;
-        int ret = select(s->fd + 1, &readfds, NULL, NULL, &tv);
-        if (ret<0) return ERROR_READ;
-        if (ret==0) return ERROR_TIMEOUT;
-    }
-
     ssize_t recvd = recv(s->fd, buf, (size_t)len, 0);
-    if (recvd < 0) return ERROR_READ;
+    if (recvd<0) {
+		if (errno==EAGAIN || errno==EWOULDBLOCK) return ERROR_TIMEOUT;
+		return ERROR_READ;
+	}
     if (receivedLen) *receivedLen = (int)recvd;
     return ERROR_OK;
 }

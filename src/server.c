@@ -63,18 +63,7 @@ int main() {
     img.dataCapacity = width * height * channels;
 
 	while(1) {
-		Packet p;
-		Packet_Recv(&p, &s, -1);
-		if (p.type!=PACKET_GET_IMAGE) continue;
-
-		err = ImageTranferer_Send(&img, &s);
-		if (err) {
-			fprintf(stderr, "ImageTranferer_Send failed: %d\n", err);
-			stbi_image_free(img_data);
-			Socket_Close(&s);
-			Socket_Deinit();
-			return 1;
-		}
+		ImageTranferer_Res(&img, &s);
 	}
 
     stbi_image_free(img_data);
