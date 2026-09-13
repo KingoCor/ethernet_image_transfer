@@ -1,0 +1,29 @@
+{
+  "version": "2020.2",
+  "applications": [],
+  "platforms": [
+    {
+      "name": "zynq"
+    }
+  ],
+  "systems": [
+    {
+      "name": "ethernet_udp_system",
+      "platform": "C:/Users/fofan/Desktop/workspace/zynq/export/zynq/zynq.xpfm",
+      "sysConfig": "zynq",
+      "buildConfig": "Debug",
+      "applications": [
+        {
+          "name": "ethernet_udp",
+          "platform": "C:/Users/fofan/Desktop/workspace/zynq/export/zynq/zynq.xpfm",
+          "platformPath": "/home/alexey/programming/fpga/workspace/zynq/export/zynq",
+          "sysConfig": "zynq",
+          "domain": "standalone_ps7_cortexa9_0",
+          "system": "ethernet_udp_system"
+        }
+      ],
+      "platformPath": "/home/alexey/programming/fpga/workspace/zynq/export/zynq"
+    }
+  ],
+  "others": []
+}
