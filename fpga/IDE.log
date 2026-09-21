@@ -1,0 +1,13 @@
+13:51:05 INFO  : Launching XSCT server: xsct -n  -interactive /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/temp_xsdb_launch_script.tcl
+13:51:06 INFO  : Registering command handlers for Vitis TCF services
+13:51:10 INFO  : Platform repository initialization has completed.
+13:51:10 INFO  : XSCT server has started successfully.
+13:51:11 INFO  : plnx-install-location is set to ''
+13:51:11 INFO  : Successfully done setting XSCT server connection channel  
+13:51:11 INFO  : Successfully done query RDI_DATADIR 
+13:51:11 INFO  : Successfully done setting workspace for the tool. 
+13:52:58 INFO  : Result from executing command 'getProjects': zynq_wrapper
+13:52:58 INFO  : Result from executing command 'getPlatforms': 
+13:52:58 WARN  : An unexpected exception occurred in the module 'platform project logging'
+13:52:58 INFO  : Platform 'zynq_wrapper' is added to custom repositories.
+13:53:06 INFO  : Platform 'zynq_wrapper' is added to custom repositories.

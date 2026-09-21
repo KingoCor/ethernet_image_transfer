@@ -1,0 +1,980 @@
+
+****** Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+  **** SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+  **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source /home/alexey/Xilinx/Vitis_HLS/2020.2/scripts/vitis_hls/hls.tcl -notrace
+INFO: Applying HLS Y2K22 patch v1.2 for IP revision
+INFO: [HLS 200-10] Running '/home/alexey/Xilinx/Vitis_HLS/2020.2/bin/unwrapped/lnx64.o/vitis_hls'
+INFO: [HLS 200-10] For user 'alexey' on host 'localhost' (Linux_x86_64 version 7.1.3-arch1-2) on Mon Sep 21 13:21:18 MSK 2026
+INFO: [HLS 200-10] On os "Arch Linux"
+INFO: [HLS 200-10] In directory '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1'
+Sourcing Tcl script '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/runhls.tcl'
+INFO: [HLS 200-1510] Running: open_project zynq_v_tpg_0_0 
+INFO: [HLS 200-10] Creating and opening project '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0'.
+INFO: [HLS 200-1510] Running: set_top v_tpg 
+INFO: [HLS 200-1510] Running: open_solution prj 
+INFO: [HLS 200-10] Creating and opening solution '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj'.
+INFO: [HLS 200-1505] Using default flow_target 'vivado'
+Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2020.2;t=hls+guidance;d=200-1505.html
+INFO: [HLS 200-1510] Running: set_part xc7z020iclg484-1l 
+INFO: [HLS 200-10] Setting target device to 'xc7z020i-clg484-1L'
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/v_tpg_config.h 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/v_tpg_config.h' to the project
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/v_tpg.cpp 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/v_tpg.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/v_tpg.h 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/v_tpg.h' to the project
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/v_tpg_zoneplate.h 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/v_tpg_zoneplate.h' to the project
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls_video.h 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls_video.h' to the project
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls_opencv.h 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls_opencv.h' to the project
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_axi_io.h 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_axi_io.h' to the project
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h' to the project
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_core.h 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_core.h' to the project
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_fast.h 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_fast.h' to the project
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_haar.h 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_haar.h' to the project
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_harris.h 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_harris.h' to the project
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_histogram.h 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_histogram.h' to the project
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_hough.h 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_hough.h' to the project
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_imgbase.h 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_imgbase.h' to the project
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_imgproc.h 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_imgproc.h' to the project
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_io.h 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_io.h' to the project
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_mem.h 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_mem.h' to the project
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_stereobm.h 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_stereobm.h' to the project
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_types.h 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_types.h' to the project
+INFO: [HLS 200-1510] Running: add_files -cflags  -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls -I /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src  /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_undistort.h 
+INFO: [HLS 200-10] Adding design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_undistort.h' to the project
+INFO: [HLS 200-1510] Running: create_clock -period 20 -name ap_clk 
+INFO: [SYN 201-201] Setting up clock 'ap_clk' with a period of 20ns.
+INFO: [HLS 200-1510] Running: config_schedule -verbose 
+WARNING: [HLS 200-484] The 'config_schedule -verbose' command is deprecated and will be removed in a future release.
+INFO: [HLS 200-1510] Running: config_rtl -prefix zynq_v_tpg_0_0_ 
+WARNING: [HLS 200-483] The 'config_rtl -prefix' command is deprecated and will be removed in a future release. Use 'config_rtl -module_prefix' as its replacement.
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.02 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 93.988 MB.
+INFO: [HLS 200-10] Analyzing design file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/v_tpg.cpp' ... 
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:117:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:118:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:119:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:120:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:121:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:151:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:152:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:153:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:154:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:155:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:156:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:157:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:158:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:159:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:160:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:210:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:211:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:212:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:239:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:240:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:241:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:242:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:243:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:244:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:280:9
+WARNING: [HLS 207-5510] 'Resource pragma' is deprecated, and it will be removed in future release. It is suggested to replace it with 'bind_op/bind_storage pragma'.: /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_hotbm_apfixed.h:281:9
+WARNING: [HLS 207-5496] the pragma is not supported and will be ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_core.h:598:9
+WARNING: [HLS 207-5496] the pragma is not supported and will be ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_core.h:699:9
+WARNING: [HLS 207-4610] the argument to '__builtin_assume' has side effects that will be discarded: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_io.h:162:23
+WARNING: [HLS 207-4610] the argument to '__builtin_assume' has side effects that will be discarded: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_io.h:228:23
+WARNING: [HLS 207-5301] unused parameter 'p0': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:116:67
+WARNING: [HLS 207-5301] unused parameter 'p1': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:116:77
+WARNING: [HLS 207-5301] unused parameter 'p2': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:116:87
+WARNING: [HLS 207-5301] unused parameter 'p0': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:130:67
+WARNING: [HLS 207-5301] unused parameter 'p1': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:130:77
+WARNING: [HLS 207-5301] unused parameter 'p2': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:130:87
+WARNING: [HLS 207-5301] unused parameter 'p0': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:144:67
+WARNING: [HLS 207-5301] unused parameter 'p1': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:144:77
+WARNING: [HLS 207-5301] unused parameter 'p2': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:144:87
+WARNING: [HLS 207-5301] unused parameter 'p0': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:174:67
+WARNING: [HLS 207-5301] unused parameter 'p1': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:174:77
+WARNING: [HLS 207-5301] unused parameter 'p2': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:174:87
+WARNING: [HLS 207-5301] unused parameter 'val': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:183:44
+WARNING: [HLS 207-5301] unused parameter 'p0': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:183:65
+WARNING: [HLS 207-5301] unused parameter 'p1': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:183:75
+WARNING: [HLS 207-5301] unused parameter 'p2': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:183:85
+WARNING: [HLS 207-5301] unused parameter 'src': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:192:31
+WARNING: [HLS 207-5301] unused parameter 'p0': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:192:65
+WARNING: [HLS 207-5301] unused parameter 'p1': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:192:75
+WARNING: [HLS 207-5301] unused parameter 'p2': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:192:85
+WARNING: [HLS 207-5301] unused parameter 'val': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:201:44
+WARNING: [HLS 207-5301] unused parameter 'p2': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:201:85
+WARNING: [HLS 207-5301] unused parameter 'p0': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:215:67
+WARNING: [HLS 207-5301] unused parameter 'p1': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:215:77
+WARNING: [HLS 207-5301] unused parameter 'p2': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:215:87
+WARNING: [HLS 207-5301] unused parameter 'p0': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:226:67
+WARNING: [HLS 207-5301] unused parameter 'p1': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:226:77
+WARNING: [HLS 207-5301] unused parameter 'p2': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:226:87
+WARNING: [HLS 207-5301] unused parameter 'p0': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:237:67
+WARNING: [HLS 207-5301] unused parameter 'p1': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:237:77
+WARNING: [HLS 207-5301] unused parameter 'p2': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:237:87
+WARNING: [HLS 207-5301] unused parameter 'p1': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:248:78
+WARNING: [HLS 207-5301] unused parameter 'p2': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:248:89
+WARNING: [HLS 207-5301] unused parameter 'p0': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:261:67
+WARNING: [HLS 207-5301] unused parameter 'p1': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:261:77
+WARNING: [HLS 207-5301] unused parameter 'p2': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:261:87
+WARNING: [HLS 207-5301] unused parameter 'p1': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:289:77
+WARNING: [HLS 207-5301] unused parameter 'p2': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:289:87
+WARNING: [HLS 207-5301] unused parameter 'sqsum': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_arithm.h:319:54
+WARNING: [HLS 207-5301] unused parameter 'cast': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_imgproc.h:278:27
+WARNING: [HLS 207-1017] unknown pragma ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_imgproc.h:1157:9
+WARNING: [HLS 207-5301] unused parameter 'flags': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_undistort.h:163:39
+WARNING: [HLS 207-4610] the argument to '__builtin_assume' has side effects that will be discarded: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_undistort.h:380:35
+WARNING: [HLS 207-5301] unused parameter 'x': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_undistort.h:435:24
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.gen/sources_1/bd/zynq/ip/zynq_v_tpg_0_0/src/hls/hls_video_haar.h:192:43
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:312:33
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:314:38
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:315:38
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:325:38
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:326:38
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:327:38
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:328:38
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:329:38
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:330:38
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:331:38
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:332:38
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:333:38
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:334:38
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:335:38
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:336:38
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:337:38
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:338:38
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:339:38
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:340:38
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:341:38
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:342:38
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:343:38
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:346:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:347:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:348:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:349:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:350:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:351:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:360:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:361:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:362:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:363:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:364:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:365:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:366:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:367:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:368:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:369:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:370:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:371:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:372:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:373:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:374:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:376:23
+WARNING: [HLS 207-5511] 'Ap_stable' in '#pragma HLS INTERFACE' is deprecated, and it will be removed in future release. It is suggested to replace it with 'Stable Pragma'.: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:377:23
+WARNING: [HLS 207-5514] extra token before variable expression is ignored: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:851:38
+WARNING: [HLS 207-5301] unused parameter 'y': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1083:47
+WARNING: [HLS 207-5301] unused parameter 'y': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1127:45
+WARNING: [HLS 207-5301] unused parameter 'x': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1127:52
+WARNING: [HLS 207-5301] unused parameter 'height': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1220:76
+WARNING: [HLS 207-4586] operator '<<' has lower precedence than '-'; '-' will be evaluated first: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1287:26
+INFO: [HLS 207-4423] place parentheses around the '-' expression to silence this warning: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1287:26
+WARNING: [HLS 207-4586] operator '<<' has lower precedence than '-'; '-' will be evaluated first: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1287:110
+INFO: [HLS 207-4423] place parentheses around the '-' expression to silence this warning: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1287:110
+WARNING: [HLS 207-4586] operator '<<' has lower precedence than '-'; '-' will be evaluated first: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1288:26
+INFO: [HLS 207-4423] place parentheses around the '-' expression to silence this warning: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1288:26
+WARNING: [HLS 207-4586] operator '<<' has lower precedence than '-'; '-' will be evaluated first: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1288:114
+INFO: [HLS 207-4423] place parentheses around the '-' expression to silence this warning: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1288:114
+WARNING: [HLS 207-4586] operator '<<' has lower precedence than '-'; '-' will be evaluated first: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1289:26
+INFO: [HLS 207-4423] place parentheses around the '-' expression to silence this warning: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1289:26
+WARNING: [HLS 207-4586] operator '<<' has lower precedence than '-'; '-' will be evaluated first: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1289:116
+INFO: [HLS 207-4423] place parentheses around the '-' expression to silence this warning: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1289:116
+WARNING: [HLS 207-5301] unused parameter 'y': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1279:39
+WARNING: [HLS 207-5301] unused parameter 'rampStart': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1279:53
+WARNING: [HLS 207-5301] unused parameter 'width': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1588:57
+WARNING: [HLS 207-5301] unused parameter 'height': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1588:68
+WARNING: [HLS 207-5301] unused parameter 'dpDynamicRange': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1588:89
+WARNING: [HLS 207-5301] unused parameter 'dpYUVCoef': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1588:108
+WARNING: [HLS 207-5301] unused parameter 'y': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1686:56
+WARNING: [HLS 207-5301] unused parameter 'width': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1686:70
+WARNING: [HLS 207-5301] unused parameter 'height': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1686:81
+WARNING: [HLS 207-5301] unused parameter 'color': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1686:92
+WARNING: [HLS 207-5301] unused parameter 'width': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1703:59
+WARNING: [HLS 207-5301] unused parameter 'height': /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1703:70
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 92.93 seconds. CPU system time: 4.51 seconds. Elapsed time: 96.47 seconds; current allocated memory: 101.797 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternHorizontalRamp(unsigned short, unsigned short, unsigned short, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1087:21)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternVerticalRamp(unsigned short, unsigned short, unsigned short, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1108:21)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternTemporalRamp(unsigned short, unsigned short, unsigned short, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1130:21)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternSolidRed(unsigned short, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1143:21)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternSolidGreen(unsigned short, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1159:21)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternSolidBlue(unsigned short, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1175:21)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternSolidBlack(unsigned short, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1191:21)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternSolidWhite(unsigned short, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1207:21)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternColorBars(unsigned short, unsigned short, unsigned short, unsigned char, unsigned short, unsigned short)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1223:21)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternZonePlate(unsigned short, unsigned short, unsigned short, unsigned short, unsigned short, unsigned short, unsigned short, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1341:21)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternTartanColorBars(unsigned short, unsigned short, unsigned short, unsigned short, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1376:21)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternTartanColorBars(unsigned short, unsigned short, unsigned short, unsigned short, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1404:19)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternCrossHatch(unsigned short, unsigned short, unsigned short, unsigned short, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1433:21)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternRainbow(unsigned short, unsigned short, unsigned short, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1282:21)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternVerticalHorizontalRamp(unsigned short, unsigned short, unsigned short, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1514:21)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternCheckerBoard(unsigned short, unsigned short, unsigned short, unsigned short, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1535:21)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPRBS(unsigned short, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1782:21)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternDPColorRamp(unsigned short, unsigned short, unsigned short, unsigned short, unsigned char, unsigned char, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1591:21)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternDPColorRamp(unsigned short, unsigned short, unsigned short, unsigned short, unsigned char, unsigned char, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1591:25)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternDPBlackWhiteVerticalLine(unsigned short, unsigned short, unsigned short, unsigned short, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1689:21)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternDPColorSquare(unsigned short, unsigned short, unsigned short, unsigned short, unsigned char, unsigned char, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1706:21)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::Scalar<3, ap_uint<8> >, 0>::write(hls::Scalar<3, ap_uint<8> > const&)' into 'hls::stream<hls::Scalar<3, ap_uint<8> >, 0>::operator<<(hls::Scalar<3, ap_uint<8> > const&)' (/home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:129:9)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:517:21)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::Scalar<3, ap_uint<8> >, 0>::operator<<(hls::Scalar<3, ap_uint<8> > const&)' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:708:20)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:518:21)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::Scalar<3, ap_uint<8> >, 0>::read(hls::Scalar<3, ap_uint<8> >&)' into 'hls::stream<hls::Scalar<3, ap_uint<8> >, 0>::operator>>(hls::Scalar<3, ap_uint<8> >&)' (/home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:125:9)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgPatternMask(hls::Scalar<3, ap_uint<8> >, unsigned char, unsigned char)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1929:21)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgForeground(hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:740:21)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::Scalar<3, ap_uint<8> >, 0>::operator<<(hls::Scalar<3, ap_uint<8> > const&)' into 'tpgForeground(hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:779:20)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgForeground(hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:741:18)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'tpgForeground(hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:742:21)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::Scalar<3, ap_uint<8> >, 0>::operator>>(hls::Scalar<3, ap_uint<8> >&)' into 'tpgForeground(hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:750:9)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>::write(hls::axis<ap_uint<24>, 1ul, 1ul, 1ul> const&)' (/home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:304:51)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>::write(hls::axis<ap_uint<24>, 1ul, 1ul, 1ul> const&)' (/home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:307:26)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>::write(hls::axis<ap_uint<24>, 1ul, 1ul, 1ul> const&)' (/home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:68)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>::get_user_ptr()' into 'hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>::write(hls::axis<ap_uint<24>, 1ul, 1ul, 1ul> const&)' (/home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:306:37)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>::get_dest_ptr()' into 'hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>::write(hls::axis<ap_uint<24>, 1ul, 1ul, 1ul> const&)' (/home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:40)
+INFO: [HLS 214-131] Inlining function 'hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>::get_id_ptr()' into 'hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>::write(hls::axis<ap_uint<24>, 1ul, 1ul, 1ul> const&)' (/home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:305:24)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>::write(hls::axis<ap_uint<24>, 1ul, 1ul, 1ul> const&)' into 'hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>::operator<<(hls::axis<ap_uint<24>, 1ul, 1ul, 1ul> const&)' (/home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_axi_sdata.h:262:86)
+INFO: [HLS 214-131] Inlining function 'hls::Scalar<3, ap_uint<8> >::Scalar()' into 'MultiPixStream2AXIvideo(hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&, hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>&, unsigned short&, unsigned short&, unsigned char&, bool&, bool&, unsigned short&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:904:21)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>::operator<<(hls::axis<ap_uint<24>, 1ul, 1ul, 1ul> const&)' into 'MultiPixStream2AXIvideo(hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&, hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>&, unsigned short&, unsigned short&, unsigned char&, bool&, bool&, unsigned short&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1020:28)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::Scalar<3, ap_uint<8> >, 0>::operator>>(hls::Scalar<3, ap_uint<8> >&)' into 'MultiPixStream2AXIvideo(hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&, hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>&, unsigned short&, unsigned short&, unsigned char&, bool&, bool&, unsigned short&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:993:21)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::Scalar<3, ap_uint<8> >, 0>::stream()' into 'v_tpg(unsigned short&, unsigned short&, unsigned short&, bool&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned short&, hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>&, bool&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:390:25)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::Scalar<3, ap_uint<8> >, 0>::stream()' into 'v_tpg(unsigned short&, unsigned short&, unsigned short&, bool&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned short&, hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>&, bool&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:391:25)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::Scalar<3, ap_uint<8> >, 0>::stream()' into 'v_tpg(unsigned short&, unsigned short&, unsigned short&, bool&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned short&, hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>&, bool&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:393:25)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::Scalar<3, ap_uint<8> >, 0>::stream()' into 'v_tpg(unsigned short&, unsigned short&, unsigned short&, bool&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned short&, hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>&, bool&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:393:48)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::Scalar<3, ap_uint<8> >, 0>::stream()' into 'v_tpg(unsigned short&, unsigned short&, unsigned short&, bool&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned short&, hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>&, bool&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:396:50)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::Scalar<3, ap_uint<8> >, 0>::stream()' into 'v_tpg(unsigned short&, unsigned short&, unsigned short&, bool&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned short&, hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>&, bool&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:396:41)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::Scalar<3, ap_uint<8> >, 0>::stream()' into 'v_tpg(unsigned short&, unsigned short&, unsigned short&, bool&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned short&, hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>&, bool&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:396:33)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::Scalar<3, ap_uint<8> >, 0>::stream()' into 'v_tpg(unsigned short&, unsigned short&, unsigned short&, bool&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned short&, hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>&, bool&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:396:25)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::Scalar<3, ap_uint<8> >, 0>::stream()' into 'v_tpg(unsigned short&, unsigned short&, unsigned short&, bool&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned short&, hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>&, bool&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:394:48)
+INFO: [HLS 214-131] Inlining function 'hls::stream<hls::Scalar<3, ap_uint<8> >, 0>::stream()' into 'v_tpg(unsigned short&, unsigned short&, unsigned short&, bool&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned short&, hls::stream<hls::axis<ap_uint<24>, 1ul, 1ul, 1ul>, 0>&, bool&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:394:25)
+INFO: [HLS 214-210] Disaggregating variable 'tmp'
+INFO: [HLS 214-210] Disaggregating variable 'ref.tmp23'
+INFO: [HLS 214-210] Disaggregating variable 'ref.tmp22'
+INFO: [HLS 214-210] Disaggregating variable 'ref.tmp21'
+INFO: [HLS 214-210] Disaggregating variable 'ref.tmp20'
+INFO: [HLS 214-210] Disaggregating variable 'ref.tmp19'
+INFO: [HLS 214-210] Disaggregating variable 'ref.tmp18'
+INFO: [HLS 214-210] Disaggregating variable 'ref.tmp17'
+INFO: [HLS 214-210] Disaggregating variable 'ref.tmp16'
+INFO: [HLS 214-210] Disaggregating variable 'ref.tmp15'
+INFO: [HLS 214-210] Disaggregating variable 'ref.tmp14'
+INFO: [HLS 214-210] Disaggregating variable 'ref.tmp13'
+INFO: [HLS 214-210] Disaggregating variable 'ref.tmp12'
+INFO: [HLS 214-210] Disaggregating variable 'ref.tmp11'
+INFO: [HLS 214-210] Disaggregating variable 'ref.tmp10'
+INFO: [HLS 214-210] Disaggregating variable 'ref.tmp9'
+INFO: [HLS 214-210] Disaggregating variable 'ref.tmp8'
+INFO: [HLS 214-210] Disaggregating variable 'ref.tmp7'
+INFO: [HLS 214-210] Disaggregating variable 'ref.tmp6'
+INFO: [HLS 214-210] Disaggregating variable 'ref.tmp'
+INFO: [HLS 214-210] Disaggregating variable 'outpix'
+INFO: [HLS 214-210] Disaggregating variable 'ref.tmp9'
+INFO: [HLS 214-210] Disaggregating variable 'pix'
+INFO: [HLS 214-210] Disaggregating variable 'intpix'
+INFO: [HLS 214-210] Disaggregating variable 'outpix'
+INFO: [HLS 214-210] Disaggregating variable 'pix'
+INFO: [HLS 214-178] Inlining function 'tpgPatternHorizontalRamp(unsigned short, unsigned short, unsigned short, unsigned char)' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:513:0)
+INFO: [HLS 214-178] Inlining function 'tpgPatternVerticalRamp(unsigned short, unsigned short, unsigned short, unsigned char)' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:513:0)
+INFO: [HLS 214-178] Inlining function 'tpgPatternTemporalRamp(unsigned short, unsigned short, unsigned short, unsigned char)' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:513:0)
+INFO: [HLS 214-178] Inlining function 'tpgPatternSolidRed(unsigned short, unsigned char)' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:513:0)
+INFO: [HLS 214-178] Inlining function 'tpgPatternSolidGreen(unsigned short, unsigned char)' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:513:0)
+INFO: [HLS 214-178] Inlining function 'tpgPatternSolidBlue(unsigned short, unsigned char)' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:513:0)
+INFO: [HLS 214-178] Inlining function 'tpgPatternSolidBlack(unsigned short, unsigned char)' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:513:0)
+INFO: [HLS 214-178] Inlining function 'tpgPatternSolidWhite(unsigned short, unsigned char)' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:513:0)
+INFO: [HLS 214-178] Inlining function 'tpgPatternColorBars(unsigned short, unsigned short, unsigned short, unsigned char, unsigned short, unsigned short)' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:513:0)
+INFO: [HLS 214-178] Inlining function 'tpgPatternZonePlate(unsigned short, unsigned short, unsigned short, unsigned short, unsigned short, unsigned short, unsigned short, unsigned char)' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:513:0)
+INFO: [HLS 214-178] Inlining function 'tpgPatternTartanColorBars(unsigned short, unsigned short, unsigned short, unsigned short, unsigned char)' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:513:0)
+INFO: [HLS 214-178] Inlining function 'tpgPatternRainbow(unsigned short, unsigned short, unsigned short, unsigned char)' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:513:0)
+INFO: [HLS 214-178] Inlining function 'tpgPatternVerticalHorizontalRamp(unsigned short, unsigned short, unsigned short, unsigned char)' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:513:0)
+INFO: [HLS 214-178] Inlining function 'tpgPatternCheckerBoard(unsigned short, unsigned short, unsigned short, unsigned short, unsigned char)' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:513:0)
+INFO: [HLS 214-178] Inlining function 'tpgPRBS(unsigned short, unsigned char)' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:513:0)
+INFO: [HLS 214-178] Inlining function 'tpgPatternDPColorRamp(unsigned short, unsigned short, unsigned short, unsigned short, unsigned char, unsigned char, unsigned char)' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:513:0)
+INFO: [HLS 214-178] Inlining function 'tpgPatternDPBlackWhiteVerticalLine(unsigned short, unsigned short, unsigned short, unsigned short, unsigned char)' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:513:0)
+INFO: [HLS 214-178] Inlining function 'tpgPatternBox(hls::Scalar<3, ap_uint<8> >, unsigned short, unsigned short, unsigned short, unsigned short, unsigned short, unsigned short, unsigned short, unsigned short, unsigned short, unsigned char)' into 'tpgForeground(hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:734:0)
+INFO: [HLS 214-178] Inlining function 'tpgPatternCrossHair(hls::Scalar<3, ap_uint<8> >, unsigned short, unsigned short, unsigned short, unsigned short, unsigned char)' into 'tpgForeground(hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:734:0)
+INFO: [HLS 214-178] Inlining function 'tpgPatternMask(hls::Scalar<3, ap_uint<8> >, unsigned char, unsigned char)' into 'tpgForeground(hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&)' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:734:0)
+INFO: [HLS 214-131] Inlining function '_llvm.fpga.pack.none.i24.s_class.hls::Scalars' into 'tpgBackground(unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&) (.1)' (/home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174:9)
+INFO: [HLS 214-131] Inlining function '_llvm.fpga.pack.none.i24.s_class.hls::Scalars' into 'tpgForeground(hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&, unsigned short&, unsigned short&, unsigned char&, unsigned char&, unsigned char&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned short&, unsigned char&, hls::stream<hls::Scalar<3, ap_uint<8> >, 0>&) (.1)' (/home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174:9)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 19.34 seconds. CPU system time: 1.16 seconds. Elapsed time: 21.06 seconds; current allocated memory: 106.036 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 106.044 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.72 seconds. CPU system time: 0.04 seconds. Elapsed time: 0.84 seconds; current allocated memory: 117.282 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+WARNING: [SYNCHK 200-23] /home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/ap_int_ref.h:414: variable-indexed range selection may cause suboptimal QoR.
+INFO: [SYNCHK 200-10] 0 error(s), 1 warning(s).
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 1.38 seconds. CPU system time: 0.03 seconds. Elapsed time: 1.45 seconds; current allocated memory: 132.648 MB.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_962_2' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:952) in function 'MultiPixStream2AXIvideo' for pipelining.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_998_4' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:906) in function 'MultiPixStream2AXIvideo' completely with a factor of 3.
+INFO: [XFORM 203-101] Partitioning array 'outpix.val.V' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:517) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'ref.tmp16'  in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'tmp.val.V' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1591) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'ref.tmp23'  in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'pix.val.V' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:904) in dimension 1 completely.
+WARNING: [HLS 200-786] Detected dataflow-on-top in function  'v_tpg' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:272)  with default interface mode 'ap_ctrl_hs'. Overlapped execution of successive kernel calls will not happen unless interface mode 'ap_ctrl_chain' is used (or 'ap_ctrl_none' for a purely data-driven design).
+Resolution: For help on HLS 200-786 see www.xilinx.com/cgi-bin/docs/rdoc?v=2020.2;t=hls+guidance;d=200-786.html
+INFO: [XFORM 203-712] Applying dataflow to function 'v_tpg' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:272), detected/extracted 3 process function(s): 
+	 'tpgBackground'
+	 'tpgForeground'
+	 'MultiPixStream2AXIvideo'.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1748:19) to (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1776:5) in function 'tpgPatternDPColorSquare'... converting 10 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:772:17) in function 'tpgForeground'... converting 3 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1286:13) to (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1324:26) in function 'tpgBackground'... converting 3 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1599:10) to (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:675:14) in function 'tpgBackground'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock to (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1256:9) in function 'tpgBackground'... converting 7 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1422:132) to (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1424:36) in function 'tpgBackground'... converting 4 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1580:138) to (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1582:36) in function 'tpgBackground'... converting 4 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (/home/alexey/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:0) to (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1047:21) in function 'MultiPixStream2AXIvideo'... converting 13 basic blocks.
+INFO: [XFORM 203-11] Balancing expressions in function 'tpgForeground' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:720)...3 expression(s) balanced.
+INFO: [XFORM 203-11] Balancing expressions in function 'tpgBackground' (/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:493)...3 expression(s) balanced.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 5.05 seconds. CPU system time: 0.07 seconds. Elapsed time: 5.22 seconds; current allocated memory: 169.719 MB.
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 6.21 seconds. CPU system time: 0.12 seconds. Elapsed time: 6.44 seconds; current allocated memory: 307.467 MB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'v_tpg' ...
+WARNING: [SYN 201-103] Legalizing function name 'reg<ap_uint<10> >' to 'reg_ap_uint_10_s'.
+WARNING: [SYN 201-103] Legalizing function name 'reg<int>' to 'reg_int_s'.
+WARNING: [SYN 201-103] Legalizing function name 'reg<unsigned short>' to 'reg_unsigned_short_s'.
+WARNING: [SYN 201-561] Cannot apply I/O mode 'ap_stable' on port 'fid' changing to the default 'ap_vld' mode.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'tpgPatternDPColorSquare' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+###	 Num	NTree	NLUT	EssAll	EssLUT	Size	MSize	Lev	MLev	Sel	Phy 
+####	 10	0	14	106	29	2.1	3	2.1	3	13	0
+INFO: [SCHED 204-11] Generating True dependence constraints ... 
+INFO: [SCHED 204-11] Generating Auxiliary dependence constraints ... 
+INFO: [SCHED 204-11] Generating Ternary mapping constraints ... 
+INFO: [SCHED 204-11] Generating Lut Grouping constraints ... 
+INFO: [SCHED 204-11] Generating Node latency constraints ... 
+INFO: [SCHED 204-11] Generating Relative time constraints ... 
+INFO: [SCHED 204-11] Generating Protocol constraints ... 
+INFO: [SCHED 204-11] Generating Precedence constraints ... 
+INFO: [SCHED 204-11] Generating Supporting dependence constraints ... 
+INFO: [SCHED 204-11] Generating Pipeline constraints ... 
+INFO: [SCHED 204-61] Pipelining function 'tpgPatternDPColorSquare'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 3, function 'tpgPatternDPColorSquare'
+INFO: [SCHED 204-11] Generating DSP mapping constraints ... 
+INFO: [SCHED 204-11] Generating Supporting dependence constraints ... 
+INFO: [SCHED 204-11] Generating Resource constraints ... 
+INFO: [SCHED 204-11] Generating Latency constraints ... 
+INFO: [SCHED 204-11] Generating Latency constraints ... 
+INFO: [SCHED 204-11] Generating Cycle time constraints ... 
+INFO: [SCHED 204-11] Generating Blocking node constraints ... 
+INFO: [SCHED 204-11] Generating Chaining constraints ... 
+INFO: [SCHED 204-11] Generating Operation gating constraints ... 
+INFO: [SCHED 204-11] Generating Variable bound constraints ... 
+INFO: [SCHED 204-11] Generating PHI node constraints ... 
+INFO: [SCHED 204-11] Start checking consistency (resolving sdc graph) ...
+INFO: [SCHED 204-11] Finished checking consistency.
+INFO: [SCHED 204-11] Start scheduling optimization (solving LP) ...
+INFO: [SCHED 204-11] Finished scheduling optimization.
+INFO: [SCHED 204-11] Start constructing STG ...
+INFO: [SCHED 204-11] Finished constructing STG.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.53 seconds. CPU system time: 0.06 seconds. Elapsed time: 0.61 seconds; current allocated memory: 308.596 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.25 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.27 seconds; current allocated memory: 309.098 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'reg_ap_uint_10_s' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+###	 Num	NTree	NLUT	EssAll	EssLUT	Size	MSize	Lev	MLev	Sel	Phy 
+####	 0	0	0	2	0	-nan	0	-nan	0	0	0
+INFO: [SCHED 204-11] Generating True dependence constraints ... 
+INFO: [SCHED 204-11] Generating Auxiliary dependence constraints ... 
+INFO: [SCHED 204-11] Generating Ternary mapping constraints ... 
+INFO: [SCHED 204-11] Generating Lut Grouping constraints ... 
+INFO: [SCHED 204-11] Generating Node latency constraints ... 
+INFO: [SCHED 204-11] Generating Relative time constraints ... 
+INFO: [SCHED 204-11] Generating Protocol constraints ... 
+INFO: [SCHED 204-11] Generating Precedence constraints ... 
+INFO: [SCHED 204-11] Generating Supporting dependence constraints ... 
+INFO: [SCHED 204-11] Generating Pipeline constraints ... 
+INFO: [SCHED 204-61] Pipelining function 'reg<ap_uint<10> >'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 2, function 'reg<ap_uint<10> >'
+INFO: [SCHED 204-11] Generating DSP mapping constraints ... 
+INFO: [SCHED 204-11] Generating Supporting dependence constraints ... 
+INFO: [SCHED 204-11] Generating Resource constraints ... 
+INFO: [SCHED 204-11] Generating Latency constraints ... 
+INFO: [SCHED 204-11] Generating Latency constraints ... 
+INFO: [SCHED 204-11] Generating Cycle time constraints ... 
+INFO: [SCHED 204-11] Generating Blocking node constraints ... 
+INFO: [SCHED 204-11] Generating Chaining constraints ... 
+INFO: [SCHED 204-11] Generating Operation gating constraints ... 
+INFO: [SCHED 204-11] Generating Variable bound constraints ... 
+INFO: [SCHED 204-11] Generating PHI node constraints ... 
+INFO: [SCHED 204-11] Start checking consistency (resolving sdc graph) ...
+INFO: [SCHED 204-11] Finished checking consistency.
+INFO: [SCHED 204-11] Start scheduling optimization (solving LP) ...
+INFO: [SCHED 204-11] Finished scheduling optimization.
+INFO: [SCHED 204-11] Start constructing STG ...
+INFO: [SCHED 204-11] Finished constructing STG.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.63 seconds. CPU system time: 0.03 seconds. Elapsed time: 0.67 seconds; current allocated memory: 309.148 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.07 seconds. CPU system time: 0 seconds. Elapsed time: 0.06 seconds; current allocated memory: 309.187 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'tpgPatternCrossHatch' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+###	 Num	NTree	NLUT	EssAll	EssLUT	Size	MSize	Lev	MLev	Sel	Phy 
+####	 8	0	3	84	8	2.7	3	2	2	5	1
+INFO: [SCHED 204-11] Generating True dependence constraints ... 
+INFO: [SCHED 204-11] Generating Auxiliary dependence constraints ... 
+INFO: [SCHED 204-11] Generating Ternary mapping constraints ... 
+INFO: [SCHED 204-11] Generating Lut Grouping constraints ... 
+INFO: [SCHED 204-11] Generating Node latency constraints ... 
+INFO: [SCHED 204-11] Generating Relative time constraints ... 
+INFO: [SCHED 204-11] Generating Protocol constraints ... 
+INFO: [SCHED 204-11] Generating Precedence constraints ... 
+INFO: [SCHED 204-11] Generating Supporting dependence constraints ... 
+INFO: [SCHED 204-11] Generating Pipeline constraints ... 
+INFO: [SCHED 204-61] Pipelining function 'tpgPatternCrossHatch'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 3, function 'tpgPatternCrossHatch'
+INFO: [SCHED 204-11] Generating DSP mapping constraints ... 
+INFO: [SCHED 204-11] Generating Supporting dependence constraints ... 
+INFO: [SCHED 204-11] Generating Resource constraints ... 
+INFO: [SCHED 204-11] Generating Latency constraints ... 
+INFO: [SCHED 204-11] Generating Latency constraints ... 
+INFO: [SCHED 204-11] Generating Cycle time constraints ... 
+INFO: [SCHED 204-11] Generating Blocking node constraints ... 
+INFO: [SCHED 204-11] Generating Chaining constraints ... 
+INFO: [SCHED 204-11] Generating Operation gating constraints ... 
+INFO: [SCHED 204-11] Generating Variable bound constraints ... 
+INFO: [SCHED 204-11] Generating PHI node constraints ... 
+INFO: [SCHED 204-11] Start checking consistency (resolving sdc graph) ...
+INFO: [SCHED 204-11] Finished checking consistency.
+INFO: [SCHED 204-11] Start scheduling optimization (solving LP) ...
+INFO: [SCHED 204-11] Finished scheduling optimization.
+INFO: [SCHED 204-11] Start constructing STG ...
+INFO: [SCHED 204-11] Finished constructing STG.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.4 seconds. CPU system time: 0.04 seconds. Elapsed time: 0.46 seconds; current allocated memory: 309.570 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.21 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.22 seconds; current allocated memory: 309.976 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'reg_int_s' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+###	 Num	NTree	NLUT	EssAll	EssLUT	Size	MSize	Lev	MLev	Sel	Phy 
+####	 0	0	0	2	0	-nan	0	-nan	0	0	0
+INFO: [SCHED 204-11] Generating True dependence constraints ... 
+INFO: [SCHED 204-11] Generating Auxiliary dependence constraints ... 
+INFO: [SCHED 204-11] Generating Ternary mapping constraints ... 
+INFO: [SCHED 204-11] Generating Lut Grouping constraints ... 
+INFO: [SCHED 204-11] Generating Node latency constraints ... 
+INFO: [SCHED 204-11] Generating Relative time constraints ... 
+INFO: [SCHED 204-11] Generating Protocol constraints ... 
+INFO: [SCHED 204-11] Generating Precedence constraints ... 
+INFO: [SCHED 204-11] Generating Supporting dependence constraints ... 
+INFO: [SCHED 204-11] Generating Pipeline constraints ... 
+INFO: [SCHED 204-61] Pipelining function 'reg<int>'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 2, function 'reg<int>'
+INFO: [SCHED 204-11] Generating DSP mapping constraints ... 
+INFO: [SCHED 204-11] Generating Supporting dependence constraints ... 
+INFO: [SCHED 204-11] Generating Resource constraints ... 
+INFO: [SCHED 204-11] Generating Latency constraints ... 
+INFO: [SCHED 204-11] Generating Latency constraints ... 
+INFO: [SCHED 204-11] Generating Cycle time constraints ... 
+INFO: [SCHED 204-11] Generating Blocking node constraints ... 
+INFO: [SCHED 204-11] Generating Chaining constraints ... 
+INFO: [SCHED 204-11] Generating Operation gating constraints ... 
+INFO: [SCHED 204-11] Generating Variable bound constraints ... 
+INFO: [SCHED 204-11] Generating PHI node constraints ... 
+INFO: [SCHED 204-11] Start checking consistency (resolving sdc graph) ...
+INFO: [SCHED 204-11] Finished checking consistency.
+INFO: [SCHED 204-11] Start scheduling optimization (solving LP) ...
+INFO: [SCHED 204-11] Finished scheduling optimization.
+INFO: [SCHED 204-11] Start constructing STG ...
+INFO: [SCHED 204-11] Finished constructing STG.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.56 seconds. CPU system time: 0.04 seconds. Elapsed time: 0.62 seconds; current allocated memory: 310.025 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.06 seconds. CPU system time: 0 seconds. Elapsed time: 0.07 seconds; current allocated memory: 310.070 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'reg_unsigned_short_s' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+###	 Num	NTree	NLUT	EssAll	EssLUT	Size	MSize	Lev	MLev	Sel	Phy 
+####	 0	0	0	2	0	-nan	0	-nan	0	0	0
+INFO: [SCHED 204-11] Generating True dependence constraints ... 
+INFO: [SCHED 204-11] Generating Auxiliary dependence constraints ... 
+INFO: [SCHED 204-11] Generating Ternary mapping constraints ... 
+INFO: [SCHED 204-11] Generating Lut Grouping constraints ... 
+INFO: [SCHED 204-11] Generating Node latency constraints ... 
+INFO: [SCHED 204-11] Generating Relative time constraints ... 
+INFO: [SCHED 204-11] Generating Protocol constraints ... 
+INFO: [SCHED 204-11] Generating Precedence constraints ... 
+INFO: [SCHED 204-11] Generating Supporting dependence constraints ... 
+INFO: [SCHED 204-11] Generating Pipeline constraints ... 
+INFO: [SCHED 204-61] Pipelining function 'reg<unsigned short>'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 2, function 'reg<unsigned short>'
+INFO: [SCHED 204-11] Generating DSP mapping constraints ... 
+INFO: [SCHED 204-11] Generating Supporting dependence constraints ... 
+INFO: [SCHED 204-11] Generating Resource constraints ... 
+INFO: [SCHED 204-11] Generating Latency constraints ... 
+INFO: [SCHED 204-11] Generating Latency constraints ... 
+INFO: [SCHED 204-11] Generating Cycle time constraints ... 
+INFO: [SCHED 204-11] Generating Blocking node constraints ... 
+INFO: [SCHED 204-11] Generating Chaining constraints ... 
+INFO: [SCHED 204-11] Generating Operation gating constraints ... 
+INFO: [SCHED 204-11] Generating Variable bound constraints ... 
+INFO: [SCHED 204-11] Generating PHI node constraints ... 
+INFO: [SCHED 204-11] Start checking consistency (resolving sdc graph) ...
+INFO: [SCHED 204-11] Finished checking consistency.
+INFO: [SCHED 204-11] Start scheduling optimization (solving LP) ...
+INFO: [SCHED 204-11] Finished scheduling optimization.
+INFO: [SCHED 204-11] Start constructing STG ...
+INFO: [SCHED 204-11] Finished constructing STG.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.34 seconds. CPU system time: 0.04 seconds. Elapsed time: 0.39 seconds; current allocated memory: 310.119 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.07 seconds. CPU system time: 0 seconds. Elapsed time: 0.08 seconds; current allocated memory: 310.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'tpgBackground' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln1303_1) to 3 in order to utilize available DSP registers.
+INFO: [SYN 201-351] The following objects are mapped to a DSP.
+   a  'select' operation ('b', /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1289)
+   b  constant 16363
+   c  constant 32896
+  DSP Expression: add_ln1303_1 = zext_ln1301_2 * 16363 + 32896
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln1303) to 3 in order to utilize available DSP registers.
+INFO: [SYN 201-351] The following objects are mapped to a DSP.
+   a  'select' operation ('g', /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1288)
+   b  constant 65429
+   c  'bitconcatenate' operation ('shl_ln2', /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1303)
+  DSP Expression: add_ln1303 = zext_ln1301_1 * 65429 + zext_ln1303
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln1302) to 3 in order to utilize available DSP registers.
+INFO: [SYN 201-351] The following objects are mapped to a DSP.
+   a  'select' operation ('r', /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1287)
+   b  constant 32725
+   c  'add' operation ('add_ln1302', /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1302)
+  DSP Expression: add_ln1302_1 = add_ln1302 + zext_ln1301 * 32725
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln1302_1) to 3 in order to utilize available DSP registers.
+INFO: [SYN 201-351] The following objects are mapped to a DSP.
+   a  'select' operation ('g', /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1288)
+   b  constant 65451
+   c  constant 32896
+  DSP Expression: add_ln1302 = zext_ln1301_1 * 65451 + 32896
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln1301_1) to 3 in order to utilize available DSP registers.
+INFO: [SYN 201-351] The following objects are mapped to a DSP.
+   a  'select' operation ('g', /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1288)
+   b  constant 150
+   c  'add' operation ('add_ln1301', /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1301)
+  DSP Expression: add_ln1301_1 = zext_ln1301_1 * 150 + zext_ln1301_5
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln1301) to 3 in order to utilize available DSP registers.
+INFO: [SYN 201-351] The following objects are mapped to a DSP.
+   a  'select' operation ('r', /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1287)
+   b  constant 77
+   c  constant 4224
+  DSP Expression: add_ln1301 = zext_ln1301 * 77 + 4224
+WARNING: [SYN 201-303] Root Node mul_ln1301_2 mapped to expression  {mul a b}, but failed in bitwidth check.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln1363) to 3 in order to utilize available DSP registers.
+INFO: [SYN 201-351] The following objects are mapped to a DSP.
+   a  'load' operation ('tpgSinTableArray_load', /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1363) on array 'tpgSinTableArray'
+   b  constant 221
+  DSP Expression: mul_ln1363 = sext_ln1363 * 221
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln1357_1) to 3 in order to utilize available DSP registers.
+INFO: [SYN 201-351] The following objects are mapped to a DSP.
+   a  wire read on port 'ZplateHorContDelta'
+   b  'call' operation ('tmp_1', /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1357) to 'reg<int>'
+   c  'add' operation ('add_ln1361_1', /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1361)
+  DSP Expression: add_ln1361 = add_ln1361_1 + Zplate_Hor_Control_Delta * trunc_ln1357
+WARNING: [SYN 201-303] Root Node mul_ln1357 mapped to expression  {mul {add d a} b}, but failed in bitwidth check.
+INFO: [HLS 200-486] Changing DSP48 latency (root=mul_ln1357) to 3 in order to utilize available DSP registers.
+INFO: [SYN 201-351] The following objects are mapped to a DSP.
+   a  'add' operation ('add_ln1357', /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:1357)
+   b  'phi' operation ('x') with incoming values : ('x', /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1/zynq_v_tpg_0_0/prj/.autopilot/db/v_tpg.cpp:527)
+  DSP Expression: mul_ln1357 = sext_ln1357_1 * zext_ln527
+###	 Num	NTree	NLUT	EssAll	EssLUT	Size	MSize	Lev	MLev	Sel	Phy 
+####	 53	0	25	633	51	2	3	2	3	26	0
+INFO: [SCHED 204-11] Generating True dependence constraints ... 
+INFO: [SCHED 204-11] Generating Auxiliary dependence constraints ... 
+INFO: [SCHED 204-11] Generating Ternary mapping constraints ... 
+INFO: [SCHED 204-11] Generating Lut Grouping constraints ... 
+INFO: [SCHED 204-11] Generating Node latency constraints ... 
+INFO: [SCHED 204-11] Generating Relative time constraints ... 
+INFO: [SCHED 204-11] Generating Protocol constraints ... 
+INFO: [SCHED 204-11] Generating Precedence constraints ... 
+INFO: [SCHED 204-11] Generating Supporting dependence constraints ... 
+INFO: [SCHED 204-11] Generating Pipeline constraints ... 
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_527_2'.
+INFO: [SCHED 204-61]  rescheduled in stage scheduling from 3 to 11 with current asap = 3, alap = 11
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 13, loop 'VITIS_LOOP_527_2'
+INFO: [SCHED 204-11] Generating DSP mapping constraints ... 
+INFO: [SCHED 204-11] Generating Supporting dependence constraints ... 
+INFO: [SCHED 204-11] Generating Resource constraints ... 
+INFO: [SCHED 204-11] Generating Latency constraints ... 
+INFO: [SCHED 204-11] Generating Latency constraints ... 
+INFO: [SCHED 204-11] Generating Cycle time constraints ... 
+INFO: [SCHED 204-11] Generating Blocking node constraints ... 
+INFO: [SCHED 204-11] Generating Chaining constraints ... 
+INFO: [SCHED 204-11] Generating Operation gating constraints ... 
+INFO: [SCHED 204-11] Generating Variable bound constraints ... 
+INFO: [SCHED 204-11] Generating PHI node constraints ... 
+INFO: [SCHED 204-11] Start checking consistency (resolving sdc graph) ...
+INFO: [SCHED 204-11] Finished checking consistency.
+INFO: [SCHED 204-11] Start scheduling optimization (solving LP) ...
+INFO: [SCHED 204-11] Finished scheduling optimization.
+INFO: [SCHED 204-11] Start constructing STG ...
+INFO: [SCHED 204-11] Finished constructing STG.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 1.74 seconds. CPU system time: 0.09 seconds. Elapsed time: 1.87 seconds; current allocated memory: 313.647 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 1.79 seconds. CPU system time: 0.07 seconds. Elapsed time: 1.89 seconds; current allocated memory: 326.053 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'tpgForeground' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+###	 Num	NTree	NLUT	EssAll	EssLUT	Size	MSize	Lev	MLev	Sel	Phy 
+####	 11	0	7	137	17	2.4	5	2.1	3	8	0
+INFO: [SCHED 204-11] Generating True dependence constraints ... 
+INFO: [SCHED 204-11] Generating Auxiliary dependence constraints ... 
+INFO: [SCHED 204-11] Generating Ternary mapping constraints ... 
+INFO: [SCHED 204-11] Generating Lut Grouping constraints ... 
+INFO: [SCHED 204-11] Generating Node latency constraints ... 
+INFO: [SCHED 204-11] Generating Relative time constraints ... 
+INFO: [SCHED 204-11] Generating Protocol constraints ... 
+INFO: [SCHED 204-11] Generating Precedence constraints ... 
+INFO: [SCHED 204-11] Generating Supporting dependence constraints ... 
+INFO: [SCHED 204-11] Generating Pipeline constraints ... 
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_746_2'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 2, loop 'VITIS_LOOP_746_2'
+INFO: [SCHED 204-11] Generating DSP mapping constraints ... 
+INFO: [SCHED 204-11] Generating Supporting dependence constraints ... 
+INFO: [SCHED 204-11] Generating Resource constraints ... 
+INFO: [SCHED 204-11] Generating Latency constraints ... 
+INFO: [SCHED 204-11] Generating Latency constraints ... 
+INFO: [SCHED 204-11] Generating Cycle time constraints ... 
+INFO: [SCHED 204-11] Generating Blocking node constraints ... 
+INFO: [SCHED 204-11] Generating Chaining constraints ... 
+INFO: [SCHED 204-11] Generating Operation gating constraints ... 
+INFO: [SCHED 204-11] Generating Variable bound constraints ... 
+INFO: [SCHED 204-11] Generating PHI node constraints ... 
+INFO: [SCHED 204-11] Start checking consistency (resolving sdc graph) ...
+INFO: [SCHED 204-11] Finished checking consistency.
+INFO: [SCHED 204-11] Start scheduling optimization (solving LP) ...
+INFO: [SCHED 204-11] Finished scheduling optimization.
+INFO: [SCHED 204-11] Start constructing STG ...
+INFO: [SCHED 204-11] Finished constructing STG.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 2.6 seconds. CPU system time: 0.1 seconds. Elapsed time: 2.74 seconds; current allocated memory: 326.639 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.38 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.39 seconds; current allocated memory: 328.377 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'MultiPixStream2AXIvideo' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+###	 Num	NTree	NLUT	EssAll	EssLUT	Size	MSize	Lev	MLev	Sel	Phy 
+####	 2	0	0	56	0	-nan	0	-nan	0	0	0
+INFO: [SCHED 204-11] Generating True dependence constraints ... 
+INFO: [SCHED 204-11] Generating Auxiliary dependence constraints ... 
+INFO: [SCHED 204-11] Generating Ternary mapping constraints ... 
+INFO: [SCHED 204-11] Generating Lut Grouping constraints ... 
+INFO: [SCHED 204-11] Generating Node latency constraints ... 
+INFO: [SCHED 204-11] Generating Relative time constraints ... 
+INFO: [SCHED 204-11] Generating Protocol constraints ... 
+INFO: [SCHED 204-11] Generating Precedence constraints ... 
+INFO: [SCHED 204-11] Generating Supporting dependence constraints ... 
+INFO: [SCHED 204-11] Generating Pipeline constraints ... 
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_962_2'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 3, loop 'VITIS_LOOP_962_2'
+INFO: [SCHED 204-11] Generating DSP mapping constraints ... 
+INFO: [SCHED 204-11] Generating Supporting dependence constraints ... 
+INFO: [SCHED 204-11] Generating Resource constraints ... 
+INFO: [SCHED 204-11] Generating Latency constraints ... 
+INFO: [SCHED 204-11] Generating Latency constraints ... 
+INFO: [SCHED 204-11] Generating Cycle time constraints ... 
+INFO: [SCHED 204-11] Generating Blocking node constraints ... 
+INFO: [SCHED 204-11] Generating Chaining constraints ... 
+INFO: [SCHED 204-11] Generating Operation gating constraints ... 
+INFO: [SCHED 204-11] Generating Variable bound constraints ... 
+INFO: [SCHED 204-11] Generating PHI node constraints ... 
+INFO: [SCHED 204-11] Start checking consistency (resolving sdc graph) ...
+INFO: [SCHED 204-11] Finished checking consistency.
+INFO: [SCHED 204-11] Start scheduling optimization (solving LP) ...
+INFO: [SCHED 204-11] Finished scheduling optimization.
+INFO: [SCHED 204-11] Start constructing STG ...
+INFO: [SCHED 204-11] Finished constructing STG.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.93 seconds. CPU system time: 0.04 seconds. Elapsed time: 0.99 seconds; current allocated memory: 328.661 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.18 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.19 seconds; current allocated memory: 329.037 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'v_tpg' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+###	 Num	NTree	NLUT	EssAll	EssLUT	Size	MSize	Lev	MLev	Sel	Phy 
+####	 0	0	0	4	0	-nan	0	-nan	0	0	0
+INFO: [SCHED 204-11] Generating True dependence constraints ... 
+INFO: [SCHED 204-11] Generating Auxiliary dependence constraints ... 
+INFO: [SCHED 204-11] Generating Ternary mapping constraints ... 
+INFO: [SCHED 204-11] Generating Lut Grouping constraints ... 
+INFO: [SCHED 204-11] Generating Node latency constraints ... 
+INFO: [SCHED 204-11] Generating Relative time constraints ... 
+INFO: [SCHED 204-11] Generating Protocol constraints ... 
+INFO: [SCHED 204-11] Generating Precedence constraints ... 
+INFO: [SCHED 204-11] Generating Supporting dependence constraints ... 
+INFO: [SCHED 204-11] Generating Pipeline constraints ... 
+INFO: [SCHED 204-11] Generating DSP mapping constraints ... 
+INFO: [SCHED 204-11] Generating Supporting dependence constraints ... 
+INFO: [SCHED 204-11] Generating Resource constraints ... 
+INFO: [SCHED 204-11] Generating Latency constraints ... 
+INFO: [SCHED 204-11] Generating Latency constraints ... 
+INFO: [SCHED 204-11] Generating Cycle time constraints ... 
+INFO: [SCHED 204-11] Generating Blocking node constraints ... 
+INFO: [SCHED 204-11] Generating Chaining constraints ... 
+INFO: [SCHED 204-11] Generating Operation gating constraints ... 
+INFO: [SCHED 204-11] Generating Variable bound constraints ... 
+INFO: [SCHED 204-11] Generating PHI node constraints ... 
+INFO: [SCHED 204-11] Start checking consistency (resolving sdc graph) ...
+INFO: [SCHED 204-11] Finished checking consistency.
+INFO: [SCHED 204-11] Start scheduling optimization (solving LP) ...
+INFO: [SCHED 204-11] Finished scheduling optimization.
+INFO: [SCHED 204-11] Start constructing STG ...
+INFO: [SCHED 204-11] Finished constructing STG.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.56 seconds. CPU system time: 0.03 seconds. Elapsed time: 0.61 seconds; current allocated memory: 329.229 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 2 seconds. CPU system time: 0.01 seconds. Elapsed time: 2.05 seconds; current allocated memory: 329.883 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'tpgPatternDPColorSquare' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+WARNING: [RTGEN 206-101] Register 'vBarSel_1' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'yCount_V_1' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'hBarSel_1' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'xCount_V_1' is power-on initialization.
+INFO: [RTGEN 206-100] Finished creating RTL model for 'tpgPatternDPColorSquare'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 1.99 seconds. CPU system time: 0.01 seconds. Elapsed time: 2.04 seconds; current allocated memory: 330.854 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'reg_ap_uint_10_s' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'reg_ap_uint_10_s'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 1.02 seconds. CPU system time: 0.02 seconds. Elapsed time: 1.06 seconds; current allocated memory: 332.921 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'tpgPatternCrossHatch' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+WARNING: [RTGEN 206-101] Register 'yCount_V_2' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'vHatch' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'xCount_V_2' is power-on initialization.
+INFO: [RTGEN 206-100] Finished creating RTL model for 'tpgPatternCrossHatch'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.17 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.19 seconds; current allocated memory: 333.725 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'reg_int_s' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'reg_int_s'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.77 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.81 seconds; current allocated memory: 335.444 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'reg_unsigned_short_s' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'reg_unsigned_short_s'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.08 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.09 seconds; current allocated memory: 335.623 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'tpgBackground' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+WARNING: [RTGEN 206-101] Register 'rampStart' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'rampVal_1' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'rampVal' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 's' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'hBarSel_2' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'count' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'zonePlateVAddr' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'vBarSel' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'hBarSel' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'hdata' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'vBarSel_2' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'hBarSel_3' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'rampVal_2' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'guard_variable_for_tpgPatternColorBars_unsigned_short_unsigned_short_unsigned_short_unsigned_char_unsigned_short_unsigned_short_hBarSel' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'xBar_V' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'zonePlateVDelta' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'yCount_V' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'xCount_V' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'yCount_V_3' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'xCount_V_3' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'rSerie_V' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'gSerie_V' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'bSerie_V' is power-on initialization.
+INFO: [RTGEN 206-100] Generating core module 'mac_muladd_16s_16s_16ns_16_4_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mac_muladd_8ns_6s_16s_16_4_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mac_muladd_8ns_7s_16s_16_4_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mac_muladd_8ns_8ns_14ns_15_4_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mac_muladd_8ns_8s_15ns_16_4_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mac_muladd_8ns_8s_16s_16_4_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mac_muladd_8ns_9ns_15ns_16_4_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mul_8ns_6ns_13_1_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mul_mul_17s_16ns_32_4_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mul_mul_20s_9ns_28_4_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'tpgBackground'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 1.08 seconds. CPU system time: 0.06 seconds. Elapsed time: 1.16 seconds; current allocated memory: 341.121 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'tpgForeground' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+WARNING: [RTGEN 206-101] Register 'boxHCoord' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'boxVCoord' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'hDir' is power-on initialization.
+WARNING: [RTGEN 206-101] Register 'vDir' is power-on initialization.
+INFO: [RTGEN 206-100] Finished creating RTL model for 'tpgForeground'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 5.38 seconds. CPU system time: 0.18 seconds. Elapsed time: 5.65 seconds; current allocated memory: 354.442 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'MultiPixStream2AXIvideo' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+WARNING: [RTGEN 206-101] Register 'counter' is power-on initialization.
+INFO: [RTGEN 206-100] Finished creating RTL model for 'MultiPixStream2AXIvideo'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 1.41 seconds. CPU system time: 0.02 seconds. Elapsed time: 1.46 seconds; current allocated memory: 357.548 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'v_tpg' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/height' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/width' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/field_id' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/fid_in' to 'ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/bckgndId' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/ovrlayId' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/maskId' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/motionSpeed' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/colorFormat' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/crossHairX' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/crossHairY' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/ZplateHorContStart' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/ZplateHorContDelta' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/ZplateVerContStart' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/ZplateVerContDelta' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/boxSize' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/boxColorR' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/boxColorG' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/boxColorB' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/dpDynamicRange' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/dpYUVCoef' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/bck_motion_en' to 's_axilite & ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/m_axis_video_V_data_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/m_axis_video_V_keep_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/m_axis_video_V_strb_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/m_axis_video_V_user_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/m_axis_video_V_last_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/m_axis_video_V_id_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/m_axis_video_V_dest_V' to 'axis' (register, both mode).
+INFO: [RTGEN 206-500] Setting interface mode on port 'v_tpg/fid' to 'ap_vld'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'v_tpg' to 's_axilite & ap_ctrl_hs'.
+INFO: [RTGEN 206-100] Bundling port 'height', 'width', 'bckgndId', 'ovrlayId', 'maskId', 'motionSpeed', 'colorFormat', 'crossHairX', 'crossHairY', 'ZplateHorContStart', 'ZplateHorContDelta', 'ZplateVerContStart', 'ZplateVerContDelta', 'boxSize', 'boxColorR', 'boxColorG', 'boxColorB', 'dpDynamicRange', 'dpYUVCoef', 'field_id', 'bck_motion_en' to AXI-Lite port CTRL.
+INFO: [RTGEN 206-100] Finished creating RTL model for 'v_tpg'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.95 seconds. CPU system time: 0.06 seconds. Elapsed time: 1.04 seconds; current allocated memory: 359.442 MB.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgPatternDPColorSquare_DPtpgBarArray_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgPatternDPColorSquare_DPtpgBarSelRgb_VESA_r_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgPatternDPColorSquare_DPtpgBarSelRgb_VESA_g_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgPatternDPColorSquare_DPtpgBarSelRgb_VESA_b_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgPatternDPColorSquare_DPtpgBarSelRgb_CEA_r_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgPatternDPColorSquare_DPtpgBarSelRgb_CEA_g_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgPatternDPColorSquare_DPtpgBarSelRgb_CEA_b_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgPatternDPColorSquare_DPtpgBarSelYuv_601_y_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgPatternDPColorSquare_DPtpgBarSelYuv_601_v_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgPatternDPColorSquare_DPtpgBarSelYuv_709_y_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgPatternDPColorSquare_DPtpgBarSelYuv_709_v_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgPatternDPColorSquare_DPtpgBarSelYuv_601_u_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgPatternDPColorSquare_DPtpgBarSelYuv_709_u_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgPatternCrossHatch_whiYuv_1_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgPatternCrossHatch_blkYuv_1_rom' using auto ROMs.
+INFO: [RTMG 210-282] Generating pipelined core: 'zynq_v_tpg_0_0_mul_8ns_6ns_13_1_1_Multiplier_0'
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgBackground_redYuv_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgBackground_grnYuv_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgBackground_bluYuv_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgBackground_tpgBarSelYuv_y_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgBackground_tpgBarSelYuv_v_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgBackground_tpgBarSelYuv_u_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgBackground_tpgSinTableArray_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgBackground_tpgTartanBarArray_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgBackground_tpgSinTableArray_9bit_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgBackground_tpgCheckerBoardArray_rom' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'zynq_v_tpg_0_0_tpgForeground_whiYuv_2_rom' using auto ROMs.
+INFO: [RTMG 210-285] Implementing FIFO 'bckgndYUV_U(zynq_v_tpg_0_0_fifo_w24_d16_S)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'ovrlayYUV_U(zynq_v_tpg_0_0_fifo_w24_d16_S)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'start_for_tpgForeground_U0_U(zynq_v_tpg_0_0_start_for_tpgForeground_U0)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'start_for_MultiPixStream2AXIvideo_U0_U(zynq_v_tpg_0_0_start_for_MultiPixStream2AXIvideo_U0)' using Shift Registers.
+INFO: [HLS 200-111] Finished Generating all RTL models: CPU user time: 12.94 seconds. CPU system time: 0.5 seconds. Elapsed time: 13.64 seconds; current allocated memory: 365.128 MB.
+INFO: [VHDL 208-304] Generating VHDL RTL for v_tpg with prefix zynq_v_tpg_0_0_.
+INFO: [VLOG 209-307] Generating Verilog RTL for v_tpg with prefix zynq_v_tpg_0_0_.
+INFO: [HLS 200-790] **** Loop Constraint Status: All loop constraints were satisfied.
+INFO: [HLS 200-789] **** Estimated Fmax: 80.90 MHz
+INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 166.11 seconds. CPU system time: 7.45 seconds. Elapsed time: 174.18 seconds; current allocated memory: 366.443 MB.
+INFO: [HLS 200-1510] Running: export_design -format ip_catalog -vendor xilinx.com -library ip -version 8.1 
+INFO: [IMPL 213-8] Exporting RTL as a Vivado IP.
+
+****** Vivado v2020.2 (64-bit)
+  **** SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+  **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source run_ippack.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/alexey/Xilinx/Vivado/2020.2/data/ip'.
+INFO: [Common 17-206] Exiting Vivado at Mon Sep 21 13:24:48 2026...
+INFO: [HLS 200-802] Generated output file zynq_v_tpg_0_0/prj/impl/export.zip
+INFO: [HLS 200-111] Finished Command export_design CPU user time: 33.21 seconds. CPU system time: 4.94 seconds. Elapsed time: 43.04 seconds; current allocated memory: 371.743 MB.
+INFO: [HLS 200-112] Total CPU user time: 202.79 seconds. Total CPU system time: 14.03 seconds. Total elapsed time: 220.78 seconds; peak allocated memory: 365.128 MB.
+INFO: [Common 17-206] Exiting vitis_hls at Mon Sep 21 13:24:58 2026...

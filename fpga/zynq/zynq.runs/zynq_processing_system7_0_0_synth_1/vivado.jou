@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Mon Sep 21 12:35:56 2026
+# Process ID: 2467
+# Current directory: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_processing_system7_0_0_synth_1
+# Command line: vivado -log zynq_processing_system7_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source zynq_processing_system7_0_0.tcl
+# Log file: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_processing_system7_0_0_synth_1/zynq_processing_system7_0_0.vds
+# Journal file: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_processing_system7_0_0_synth_1/vivado.jou
+#-----------------------------------------------------------
+source zynq_processing_system7_0_0.tcl -notrace

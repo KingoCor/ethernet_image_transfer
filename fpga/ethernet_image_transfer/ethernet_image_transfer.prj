@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ASCII"?>
+<sdkproject:SdkProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdkproject="http://www.xilinx.com/sdkproject" name="ethernet_image_transfer" location="/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer" platform="/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/zynq_wrapper.xpfm" platformUID="xilinx:::0.0(custom)" systemProject="ethernet_image_transfer_system" sysConfig="zynq_wrapper" runtime="cpp" cpu="standalone_ps7_cortexa9_0" cpuInstance="ps7_cortexa9_0" os="standalone" mssSignature="d96103f965f5d9315d6c1b00b0595f59">
+  <configuration name="Debug" id="xilinx.gnu.armv7.exe.debug.1087869461" dirty="true">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <configuration name="Release" id="xilinx.gnu.armv7.exe.release.1938867019" dirty="true">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <template appTemplateName="empty_application"/>
+</sdkproject:SdkProject>

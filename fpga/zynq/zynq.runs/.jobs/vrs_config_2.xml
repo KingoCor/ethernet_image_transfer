@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<Runs Version="1" Minor="0">
+	<Run Id="zynq_v_tpg_0_0_synth_1" LaunchDir="/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_v_tpg_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="zynq_rst_ps7_0_50M_0_synth_1" LaunchDir="/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_rst_ps7_0_50M_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="zynq_axi_vdma_0_0_synth_1" LaunchDir="/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_axi_vdma_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="zynq_auto_pc_0_synth_1" LaunchDir="/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_auto_pc_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="zynq_auto_pc_1_synth_1" LaunchDir="/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_auto_pc_1_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="zynq_xbar_0_synth_1" LaunchDir="/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_xbar_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="zynq_processing_system7_0_0_synth_1" LaunchDir="/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/zynq_processing_system7_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="synth_1" LaunchDir="/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado">
+		<Parent Id="zynq_v_tpg_0_0_synth_1"/>
+		<Parent Id="zynq_rst_ps7_0_50M_0_synth_1"/>
+		<Parent Id="zynq_axi_vdma_0_0_synth_1"/>
+		<Parent Id="zynq_auto_pc_0_synth_1"/>
+		<Parent Id="zynq_auto_pc_1_synth_1"/>
+		<Parent Id="zynq_xbar_0_synth_1"/>
+		<Parent Id="zynq_processing_system7_0_0_synth_1"/>
+	</Run>
+	<Run Id="impl_1" LaunchDir="/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq/zynq.runs/impl_1" FlowId="Vivado_Implementation" FromStepId="init_design" ToStepId="write_bitstream">
+		<Parent Id="synth_1"/>
+		<Parent Id="zynq_v_tpg_0_0_synth_1"/>
+		<Parent Id="zynq_rst_ps7_0_50M_0_synth_1"/>
+		<Parent Id="zynq_axi_vdma_0_0_synth_1"/>
+		<Parent Id="zynq_auto_pc_0_synth_1"/>
+		<Parent Id="zynq_auto_pc_1_synth_1"/>
+		<Parent Id="zynq_xbar_0_synth_1"/>
+		<Parent Id="zynq_processing_system7_0_0_synth_1"/>
+	</Run>
+	<Parameters>
+		<Parameter Name="runs.monitorLSFJobs" Val="true" Type="bool"/>
+		<Parameter Name="runs.enableClusterConf" Val="true" Type="bool"/>
+	</Parameters>
+</Runs>
+
