@@ -19,3 +19,32 @@ platform active {zynq_wrapper}
 domain active {zynq_fsbl}
 domain active {standalone_ps7_cortexa9_0}
 platform generate -quick
+platform generate
+domain active {zynq_fsbl}
+bsp reload
+bsp setlib -name lwip211 -ver 1.3
+bsp write
+bsp reload
+catch {bsp regenerate}
+platform generate -domains zynq_fsbl 
+bsp write
+domain active {standalone_ps7_cortexa9_0}
+bsp reload
+bsp setlib -name lwip211 -ver 1.3
+bsp removelib -name lwip211
+bsp write
+platform generate -domains 
+bsp setlib -name lwip211 -ver 1.3
+bsp write
+bsp reload
+catch {bsp regenerate}
+bsp write
+platform generate -domains standalone_ps7_cortexa9_0 
+bsp config lwip_dhcp "true"
+bsp write
+bsp reload
+catch {bsp regenerate}
+platform generate -domains standalone_ps7_cortexa9_0 
+bsp reload
+domain active {zynq_fsbl}
+bsp reload

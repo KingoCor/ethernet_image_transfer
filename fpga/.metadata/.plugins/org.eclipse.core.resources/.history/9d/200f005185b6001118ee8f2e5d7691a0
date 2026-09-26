@@ -1,0 +1,187 @@
+#include "xparameters.h"
+#include "xaxivdma.h"
+#include "xv_tpg.h"
+#include "xvidc.h"
+
+#include "xparameters.h"
+#include "netif/xadapter.h"
+#include "platform.h"
+#include "lwipopts.h"
+#include "xil_printf.h"
+#include "sleep.h"
+#include "lwip/priv/tcp_priv.h"
+#include "lwip/init.h"
+#include "lwip/inet.h"
+#include "xil_cache.h"
+
+#include "server.h"
+
+#define LWIP_DHCP 1
+
+#define IMAGE_WIDTH    640
+#define IMAGE_HEIGHT   640
+#define IMAGE_CHANNELS 3
+
+#define VDMA_MEMORY_START 0x10000000
+
+#define DEFAULT_IP_ADDRESS	"192.168.1.10"
+#define DEFAULT_IP_MASK		"255.255.255.0"
+#define DEFAULT_GW_ADDRESS	"192.168.1.1"
+
+#include "lwip/dhcp.h"
+extern volatile int dhcp_timoutcntr;
+
+extern volatile int TcpFastTmrFlag;
+extern volatile int TcpSlowTmrFlag;
+
+struct netif server_netif;
+struct netif *netif;
+
+int InitTpg() {
+    XV_tpg_Config *cfg = XV_tpg_LookupConfig(XPAR_V_TPG_0_DEVICE_ID);
+    if (!cfg) {
+    	xil_printf("TPG config look up failed");
+    	return XST_FAILURE;
+    }
+
+    XV_tpg tpg;
+    int err = XV_tpg_CfgInitialize(&tpg, cfg, cfg->BaseAddress);
+    if (err!=XST_SUCCESS) {
+    	xil_printf("TPG initialization failed");
+    	return err;
+    }
+
+    XV_tpg_Set_width(&tpg, IMAGE_WIDTH);
+    XV_tpg_Set_height(&tpg, IMAGE_HEIGHT);
+    XV_tpg_Set_colorFormat(&tpg, XVIDC_CSF_RGB);
+    XV_tpg_Set_bckgndId(&tpg, XTPG_BKGND_CHECKER_BOARD);
+    XV_tpg_EnableAutoRestart(&tpg);
+    XV_tpg_Start(&tpg);
+
+    return XST_SUCCESS;
+}
+
+int InitVdma() {
+	XAxiVdma_Config *cfg = XAxiVdma_LookupConfig(XPAR_AXI_VDMA_0_DEVICE_ID);
+	if (!cfg) {
+		xil_printf("VDMA config look up failed");
+		return XST_FAILURE;
+	}
+
+	XAxiVdma vdma;
+	int err = XAxiVdma_CfgInitialize(&vdma, cfg, cfg->BaseAddress);
+	if (err!=XST_SUCCESS) {
+		xil_printf("VDMA initialization failed");
+		return err;
+	}
+
+	XAxiVdma_DmaSetup writeCfg;
+	writeCfg.HoriSizeInput = IMAGE_WIDTH;
+	writeCfg.VertSizeInput = IMAGE_HEIGHT*IMAGE_CHANNELS;
+	writeCfg.Stride = IMAGE_HEIGHT*IMAGE_CHANNELS;
+	writeCfg.FrameDelay = 0;
+	writeCfg.EnableCircularBuf = 1;
+	writeCfg.EnableSync = 1;
+	writeCfg.PointNum = 0;
+	writeCfg.EnableFrameCounter = 0;
+	writeCfg.FixedFrameStoreAddr = 0;
+
+	err = XAxiVdma_DmaConfig(&vdma, XAXIVDMA_WRITE, &writeCfg);
+	if (err!=XST_SUCCESS) {
+		xil_printf("VDMA writing configuration failed");
+		return err;
+	}
+
+	UINTPTR frameBuffers[1] = {VDMA_MEMORY_START};
+	err = XAxiVdma_DmaSetBufferAddr(&vdma, XAXIVDMA_WRITE, frameBuffers);
+	if (err!=XST_SUCCESS) {
+		xil_printf("VDMA buffer configuration failed");
+		return err;
+	}
+
+	err = XAxiVdma_DmaStart(&vdma, XAXIVDMA_WRITE);
+	if (err!=XST_SUCCESS) {
+		xil_printf("VDMA failed");
+		return err;
+	}
+
+	return XST_SUCCESS;
+}
+
+static void print_ip(char *msg, ip_addr_t *ip) {
+	print(msg);
+	xil_printf("%d.%d.%d.%d\r\n", ip4_addr1(ip), ip4_addr2(ip),
+			ip4_addr3(ip), ip4_addr4(ip));
+}
+
+static void print_ip_settings(ip_addr_t *ip, ip_addr_t *mask, ip_addr_t *gw) {
+	print_ip("Board IP: ", ip);
+	print_ip("Netmask : ", mask);
+	print_ip("Gateway : ", gw);
+}
+
+int InitEthernet() {
+	xil_printf("\r\n\r\n");
+
+	netif = &server_netif;
+	init_platform();
+	lwip_init();
+
+	unsigned char mac_ethernet_address[] = {0x00, 0x0a, 0x35, 0x00, 0x01, 0x02};
+	if (!xemac_add(netif, NULL, NULL, NULL, mac_ethernet_address,PLATFORM_EMAC_BASEADDR)) {
+		xil_printf("Error adding N/W interface\r\n");
+		return XST_FAILURE;
+	}
+
+	netif_set_default(netif);
+	platform_enable_interrupts();
+	netif_set_up(netif);
+
+	dhcp_start(netif);
+	dhcp_timoutcntr = 24;
+	while (((netif->ip_addr.addr)==0) && (dhcp_timoutcntr > 0)) xemacif_input(netif);
+
+	if (dhcp_timoutcntr<=0) {
+		if ((netif->ip_addr.addr)==0) {
+			ip_addr_t ip, mask, gw;
+			inet_aton(DEFAULT_IP_ADDRESS, &ip);
+			inet_aton(DEFAULT_IP_MASK, &mask);
+			inet_aton(DEFAULT_GW_ADDRESS, &gw);
+
+			dhcp_stop(netif);
+			netif_set_addr(netif, &ip, &mask, &gw);
+		}
+	}
+
+	print_ip_settings(&(netif->ip_addr), &(netif->netmask), &(netif->gw));
+
+	uint8_t *data = (uint8_t *)VDMA_MEMORY_START;
+	set_image(data, IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS);
+	start_application();
+
+	return XST_SUCCESS;
+}
+
+int main() {
+	if (InitTpg()!=XST_SUCCESS) return -1;
+	if (InitVdma()!=XST_SUCCESS) return -1;
+	if (InitEthernet()!=XST_SUCCESS) return -1;
+
+	xil_printf("successfull initialization\r\n");
+
+	while (1) {
+		if (TcpFastTmrFlag) {
+			tcp_fasttmr();
+			TcpFastTmrFlag = 0;
+		}
+		if (TcpSlowTmrFlag) {
+			tcp_slowtmr();
+			TcpSlowTmrFlag = 0;
+		}
+		xemacif_input(netif);
+	}
+
+	cleanup_platform();
+
+	return 0;
+}
