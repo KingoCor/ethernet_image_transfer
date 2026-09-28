@@ -1,0 +1,121 @@
+#include "server.h"
+
+#define PACKET_HEADER_SIZE   (1 + 4 + 4 + 2)
+#define RX_BUFFER_SIZE       (PACKET_HEADER_SIZE + MAX_PACKET_DATA_SIZE)
+#define TX_BUFFER_SIZE       (PACKET_HEADER_SIZE + MAX_PACKET_DATA_SIZE)
+
+static struct udp_pcb *pcb;
+
+static Broadcast b;
+
+void set_image(uint8_t *data, uint16_t width, uint16_t height, uint8_t channels) {
+    b.width    = width;
+    b.height   = height;
+    b.channels = channels;
+    b.data   = data;
+	b.frame  = 0;
+	b.offset = 0;
+}
+
+static void send_pbuf(struct udp_pcb *pcb, struct pbuf *p, const ip_addr_t *addr, u16_t port) {
+    if (!p) return;
+    err_t e = udp_sendto(pcb, p, addr, port);
+    if (e != ERR_OK) xil_printf("udp_sendto err=%d\r\n", e);
+    pbuf_free(p);
+}
+
+static err_t send_buffer(const void *data, uint16_t len,
+                         const ip_addr_t *addr, uint16_t port)
+{
+    struct pbuf *p = pbuf_alloc(PBUF_TRANSPORT, len, PBUF_RAM);
+    if (!p) return ERR_MEM;
+
+    err_t err = pbuf_take(p, data, len);
+    if (err != ERR_OK) {
+        pbuf_free(p);
+        return err;
+    }
+
+    err = udp_sendto(pcb, p, addr, port);
+    if (err != ERR_OK) {
+        xil_printf("udp_sendto err=%d\r\n", err);
+    }
+
+    pbuf_free(p);
+    return err;
+}
+
+static void udp_recv_cb(void *arg, struct udp_pcb *tpcb, struct pbuf *p, const ip_addr_t *addr, u16_t port) {
+	if (!p) return;
+
+	uint8_t buf[1+PACKET_DATA_SIZE+MAX_PACKET_DATA_SIZE];
+	uint16_t len = p->tot_len > sizeof(buf) ? sizeof(buf) : p->tot_len;
+	pbuf_copy_partial(p, buf, len, 0);
+	pbuf_free(p);
+
+    Packet req, res;
+    if (Packet_Deserialize(buff, (uint32_t)len, &req) != ERROR_OK) return;
+
+    Addr client;
+    client.addr = *addr;
+    client.port = port;
+
+    Broadcast_Responde(&b, client, &req, &res);
+
+    if (Packet_Serialize(&res, buf, (uint32_t)sizeof(buf), &used) != ERROR_OK) return;
+
+    if (req.type == PACKET_START_STREAM) {
+        b.streaming   = 1;
+        xil_printf("stream start -> %s:%d\r\n", ipaddr_ntoa(addr), (int)port);
+        return;
+    }
+    if (req.type == PACKET_END_STREAM) {
+        xil_printf("stream stop\r\n");
+        b.streaming = 0;
+        return;
+    }
+
+    struct pbuf *p = pbuf_alloc(PBUF_TRANSPORT, PACKET_DATA_SIZE+size, PBUF_RAM);
+    if (!p) return;
+
+    if (Packet_Serialize(&res, p->payload, p->len, &used) != ERROR_OK) return;
+
+    send_pbuf(pcb, pbuf, b.addr.addr, b.addr.port);
+}
+
+void server_tick(void) {
+    if (!b.streaming) return;
+    if (!b.data)      return;
+
+    Packet p;
+    if (Broadcast_Sream(&b, &p) != ERROR_OK) return;
+
+    uint8_t buf[1+PACKET_DATA_SIZE+MAX_PACKET_DATA_SIZE];
+    int used;
+    if (Packet_Serialize(&p, buf, sizeof(buf), &used) != ERROR_OK) return;
+
+    send_packet(txBuf, used, &b.addr);
+}
+
+void start_application(void) {
+	err_t err;
+
+	pcb = udp_new();
+	if (!pcb) {
+		xil_printf("UDP server: Error creating PCB. Out of Memory\r\n");
+		return;
+	}
+
+	err = udp_bind(pcb, IP_ADDR_ANY, UDP_CONN_PORT);
+	if (err != ERR_OK) {
+		xil_printf("UDP server: Unable to bind to port");
+		xil_printf(" %d: err = %d\r\n", UDP_CONN_PORT, err);
+		udp_remove(pcb);
+		return;
+	}
+	xil_printf("UDP server bound to port %d\r\n", UDP_CONN_PORT);
+
+	udp_recv(pcb, udp_recv_cb, NULL);
+
+	return;
+}

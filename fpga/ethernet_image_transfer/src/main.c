@@ -179,6 +179,7 @@ int main() {
 			TcpSlowTmrFlag = 0;
 		}
 		xemacif_input(netif);
+		server_tick();
 	}
 
 	cleanup_platform();

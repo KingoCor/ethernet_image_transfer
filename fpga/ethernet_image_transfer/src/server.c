@@ -1,47 +1,21 @@
 #include "server.h"
+#include "protocol.h"
 
-#define MAX_PACKET_DATA_SIZE 1024
-
-#define PACKET_INFO_SIZE 6 // type + w(2) + h(2) + ch
-#define PACKET_DATA_SIZE 7 // type + start(4) + size(2)
-
-typedef enum {
-    PACKET_GET_IMAGE_INFO = 0,
-    PACKET_SET_IMAGE_INFO = 1,
-    PACKET_GET_IMAGE_DATA = 2,
-    PACKET_SET_IMAGE_DATA = 3
-} PacketType;
+#define PACKET_HEADER_SIZE   (1 + 4 + 4 + 2)
+#define RX_BUFFER_SIZE       (PACKET_HEADER_SIZE + MAX_PACKET_DATA_SIZE)
+#define TX_BUFFER_SIZE       (PACKET_HEADER_SIZE + MAX_PACKET_DATA_SIZE)
 
 static struct udp_pcb *pcb;
-static struct {
-	uint8_t *data;
-	uint16_t width;
-	uint16_t height;
-	uint8_t channels;
-} image;
 
-
-
-static inline uint16_t rd_u16(const uint8_t *p) {
-    return (uint16_t)((p[0] << 8) | p[1]);
-}
-static inline uint32_t rd_u32(const uint8_t *p) {
-    return ((uint32_t)p[0] << 24) | ((uint32_t)p[1] << 16) |
-           ((uint32_t)p[2] <<  8) |  (uint32_t)p[3];
-}
-static inline void wr_u16(uint8_t *p, uint16_t v) {
-    p[0] = (uint8_t)(v >> 8); p[1] = (uint8_t)v;
-}
-static inline void wr_u32(uint8_t *p, uint32_t v) {
-    p[0] = (uint8_t)(v >> 24); p[1] = (uint8_t)(v >> 16);
-    p[2] = (uint8_t)(v >>  8); p[3] = (uint8_t)v;
-}
+static Broadcast b;
 
 void set_image(uint8_t *data, uint16_t width, uint16_t height, uint8_t channels) {
-	image.data = data;
-	image.width = width;
-	image.height = height;
-	image.channels = channels;
+    b.width    = width;
+    b.height   = height;
+    b.channels = channels;
+    b.data   = data;
+	b.frame  = 0;
+	b.offset = 0;
 }
 
 static void send_pbuf(struct udp_pcb *pcb, struct pbuf *p, const ip_addr_t *addr, u16_t port) {
@@ -51,72 +25,80 @@ static void send_pbuf(struct udp_pcb *pcb, struct pbuf *p, const ip_addr_t *addr
     pbuf_free(p);
 }
 
-static void handle_get_info(struct udp_pcb *pcb, const ip_addr_t *addr, u16_t port) {
-    struct pbuf *p = pbuf_alloc(PBUF_TRANSPORT, PACKET_INFO_SIZE, PBUF_RAM);
-    if (!p) return;
+static err_t send_buffer(const void *data, uint16_t len,
+                         const ip_addr_t *addr, uint16_t port)
+{
+    struct pbuf *p = pbuf_alloc(PBUF_TRANSPORT, len, PBUF_RAM);
+    if (!p) return ERR_MEM;
 
-    uint8_t *b = (uint8_t *)p->payload;
-    b[0] = (uint8_t)PACKET_SET_IMAGE_INFO;
-    wr_u16(&b[1], (uint16_t)image.width);
-    wr_u16(&b[3], (uint16_t)image.height);
-    b[5] = image.channels;
-
-    send_pbuf(pcb, p, addr, port);
-}
-
-static void handle_get_data(struct udp_pcb *pcb, const ip_addr_t *addr, u16_t port,  const uint8_t *payload, uint16_t len) {
-    if (len<PACKET_DATA_SIZE) return;
-    if (!image.data) return;
-
-    uint32_t start    = rd_u32(&payload[1]);
-    uint16_t req_size = rd_u16(&payload[5]);
-
-    uint32_t total = image.width*image.height*image.channels;
-
-    uint16_t size;
-    if (start>=total) {
-        size = 0;
-    } else {
-        uint32_t rem = total-start;
-        size = req_size;
-        if (size>rem) size = (uint16_t)rem;
-        if (size>MAX_PACKET_DATA_SIZE) size = MAX_PACKET_DATA_SIZE;
+    err_t err = pbuf_take(p, data, len);
+    if (err != ERR_OK) {
+        pbuf_free(p);
+        return err;
     }
 
-    struct pbuf *p = pbuf_alloc(PBUF_TRANSPORT, PACKET_DATA_SIZE+size, PBUF_RAM);
-    if (!p) return;
+    err = udp_sendto(pcb, p, addr, port);
+    if (err != ERR_OK) {
+        xil_printf("udp_sendto err=%d\r\n", err);
+    }
 
-    uint8_t *b = (uint8_t *)p->payload;
-    b[0] = (uint8_t)PACKET_SET_IMAGE_DATA;
-    wr_u32(&b[1], start);
-    wr_u16(&b[5], size);
-    if (size) memcpy(&b[7], image.data+start, size);
-
-    send_pbuf(pcb, p, addr, port);
+    pbuf_free(p);
+    return err;
 }
 
-static void udp_recv_cb(void *arg, struct udp_pcb *tpcb, struct pbuf *p, const ip_addr_t *addr, u16_t port) {
-	if (!p) return;
+static void udp_recv_cb(void *arg, struct udp_pcb *tpcb,
+                        struct pbuf *p, const ip_addr_t *addr, u16_t port)
+{
+    if (!p) return;
 
-	uint8_t buf[1+PACKET_DATA_SIZE+MAX_PACKET_DATA_SIZE];
-	uint16_t len = p->tot_len > sizeof(buf) ? sizeof(buf) : p->tot_len;
-	pbuf_copy_partial(p, buf, len, 0);
-	pbuf_free(p);
+    uint8_t buf[RX_BUFFER_SIZE];
+    uint16_t len = p->tot_len > sizeof(buf) ? sizeof(buf) : p->tot_len;
+    pbuf_copy_partial(p, buf, len, 0);
+    pbuf_free(p);
 
-	if (len < 1) return;
+    Packet req, res;
+    if (Packet_Deserialize(buf, (uint32_t)len, &req) != ERROR_OK)
+        return;
 
-	switch (buf[0]) {
-		case PACKET_GET_IMAGE_INFO:
-			handle_get_info(pcb, addr, port);
-			break;
+    Addr client;
+    client.addr = *addr;
+    client.port = port;
 
-		case PACKET_GET_IMAGE_DATA:
-			handle_get_data(pcb, addr, port, buf, len);
-			break;
+    Broadcast_Responde(&b, client, &req, &res);
 
-		default:
-			break;
-	}
+    uint32_t used = 0;
+    if (Packet_Serialize(&res, buf, sizeof(buf), &used) != ERROR_OK)
+        return;
+
+    if (req.type == PACKET_START_STREAM) {
+        b.streaming = 1;
+        b.addr      = client;          // запоминаем клиента для server_tick
+        xil_printf("stream start -> %s:%d\r\n",
+                   ipaddr_ntoa(addr), (int)port);
+    } else if (req.type == PACKET_END_STREAM) {
+        xil_printf("stream stop\r\n");
+        b.streaming = 0;
+    }
+
+    send_buffer(buf, (uint16_t)used, addr, port);
+}
+
+void server_tick(void)
+{
+    if (!b.streaming) return;
+    if (!b.data)      return;
+
+    Packet p;
+    if (Broadcast_Sream(&b, &p) != ERROR_OK)
+        return;
+
+    uint8_t buf[TX_BUFFER_SIZE];
+    uint32_t used = 0;
+    if (Packet_Serialize(&p, buf, sizeof(buf), &used) != ERROR_OK)
+        return;
+
+    // Отправляем текущему стриминговому клиенту
+    send_buffer(buf, (uint16_t)used, &b.addr.addr, b.addr.port);
 }
 
 void start_application(void) {

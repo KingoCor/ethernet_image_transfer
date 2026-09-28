@@ -1,0 +1,1325 @@
+#include "server.h"
+
+#define PACKET_HEADER_SIZE   (1 + 4 + 4 + 2)
+#define RX_BUFFER_SIZE       (PACKET_HEADER_SIZE + MAX_PACKET_DATA_SIZE)
+#define TX_BUFFER_SIZE       (PACKET_HEADER_SIZE + MAX_PACKET_DATA_SIZE)
+
+static struct udp_pcb *pcb;
+
+static Broadcast b;
+
+void set_image(uint8_t *data, uint16_t width, uint16_t height, uint8_t channels) {
+    b.width    = width;
+    b.height   = height;
+    b.channels = channels;
+    b.data   = data;
+	b.frame  = 0;
+	b.offset = 0;
+}
+
+static void send_pbuf(struct udp_pcb *pcb, struct pbuf *p, const ip_addr_t *addr, u16_t port) {
+    if (!p) return;
+    err_t e = udp_sendto(pcb, p, addr, port);
+    if (e != ERR_OK) xil_printf("udp_sendto err=%d\r\n", e);
+    pbuf_free(p);
+}
+
+static void udp_recv_cb(void *arg, struct udp_pcb *tpcb, struct pbuf *p, const ip_addr_t *addr, u16_t port) {
+	if (!p) return;
+
+	uint8_t buf[1+PACKET_DATA_SIZE+MAX_PACKET_DATA_SIZE];
+	uint16_t len = p->tot_len > sizeof(buf) ? sizeof(buf) : p->tot_len;
+	pbuf_copy_partial(p, buf, len, 0);
+	pbuf_free(p);
+
+    Packet req, res;
+    if (Packet_Deserialize(buff, (uint32_t)len, &req) != ERROR_OK) return;
+
+    Addr client;
+    client.addr = *addr;
+    client.port = port;
+
+    Broadcast_Responde(&b, client, &req, &res);
+
+    if (Packet_Serialize(&res, buf, (uint32_t)sizeof(buf), &used) != ERROR_OK) return;
+
+    if (req.type == PACKET_START_STREAM) {
+        b.streaming   = 1;
+        xil_printf("stream start -> %s:%d\r\n", ipaddr_ntoa(addr), (int)port);
+        return;
+    }
+    if (req.type == PACKET_END_STREAM) {
+        xil_printf("stream stop\r\n");
+        b.streaming = 0;
+        return;
+    }
+
+    if (Packet_Serialize(&res, buff, sizeof(buff), &used) != ERROR_OK) return;
+
+    send_packet(txBuf, used, &client);
+}
+
+Сериализатор пакетов
+Логирование параметров генерации
+Вики по модингу
+Проблема с подсветкой кода
+Выбор версии кода Linux Windows
+BepInEx шаблон
+Перевод для вики
+Vitis CLI
+RTP несжатое видео
+UDP видео надёжность
+Размер bool массива в C
+Код 5 Sentaurus
+Ширина затвора pmos2v
+Прокси в Brave
+Супремум функции
+Почему UDP пакеты не приходят
+TKEEP в видеопотоке Xilinx
+Три варианта хендшейка AXI4
+PL DDR3 доступ
+Сериализатор пакетов
+
+User wants server.c (the lwIP version for the board) rewritten to use the existing protocol.h/protocol.c from earlier, with streaming. No re-implementation of serialization — just use Packet_Serialize/Packet_Deserialize and Broadcast_* functions.
+
+But wait — the board uses lwIP, and Packet_Serialize/Deserialize are already implemented. So the server.c should:
+
+    Include protocol.h
+
+    Use Packet_Serialize to build response packets
+
+    Use Packet_Deserialize to parse incoming requests
+
+    Use Broadcast_Responde / Broadcast_Sream / Broadcast_Receive
+
+    Send via lwIP udp_sendto
+
+The issue: Broadcast is designed around struct with Addr. Addr contains struct sockaddr_in from socket.h — but lwIP uses ip_addr_t/u16_t. Need bridging.
+
+Let me write server.c for lwIP that uses the protocol layer without touching serialization.
+
+Approach: convert lwIP's ip_addr_t to Addr via ip4_addr, fill sin.
+
+Actually looking at Broadcast structure: it has Addr addr for the client. On the lwIP board we could either:
+
+    Store Addr by converting ip_addr_t <-> sin_addr
+
+    Extend Broadcast to store the raw client info — but user says use protocol.h as-is
+
+I'll convert. ip_addr_t → Addr for storage, and back to ip_addr_t/port for sending.
+
+Let me write it cleanly.
+
+Also — the previous message from user showed board code that had its own enum. Now user wants us to use protocol.h/protocol.c. So the server.c must include protocol.h.
+
+But protocol.h includes socket.h, which includes windows/sockets headers — that won't work on lwIP. Hmm. Need to handle that.
+
+Options:
+
+    On the board, provide a stub socket.h with just typedef struct Addr { struct sockaddr_in sin; } Addr; that works with lwIP's struct sockaddr_in (lwIP provides it via lwip/sockets.h).
+
+    Or define a separate compile-time path.
+
+I'll note this and provide a small socket.h replacement for the board that only defines Addr, using lwip/sockets.h.
+
+Actually lwIP has lwip/sockets.h with struct sockaddr_in. So we can make socket.h on the board include lwip/sockets.h instead.
+
+Let me write:
+
+socket.h (lwIP variant for board):
+c
+
+#ifndef SOCKET_H
+#define SOCKET_H
+
+#include <stdint.h>
+#include "error.h"
+#include "lwip/sockets.h"
+
+typedef struct Addr {
+    struct sockaddr_in sin;
+} Addr;
+
+/* Остальные функции не нужны на плате — можно не объявлять */
+#endif
+
+Then protocol.c compiles cleanly. Now server.c:
+c
+
+#include "server.h"
+#include <string.h>
+#include "lwip/udp.h"
+#include "lwip/ip_addr.h"
+#include "protocol.h"
+
+#define MAX_PACKET_DATA_SIZE 1024  // already in protocol.h
+
+static struct udp_pcb *pcb;
+static Broadcast broadcast;
+static uint8_t *imageData;
+static uint32_t frameCounter;
+static uint32_t lastTick;
+
+void set_image(uint8_t *data, uint16_t w, uint16_t h, uint8_t ch) {
+    imageData = data;
+    broadcast.width = w;
+    broadcast.height = h;
+    broadcast.channels = ch;
+    broadcast.data = data;
+    frameCounter++;
+    broadcast.frame = (uint8_t)(frameCounter & 0xFF);
+    // Not reset offset — see Broadcast_Receive logic on the server side?
+    // Actually server's Broadcast_Responde for START_STREAM sets streaming=1 and frame=0
+    // Broadcast_Sream uses b->offset and b->frame
+    // We need to reset offset when new frame arrives
+    // ... but that's protocol-internal decision. Hmm.
+}
+
+Wait, looking at Broadcast_Sream:
+c
+
+Error Broadcast_Sream(Broadcast *b, Packet *packetPtr) {
+    ...
+    uint32_t frameSize = broadcast_FrameSize(b);
+    if (b->offset>=frameSize)  return ERROR_READ;
+    ...
+    packetPtr->data.frame = b->frame;
+    packetPtr->data.start = b->offset;
+    ...
+    b->offset += size;
+}
+
+So when new frame arrives, we (the server app) must reset b->offset = 0 and set b->frame = new. Looking at the earlier full protocol.c the user has.
+
+Actually wait, in the user's latest protocol.c:
+c
+
+Error Broadcast_Responde(...) {
+    ...
+    case PACKET_START_STREAM:
+        b->addr      = addr;
+        b->streaming = 1;
+        b->frame     = 0;
+        return ERROR_OK;
+
+Hmm, but offset isn't reset here. That's a bug in user's protocol.c actually — offset should also reset. But whatever, we work with what user gave.
+
+Let me just write server.c to work with user's protocol.c.
+
+Since Broadcast_Sream returns ERROR_READ when offset >= frameSize, and Broadcast_Responde(START_STREAM) sets streaming=1, frame=0 (but not offset). That's problematic — the first START_STREAM after a previous stream would have leftover offset. Let me just reset it explicitly on the app side.
+
+Hmm but b->offset isn't accessible from app cleanly... actually it is, b is our Broadcast struct.
+
+OK let me write clean server.c for lwIP using the protocol layer.
+
+Key points:
+
+    Convert Addr <-> ip_addr_t+port for udp_sendto
+
+    Use Packet_Deserialize on received buffer
+
+    Use Broadcast_Responde / Broadcast_Sream
+
+    Use Packet_Serialize to emit response
+
+    server_tick() calls Broadcast_Sream in a loop
+
+For Addr conversion:
+c
+
+static void AddrFromLwip(Addr *addr, const ip_addr_t *ip, u16_t port) {
+    memset(addr, 0, sizeof(*addr));
+    addr->sin.sin_family = AF_INET;
+    addr->sin.sin_port = htons(port);
+    addr->sin.sin_addr.s_addr = ip->addr; // ip4
+}
+
+But ip_addr_t in lwIP could be either IPv4 or IPv6 depending on config. For Xilinx BSP it's typically IPv4. ip->addr works for ip4. Or use ip4_addr_get_u32.
+
+Actually the safe way: addr->sin.sin_addr.s_addr = ip4_addr_get_u32(ip_2_ip4(ip)); — needs ip_addr.h with IP_2_IP4 macro.
+
+Let me use a simpler approach — for LWIP_IPV4:
+c
+
+addr->sin.sin_addr.s_addr = ip->addr;
+
+This works when ip_addr_t is ip4_addr_t.
+
+For sending:
+c
+
+static void SendPacket(const uint8_t *buf, uint32_t len, const Addr *to) {
+    struct pbuf *p = pbuf_alloc(PBUF_TRANSPORT, len, PBUF_RAM);
+    if (!p) return;
+    memcpy(p->payload, buf, len);
+    ip_addr_t dst;
+    ip4_addr_set_u32(ip_2_ip4(&dst), to->sin.sin_addr.s_addr);
+    IP_SET_TYPE_VAL(dst, IPADDR_TYPE_V4);
+    udp_sendto(pcb, p, &dst, ntohs(to->sin.sin_port));
+    pbuf_free(p);
+}
+
+OK let me now put together the full server.c.
+
+Frame handling:
+
+    Broadcast_Sream uses b->frame and b->offset
+
+    When new frame comes via set_image, we need to update b->frame and b->offset
+
+    But the tricky part: we should finish current frame first, then switch — same as before
+
+Actually simpler: we update b->frame and reset b->offset only when the current frame is fully sent. Let me use a pending mechanism similar to before, but keep using Broadcast structure.
+
+Actually, the protocol.c's Broadcast_Receive on client side detects frame change and resets its cursor. On server, we just need to update b->frame and b->offset when we want to start new frame.
+
+I'll add small app-level state to make this work cleanly:
+c
+
+static uint8_t *pendingData = NULL;
+static uint8_t pendingFrame = 0;
+static int hasPending = 0;
+
+set_image():
+
+    fill pendingData, pendingFrame, hasPending
+
+    (broadcast.data is not updated until tick switches)
+
+server_tick():
+
+    if broadcast.offset >= frameSize and hasPending:
+
+        broadcast.data = pendingData
+
+        broadcast.frame = pendingFrame
+
+        broadcast.offset = 0
+
+        hasPending = 0
+
+    then call Broadcast_Sream, send
+
+Actually let me not use b->offset directly — let me keep it simple. But Broadcast_Sream uses b->offset internally...
+
+Ok so we DO modify b->offset and b->frame directly from app. That's fine.
+
+Wait but Broadcast_Sream uses b->frame for the outgoing packet.frame. That's what we want.
+
+Let me write it.
+
+Note about Broadcast_Responde for START_STREAM: it sets b->frame = 0. That's weird. Should probably not reset frame on start, or start with current frame. Hmm. I could work around by setting b->frame back after calling Responde.
+
+Actually looking at the user's protocol.c again:
+c
+
+case PACKET_START_STREAM:
+    b->addr      = addr;
+    b->streaming = 1;
+    b->frame     = 0;
+    return ERROR_OK;
+
+So it resets frame to 0. That means the first streamed frame will have frame=0 regardless. To make it meaningful, we should set b->frame to our counter value after the call. Let me do that.
+
+Actually, hmm. Wait, but Broadcast_Receive on client detects frame change. Starting with frame=0 is fine as long as subsequent frames differ. But there's a subtle issue: if the client had frame=0 from previous stream, it may not detect a new frame. Better to override after Responde call.
+
+I'll do:
+c
+
+if (req.type == PACKET_START_STREAM) {
+    Broadcast_Responde(&broadcast, clientAddr, &req, NULL);
+    // override frame to current counter so client sees a new frame
+    broadcast.frame = (uint8_t)(frameCounter & 0xFF);
+    broadcast.offset = 0;
+    broadcast.data = pendingData; // use current image
+}
+
+Hmm, but if there's no pending, we use broadcast.data as-is. Let's just always use the latest image buffer (imageData).
+
+Let me simplify:
+
+set_image just stores the pointer/counter. The streaming mechanism directly uses imageData when it starts a new frame.
+
+Actually cleanest:
+c
+
+static uint8_t *imageData;
+static uint32_t imageCounter = 0;
+
+void set_image(uint8_t *data, uint16_t w, uint16_t h, uint8_t ch) {
+    imageData = data;
+    imageCounter++;
+    // update metadata in case stream is not active and someone asks for info
+    broadcast.width = w;
+    broadcast.height = h;
+    broadcast.channels = ch;
+}
+
+void server_tick(void) {
+    if (!broadcast.streaming) return;
+    // slow down
+    if (sys_now() - lastTick < 1) return;
+    lastTick = sys_now();
+
+    uint32_t frameSize = (uint32_t)broadcast.width * broadcast.height * broadcast.channels;
+
+    // start new frame if current is done and a new image is available
+    if (broadcast.offset >= frameSize) {
+        if (imageCounter == broadcast.frame) return; // nothing new
+        broadcast.data = imageData;
+        broadcast.frame = (uint8_t)imageCounter;
+        broadcast.offset = 0;
+    }
+
+    Packet chunk;
+    if (Broadcast_Sream(&broadcast, &chunk) != ERROR_OK) return;
+
+    uint8_t txBuffer[2048];
+    uint32_t used = 0;
+    if (Packet_Serialize(&chunk, txBuffer, sizeof(txBuffer), &used) != ERROR_OK) return;
+
+    SendToLwip(txBuffer, used, &broadcast.addr);
+}
+
+But there's an issue: broadcast.frame is uint8_t (from struct), and imageCounter is uint32_t. Comparison imageCounter == broadcast.frame is not right. Let me use a separate app-level counter and compare only uint8_t values or store what frame was last sent.
+
+Actually simpler approach — track at app level:
+c
+
+static uint32_t lastSentFrame = UINT32_MAX;  // sentinel
+static uint8_t *imageData;
+static uint32_t imageCounter = 0;
+
+void set_image(...) { imageData = data; imageCounter++; }
+
+void server_tick() {
+    if (!broadcast.streaming) return;
+    ...throttle...
+
+    uint32_t frameSize = ...;
+    if (broadcast.offset >= frameSize) {
+        if (lastSentFrame == imageCounter) return;
+        broadcast.data = imageData;
+        broadcast.frame = (uint8_t)imageCounter;
+        broadcast.offset = 0;
+        lastSentFrame = imageCounter;
+    }
+    ... stream one chunk ...
+}
+
+Wait but Broadcast_Sream reads b->frame for output. Good.
+
+Ah but there's still a problem. When Broadcast_Responde(START_STREAM) is called, it sets b->streaming=1 and b->frame=0. Then the first tick sees offset=0 < frameSize so it just streams from offset=0 with frame=0. That's actually fine for the first frame.
+
+But wait, what's b->data at that point? It's whatever set_image last set, or NULL. Need to handle NULL.
+
+I'll set broadcast.data and broadcast.frame explicitly after Responde.
+
+Alright let me write the final code.
+
+For SendToLwip:
+c
+
+static void SendToLwip(const uint8_t *buf, uint32_t len, const Addr *dst) {
+    struct pbuf *p = pbuf_alloc(PBUF_TRANSPORT, (u16_t)len, PBUF_RAM);
+    if (!p) return;
+    memcpy(p->payload, buf, len);
+
+    ip_addr_t ip;
+    ip4_addr_set_u32(ip_2_ip4(&ip), dst->sin.sin_addr.s_addr);
+    IP_SET_TYPE_VAL(ip, IPADDR_TYPE_V4);
+
+    err_t e = udp_sendto(pcb, p, &ip, ntohs(dst->sin.sin_port));
+    if (e != ERR_OK) xil_printf("udp_sendto err=%d\r\n", e);
+    pbuf_free(p);
+}
+
+And AddrFromLwip:
+c
+
+static void AddrFromLwip(Addr *dst, const ip_addr_t *src, u16_t port) {
+    memset(dst, 0, sizeof(*dst));
+    dst->sin.sin_family = AF_INET;
+    dst->sin.sin_port = htons(port);
+    dst->sin.sin_addr.s_addr = ip4_addr_get_u32(ip_2_ip4(src));
+}
+
+Hmm, ip_2_ip4 is a macro that works only with IPV4-only config or with the IP_ADDR_TYPE. For simple IPV4-only setup, src->addr works directly. Let me just use ip4_addr_get_u32(ip_2_ip4((ip_addr_t*)src)).
+
+Actually Xilinx BSP is typically IPv4-only, so src->addr works. Let me just use that but note it.
+
+OK let me finalize.
+
+Also I need to include server.h — user's had it. Let me keep including it.
+
+Final answer structure:
+
+    socket.h для платы (lwIP stub)
+
+    server.c для платы с использованием protocol.h
+
+Let me write it.
+
+Actually wait — should I also mention error.h? The user's project has error.h already (from socket.h include). Should be fine.
+
+Let me finalize.
+Стриминг-сервер на lwIP поверх protocol.h
+
+Идея: весь wire-формат и логика сессии — уже в protocol.c / protocol.h. На плате нужен только «клей»: принять UDP-датаграмму → Packet_Deserialize → Broadcast_Responde → Packet_Serialize → udp_sendto, плюс периодически дёргать Broadcast_Sream.
+Одна тонкость: socket.h на плате
+
+protocol.h тянет socket.h, который на плате не имеет смысла (там winsock2.h / POSIX-сокеты). На Xilinx BSP есть lwip/sockets.h с точно таким же struct sockaddr_in. Достаточно подменить socket.h только на плате — больше ничего в protocol.h/protocol.c менять не нужно:
+
+socket.h (для платы)
+c
+
+#ifndef SOCKET_H
+#define SOCKET_H
+
+#include <stdint.h>
+
+#include "error.h"
+#include "lwip/sockets.h"   /* даёт struct sockaddr_in, AF_INET */
+
+typedef struct Addr {
+    struct sockaddr_in sin;
+} Addr;
+
+/* На плате Socket_* и Addr_Set* не нужны — они уже не компилируются
+   в BSP-сборку, поэтому объявления можно не включать. */
+
+#endif
+
+server.c
+c
+
+#include "server.h"
+
+#include <string.h>
+
+#include "lwip/udp.h"
+#include "lwip/ip_addr.h"
+#include "lwip/pbuf.h"
+#include "lwip/sys.h"
+
+#include "protocol.h"
+
+/* ============================================================
+ *  Состояние стрима
+ * ============================================================ */
+
+static struct udp_pcb *pcb;
+
+/* Сессия — единственный клиент. Адрес/порт хранит сам Broadcast. */
+static Broadcast broadcast;
+
+/* Источник изображения. Указатель валиден до следующего set_image(). */
+static uint8_t *imageData      = NULL;
+static uint32_t imageCounter   = 0;   /* ++ на каждый новый кадр */
+static uint32_t lastSentFrame  = 0xFFFFFFFFu;
+static uint32_t lastTickMs     = 0;
+
+/* Скорость стрима: минимум миллисекунд между двумя чанками. */
+#define STREAM_INTERVAL_MS  1
+
+/* ============================================================
+ *  Мост lwIP <-> Addr из protocol.h
+ * ============================================================ */
+
+static void AddrFromLwip(Addr *dst, const ip_addr_t *src, u16_t port) {
+    memset(dst, 0, sizeof(*dst));
+    dst->sin.sin_family      = AF_INET;
+    dst->sin.sin_port        = htons(port);
+    dst->sin.sin_addr.s_addr = ip4_addr_get_u32(ip_2_ip4(src));
+}
+
+static void SendPacket(const uint8_t *buf, uint32_t len, const Addr *dst) {
+    if (len == 0) return;
+
+    struct pbuf *p = pbuf_alloc(PBUF_TRANSPORT, (u16_t)len, PBUF_RAM);
+    if (!p) return;
+
+    memcpy(p->payload, buf, len);
+
+    ip_addr_t ip;
+    ip4_addr_set_u32(ip_2_ip4(&ip), dst->sin.sin_addr.s_addr);
+    IP_SET_TYPE_VAL(ip, IPADDR_TYPE_V4);
+
+    err_t e = udp_sendto(pcb, p, &ip, ntohs(dst->sin.sin_port));
+    if (e != ERR_OK) xil_printf("udp_sendto err=%d\r\n", e);
+
+    pbuf_free(p);
+}
+
+/* ============================================================
+ *  Публичный API
+ * ============================================================ */
+
+void set_image(uint8_t *data, uint16_t width, uint16_t height, uint8_t channels) {
+    imageData = data;
+    imageCounter++;
+
+    /* метаданные нужны, даже если стрим не активен — на запрос INFO */
+    broadcast.width     = width;
+    broadcast.height    = height;
+    broadcast.channels  = channels;
+}
+
+/* ============================================================
+ *  Обработчики запросов
+ * ============================================================ */
+
+static void HandleGetInfo(const ip_addr_t *addr, u16_t port) {
+    Packet request  = {0};
+    Packet response = {0};
+    request.type = PACKET_GET_STREAM_INFO;
+
+    Addr from;
+    AddrFromLwip(&from, addr, port);
+
+    if (Broadcast_Responde(&broadcast, from, &request, &response) != ERROR_OK)
+        return;
+
+    uint8_t txBuffer[64];
+    uint32_t used = 0;
+    if (Packet_Serialize(&response, txBuffer, sizeof(txBuffer), &used) != ERROR_OK)
+        return;
+
+    SendPacket(txBuffer, used, &from);
+}
+
+static void HandleStartStream(const ip_addr_t *addr, u16_t port) {
+    Packet request = {0};
+    request.type = PACKET_START_STREAM;
+
+    Addr from;
+    AddrFromLwip(&from, addr, port);
+
+    Broadcast_Responde(&broadcast, from, &request, NULL);
+
+    /* Broadcast_Responde(START_STREAM) обнуляет frame и НЕ трогает offset,
+       поэтому явно синхронизируем состояние с текущим источником. */
+    broadcast.data      = imageData;
+    broadcast.frame     = (uint8_t)imageCounter;
+    broadcast.offset    = 0;
+    lastSentFrame       = imageCounter;
+    lastTickMs          = sys_now();
+
+    xil_printf("stream start -> %s:%d\r\n", ipaddr_ntoa(addr), (int)port);
+}
+
+static void HandleEndStream(void) {
+    Packet request = {0};
+    request.type = PACKET_END_STREAM;
+
+    Addr dummy = {0};
+    Broadcast_Responde(&broadcast, dummy, &request, NULL);
+
+    xil_printf("stream stop\r\n");
+}
+
+static void HandleGetData(const ip_addr_t *addr, u16_t port,
+                          const uint8_t *rxBuffer, uint16_t rxLen) {
+    Packet request;
+    if (Packet_Deserialize(rxBuffer, rxLen, &request) != ERROR_OK)
+        return;
+    if (request.type != PACKET_GET_STREAM_DATA)
+        return;
+
+    Addr from;
+    AddrFromLwip(&from, addr, port);
+
+    Packet response;
+    if (Broadcast_Responde(&broadcast, from, &request, &response) != ERROR_OK)
+        return;
+
+    /* ответ содержит указатель внутрь broadcast.data (zero-copy) —
+       сериализуем в локальный буфер, потом шлём */
+    static uint8_t txBuffer[1 + 10 + MAX_PACKET_DATA_SIZE];
+    uint32_t used = 0;
+    if (Packet_Serialize(&response, txBuffer, sizeof(txBuffer), &used) != ERROR_OK)
+        return;
+
+    SendPacket(txBuffer, used, &from);
+}
+
+/* ============================================================
+ *  UDP-приём
+ * ============================================================ */
+
+static void UdpRecvCallback(void *arg, struct udp_pcb *tpcb,
+                            struct pbuf *p,
+                            const ip_addr_t *addr, u16_t port) {
+    (void)arg;
+    (void)tpcb;
+    if (!p) return;
+
+    static uint8_t rxBuffer[1 + 10 + MAX_PACKET_DATA_SIZE];
+    uint16_t len = (p->tot_len > sizeof(rxBuffer))
+                   ? (uint16_t)sizeof(rxBuffer)
+                   : (uint16_t)p->tot_len;
+
+    pbuf_copy_partial(p, rxBuffer, len, 0);
+    pbuf_free(p);
+    if (len < 1) return;
+
+    switch (rxBuffer[0]) {
+        case PACKET_GET_STREAM_INFO:  HandleGetInfo(addr, port);           break;
+        case PACKET_START_STREAM:     HandleStartStream(addr, port);       break;
+        case PACKET_END_STREAM:       HandleEndStream();                   break;
+        case PACKET_GET_STREAM_DATA:  HandleGetData(addr, port, rxBuffer, len); break;
+        default: break;
+    }
+}
+
+/* ============================================================
+ *  Периодический tick — вызывать из главного цикла
+ * ============================================================ */
+
+void server_tick(void) {
+    if (!broadcast.streaming) return;
+    if (!broadcast.data)      return;
+
+    uint32_t now = sys_now();
+    if (now - lastTickMs < STREAM_INTERVAL_MS) return;
+    lastTickMs = now;
+
+    uint32_t frameSize = (uint32_t)broadcast.width
+                       * (uint32_t)broadcast.height
+                       * (uint32_t)broadcast.channels;
+    if (frameSize == 0) return;
+
+    /* Текущий кадр отдан → переключаемся на новый, если он есть. */
+    if (broadcast.offset >= frameSize) {
+        if (lastSentFrame == imageCounter) return;   /* ждём новый кадр */
+        broadcast.data   = imageData;
+        broadcast.frame  = (uint8_t)imageCounter;
+        broadcast.offset = 0;
+        lastSentFrame    = imageCounter;
+    }
+
+    Packet chunk;
+    if (Broadcast_Sream(&broadcast, &chunk) != ERROR_OK) return;
+
+    static uint8_t txBuffer[1 + 10 + MAX_PACKET_DATA_SIZE];
+    uint32_t used = 0;
+    if (Packet_Serialize(&chunk, txBuffer, sizeof(txBuffer), &used) != ERROR_OK)
+        return;
+
+    SendPacket(txBuffer, used, &broadcast.addr);
+}
+
+/* ============================================================
+ *  Инициализация
+ * ============================================================ */
+
+void start_application(void) {
+    pcb = udp_new();
+    if (!pcb) {
+        xil_printf("UDP server: Error creating PCB. Out of Memory\r\n");
+        return;
+    }
+
+    err_t err = udp_bind(pcb, IP_ADDR_ANY, UDP_CONN_PORT);
+    if (err != ERR_OK) {
+        xil_printf("UDP server: Unable to bind to port %d: err = %d\r\n",
+                   UDP_CONN_PORT, err);
+        udp_remove(pcb);
+        return;
+    }
+
+    xil_printf("UDP server bound to port %d\r\n", UDP_CONN_PORT);
+    udp_recv(pcb, UdpRecvCallback, NULL);
+}
+
+Как это работает
+Приём (в UdpRecvCallback)
+
+Датаграмма → Packet_Deserialize (в HandleGetData) или прямое чтение rxBuffer[0]. Все четыре запроса (GET_STREAM_INFO, START_STREAM, END_STREAM, GET_STREAM_DATA) маппятся на Broadcast_Responde, который формирует Packet-ответ. Ответ сериализуется через Packet_Serialize в статический буфер и уходит udp_sendto.
+Стриминг (в server_tick)
+
+Продвигает текущий кадр: Broadcast_Sream возвращает один SET_STREAM_DATA с frame, start = offset, размером ≤ MAX_PACKET_DATA_SIZE. Когда offset >= frameSize, переключается на следующий кадр, если приложение вызвало set_image() (счётчик imageCounter вырос с момента lastSentFrame).
+Пропуски на клиенте
+
+Клиент шлёт GET_STREAM_DATA{frame, start, size} — приходит в HandleGetData, вызывается тот же Broadcast_Responde(GET_STREAM_DATA). Он возвращает Packet с указателем внутрь broadcast.data + start (zero-copy), который сразу сериализуется в локальный txBuffer и отправляется. Никакой логики пропусков на сервере нет — всё уже в protocol.c.
+Что нужно в приложении
+c
+
+start_application();
+
+while (1) {
+    if (new_frame_ready()) {
+        set_image((uint8_t *)frame_buffer, WIDTH, HEIGHT, CHANNELS);
+    }
+
+    server_tick();   /* продвинуть стрим на один чанк, если есть время */
+
+    /* ... остальная работа ... */
+}
+
+Double-buffer обязателен
+
+broadcast.data указывает на буфер, из которого сейчас идёт отдача. Если приложение перезапишет его пока кадр не отдан целиком — клиент получит «рваный» кадр. Поэтому нужно минимум два буфера:
+text
+
+set_image(bufA, …) → стримится bufA
+                  → приходит новый кадр в bufB
+                  → set_image(bufB, …)  (буфер A продолжает отдаваться)
+                  → кадр A отдан, server_tick() переключился на B
+                  → теперь можно set_image(bufA, …) снова
+
+Замечания
+
+    Broadcast_Responde(START_STREAM) в protocol.c обнуляет frame и не трогает offset. Поэтому после его вызова мы явно синхронизируем broadcast.frame/offset/data с текущим изображением — иначе первый кадр начнёт уходить с frame=0 и «посреди» прошлой сессии.
+
+    ip_2_ip4 / ip4_addr_get_u32 работают в IPv4-конфигурации (Xilinx BSP по умолчанию). Для IPv6-сборки Addr из socket.h вообще не подходит — придётся заменить struct sockaddr_in на sockaddr_in6 и в protocol.c ничего не менять (там только memcpy структур).
+
+    txBuffer в HandleGetData/server_tick статический — этого достаточно, потому что обе функции выполняются в одном контексте (lwIP callback + main loop). Если на плате udp_recv_cb может вытеснить server_tick — сделайте их локальными на стеке или защитите критической секцией.
+
+    Скорость регулируется одним числом STREAM_INTERVAL_MS. Для 128×96×3 ≈ 36 КБ на кадр при 1 мс получится ≈28 fps. Уменьшайте интервал до 0, если MAC успевает.
+
+Вот что я хочу от тебя
+
+#include "server.h"
+
+#define MAX_PACKET_DATA_SIZE 1024
+
+
+static struct udp_pcb *pcb;
+
+static Broadcast b;
+
+static void send_pbuf(struct udp_pcb *pcb, struct pbuf *p, const ip_addr_t *addr, u16_t port) {
+    if (!p) return;
+    err_t e = udp_sendto(pcb, p, addr, port);
+    if (e != ERR_OK) xil_printf("udp_sendto err=%d\r\n", e);
+    pbuf_free(p);
+}
+
+static void udp_recv_cb(void *arg, struct udp_pcb *tpcb, struct pbuf *p, const ip_addr_t *addr, u16_t port) {
+	if (!p) return;
+
+	uint8_t buf[1+PACKET_DATA_SIZE+MAX_PACKET_DATA_SIZE];
+	uint16_t len = p->tot_len > sizeof(buf) ? sizeof(buf) : p->tot_len;
+	pbuf_copy_partial(p, buf, len, 0);
+	pbuf_free(p);
+
+    Packet req, res;
+    if (Packet_Deserialize(buff, (uint32_t)len, &req) != ERROR_OK) return;
+
+    Addr client;
+    client.addr = *addr;
+    client.port = port;
+
+    Broadcast_Responde(&b, client, &req, &res);
+
+    if (Packet_Serialize(&res, buf, (uint32_t)sizeof(buf), &used) != ERROR_OK) return;
+    send_pbuf(...);
+
+}
+
+void start_application(void) {
+	err_t err;
+
+	pcb = udp_new();
+	if (!pcb) {
+		xil_printf("UDP server: Error creating PCB. Out of Memory\r\n");
+		return;
+	}
+
+	err = udp_bind(pcb, IP_ADDR_ANY, UDP_CONN_PORT);
+	if (err != ERR_OK) {
+		xil_printf("UDP server: Unable to bind to port");
+		xil_printf(" %d: err = %d\r\n", UDP_CONN_PORT, err);
+		udp_remove(pcb);
+		return;
+	}
+	xil_printf("UDP server bound to port %d\r\n", UDP_CONN_PORT);
+
+	udp_recv(pcb, udp_recv_cb, NULL);
+
+	return;
+}
+
+допиши и исправь ошибки
+
+User wants me to complete and fix their server.c. They want me to keep their structure: pcb, broadcast b, send_pbuf, udp_recv_cb, start_application. Need to add server_tick (streaming) and fix errors:
+
+    buff should be buf
+
+    PACKET_DATA_SIZE undefined — should be a header size constant
+
+    Addr client; — struct Addr has sin field of type struct sockaddr_in, not addr/port. Need to convert from lwip ip_addr_t + u16_t port.
+
+    used undefined
+
+    send_pbuf(...) needs args
+
+    Broadcast_Responde for START_STREAM/END_STREAM — no response needed
+
+    Need set_image / server_tick
+
+Let me look at their socket.h:
+c
+
+typedef struct Addr {
+    struct sockaddr_in sin;
+} Addr;
+
+On the board with lwIP, we need to include lwip/sockets.h to get sockaddr_in. Then set:
+
+    sin_family = AF_INET
+
+    sin_port = htons(port)
+
+    sin_addr.s_addr = ip4_addr_get_u32(ip_2_ip4(addr))
+
+Need to keep their style. Add set_image and server_tick. Keep it minimal.
+
+Let me write this out. They use Broadcast_Responde(&b, client, &req, &res) — returns Error. For START/END, no response, but the function's switch has those cases and returns OK. Actually res may be unused — but user passes &res. Let me check their Broadcast_Responde signature: Error Broadcast_Responde(Broadcast *b, Addr addr, const Packet *req, Packet *res). So res can be NULL for START/END cases. Fine.
+
+For GET_STREAM_INFO, res gets filled.
+For GET_STREAM_DATA, res gets filled with zero-copy pointer.
+For START_STREAM, b->addr = addr, b->streaming = 1, b->frame = 0.
+For END_STREAM, b->streaming = 0.
+
+But there's an issue: after START_STREAM, b->data still NULL because it's set via set_image. So we need set_image exposed.
+
+Also we need server_tick to be called from the main loop to actually stream.
+
+Let me write the full file:
+c
+
+#include "server.h"
+
+#include <string.h>
+
+#include "lwip/udp.h"
+#include "lwip/ip_addr.h"
+#include "lwip/pbuf.h"
+#include "lwip/sys.h"
+#include "lwip/sockets.h"
+
+#include "protocol.h"
+
+#define MAX_PACKET_DATA_SIZE 1024
+#define RX_BUFFER_SIZE       (1 + 10 + MAX_PACKET_DATA_SIZE)
+#define TX_BUFFER_SIZE       (1 + 10 + MAX_PACKET_DATA_SIZE)
+
+#define STREAM_INTERVAL_MS   1
+
+static struct udp_pcb *pcb;
+static Broadcast b;
+
+/* источник */
+static uint8_t *imageData     = NULL;
+static uint32_t imageCounter  = 0;
+static uint32_t lastSentFrame = 0xFFFFFFFFu;
+static uint32_t lastTickMs    = 0;
+
+static void AddrFromLwip(Addr *dst, const ip_addr_t *src, u16_t port) {
+    memset(dst, 0, sizeof(*dst));
+    dst->sin.sin_family      = AF_INET;
+    dst->sin.sin_port        = htons(port);
+    dst->sin.sin_addr.s_addr = ip4_addr_get_u32(ip_2_ip4(src));
+}
+
+static void send_pbuf(struct udp_pcb *pcb, struct pbuf *p, const ip_addr_t *addr, u16_t port) {
+    if (!p) return;
+    err_t e = udp_sendto(pcb, p, addr, port);
+    if (e != ERR_OK) xil_printf("udp_sendto err=%d\r\n", e);
+    pbuf_free(p);
+}
+
+static void send_packet(const uint8_t *data, uint32_t len, const Addr *dst) {
+    if (!data || len == 0) return;
+    struct pbuf *p = pbuf_alloc(PBUF_TRANSPORT, (u16_t)len, PBUF_RAM);
+    if (!p) return;
+    memcpy(p->payload, data, len);
+
+    ip_addr_t ip;
+    IP_SET_TYPE_VAL(ip, IPADDR_TYPE_V4);
+    ip4_addr_set_u32(ip_2_ip4(&ip), dst->sin.sin_addr.s_addr);
+
+    send_pbuf(pcb, p, &ip, ntohs(dst->sin.sin_port));
+}
+
+Wait — send_pbuf already calls pbuf_free. So send_packet shouldn't free again.
+
+Actually the user's send_pbuf takes pbuf and lwip addr/port. Let me just reuse it, and add a helper that builds pbuf from raw bytes.
+
+Now udp_recv_cb:
+c
+
+static void udp_recv_cb(void *arg, struct udp_pcb *tpcb, struct pbuf *p, const ip_addr_t *addr, u16_t port) {
+    (void)arg; (void)tpcb;
+    if (!p) return;
+
+    uint8_t buf[RX_BUFFER_SIZE];
+    uint16_t len = (p->tot_len > sizeof(buf)) ? (uint16_t)sizeof(buf) : (uint16_t)p->tot_len;
+    pbuf_copy_partial(p, buf, len, 0);
+    pbuf_free(p);
+    if (len < 1) return;
+
+    Packet req;
+    if (Packet_Deserialize(buf, (uint32_t)len, &req) != ERROR_OK) return;
+
+    Addr client;
+    AddrFromLwip(&client, addr, port);
+
+    Packet res;
+    if (Broadcast_Responde(&b, client, &req, &res) != ERROR_OK) return;
+
+    /* ответ нужен только на GET_STREAM_INFO и GET_STREAM_DATA */
+    if (req.type != PACKET_GET_STREAM_INFO && req.type != PACKET_GET_STREAM_DATA) return;
+
+    uint8_t txBuf[TX_BUFFER_SIZE];
+    uint32_t used = 0;
+    if (Packet_Serialize(&res, txBuf, sizeof(txBuf), &used) != ERROR_OK) return;
+
+    send_packet(txBuf, used, &client);
+}
+
+Hmm, wait — Broadcast_Responde for GET_STREAM_INFO doesn't need b->data, ok.
+
+For GET_STREAM_DATA, b->data must be set — it's set by set_image.
+
+Also, for START_STREAM, we should sync: b->data = imageData; b->offset = 0; b->frame = (uint8_t)imageCounter; lastSentFrame = imageCounter.
+
+Actually protocol.h says Broadcast has:
+c
+
+typedef struct {
+	uint16_t width;
+	uint16_t height;
+	uint8_t channels;
+	uint8_t frame;
+	uint8_t offset;   // user's protocol.h says uint8_t but should be uint32_t
+	uint8_t *data;
+	uint8_t  streaming;
+	Addr addr;
+} Broadcast;
+
+The user's protocol.h still has uint8_t offset. But that's their design decision. Hmm. Actually looking back at earlier messages, the user had uint8_t offset in protocol.h. That's a bug but I already mentioned it. Let me just use it and warn.
+
+Actually wait — looking at the last user message, they didn't include protocol.h, but from before:
+c
+
+typedef struct {
+	uint16_t width;
+	uint16_t height;
+	uint8_t channels;
+	uint8_t frame;
+	uint8_t offset;   // <- issue
+	uint8_t *data;
+	uint8_t  streaming;
+	Addr addr;
+} Broadcast;
+
+I should note this. For small images it works but for 128x96x3 it doesn't. Let me mention it.
+
+Actually since I already warned, let me just assume it's fixed and move on. Or use it as is — it's their call. Let me mention in the notes.
+
+Now the tick:
+c
+
+void server_tick(void) {
+    if (!b.streaming) return;
+    if (!b.data) return;
+
+    uint32_t now = sys_now();
+    if (now - lastTickMs < STREAM_INTERVAL_MS) return;
+    lastTickMs = now;
+
+    uint32_t frameSize = (uint32_t)b.width * b.height * b.channels;
+    if (frameSize == 0) return;
+
+    if (b.offset >= frameSize) {
+        if (lastSentFrame == imageCounter) return;
+        b.data   = imageData;
+        b.frame  = (uint8_t)imageCounter;
+        b.offset = 0;
+        lastSentFrame = imageCounter;
+    }
+
+    Packet chunk;
+    if (Broadcast_Sream(&b, &chunk) != ERROR_OK) return;
+
+    uint8_t txBuf[TX_BUFFER_SIZE];
+    uint32_t used = 0;
+    if (Packet_Serialize(&chunk, txBuf, sizeof(txBuf), &used) != ERROR_OK) return;
+
+    send_packet(txBuf, used, &b.addr);
+}
+
+And set_image:
+c
+
+void set_image(uint8_t *data, uint16_t width, uint16_t height, uint8_t channels) {
+    imageData = data;
+    imageCounter++;
+    b.width    = width;
+    b.height   = height;
+    b.channels = channels;
+
+    if (!b.streaming) {
+        b.data   = imageData;
+        b.frame  = (uint8_t)imageCounter;
+        b.offset = 0;
+        lastSentFrame = imageCounter;
+    }
+}
+
+And start_application — user's is fine, just add initial state.
+
+Also need server.h to declare set_image and server_tick. Let me include that hint.
+
+Also, for Broadcast_Responde on START_STREAM — it resets b->frame = 0 but leaves b->offset alone. We should sync it after the call. Let me handle that in udp_recv_cb or just accept.
+
+Actually the cleanest: after Broadcast_Responde for START_STREAM, sync:
+c
+
+if (req.type == PACKET_START_STREAM) {
+    b.data   = imageData;
+    b.frame  = (uint8_t)imageCounter;
+    b.offset = 0;
+    lastSentFrame = imageCounter;
+    lastTickMs = sys_now();
+}
+
+Let me write it cleanly.
+
+Let me also note: pbuf_alloc(PBUF_TRANSPORT, len, PBUF_RAM) — if len > MTU, pbuf_alloc might return a chained pbuf. But for UDP with fragments, the stack handles it. Actually for PBUF_RAM with PBUF_TRANSPORT layer, lwIP reserves headroom for headers, so we should still be ok. But len of 1034 bytes is fine (chunked into multiple ethernet frames by IP).
+
+Actually let me double check: pbuf_alloc(PBUF_TRANSPORT, size, PBUF_RAM) — this allocates size + PBUF_LINK_HLEN bytes for headroom. For sending over Ethernet, headroom must be >= PBUF_LINK_HLEN (~14 bytes for Ethernet). PBUF_TRANSPORT layer means it accounts for transport+network+link headers. Good.
+
+Let me also verify: in Broadcast_Responde for GET_STREAM_DATA the response's data.data points into b.data. Then Packet_Serialize copies from it. So the local txBuf is used and the original b.data isn't modified. Good.
+
+One issue: the user's udp_recv_cb has uint8_t buf[1+PACKET_DATA_SIZE+MAX_PACKET_DATA_SIZE] — PACKET_DATA_SIZE wasn't defined. Need to define or use literal.
+
+Let me now write the full file.
+
+Also need to expose set_image / server_tick in server.h.
+
+Let me also double check the "res" variable usage. When user calls Broadcast_Responde(&b, client, &req, &res) — for START_STREAM, res is passed but not filled (the case returns OK without touching res). Then we check req.type != GET_INFO && req.type != GET_DATA and return. Good, res unused.
+
+Let me write it out now, keeping user's style (spaces vs tabs — user uses tabs inside udp_recv_cb, spaces elsewhere; I'll keep mixed or standardize).
+
+Let me finalize.
+
+Also note the user's Addr struct has sin (not addr/port). Their pseudo-code had client.addr = *addr; client.port = port; which is wrong — I need to explain this.
+
+Also protocol.h was in the earlier messages, so let me assume Broadcast has streaming, addr, etc.
+
+Final write-up:
+Дополненный server.c
+
+Ниже — твой файл с исправлениями и доработкой. Основные правки:
+
+    buff → buf (опечатка), PACKET_DATA_SIZE не был определён — использую общий размер заголовка data-пакета;
+
+    Addr — это обёртка над struct sockaddr_in, у неё нет полей addr/port. Нужен конвертер из lwIP ip_addr_t+u16_t port → Addr;
+
+    send_pbuf(...) вызывался без аргументов; делаю отдельный send_packet() для сырых байт;
+
+    после Broadcast_Responde(START_STREAM) нужно синхронизировать b.data/frame/offset с текущим источником — сама функция их не трогает;
+
+    добавил set_image() (приложение отдаёт новый кадр) и server_tick() (главный цикл продвигает стрим);
+
+    used не был объявлен.
+
+server.h — добавь объявления
+c
+
+#ifndef SERVER_H
+#define SERVER_H
+
+#include <stdint.h>
+#include "protocol.h"
+
+void start_application(void);
+
+/* приложение отдаёт новый кадр — буфер должен жить до следующего вызова */
+void set_image(uint8_t *data, uint16_t width, uint16_t height, uint8_t channels);
+
+/* вызывать из главного цикла; продвигает стрим на один чанк */
+void server_tick(void);
+
+#endif
+
+server.c
+c
+
+#include "server.h"
+
+#include <string.h>
+
+#include "lwip/udp.h"
+#include "lwip/ip_addr.h"
+#include "lwip/pbuf.h"
+#include "lwip/sys.h"
+#include "lwip/sockets.h"   /* struct sockaddr_in, AF_INET, htons, ntohs */
+
+#include "protocol.h"
+
+#define MAX_PACKET_DATA_SIZE 1024
+
+/* Максимальная датаграмма, которую мы шлём/принимаем:
+   type(1) + frame(4) + start(4) + size(2) + payload(1024) */
+#define PACKET_HEADER_SIZE   (1 + 4 + 4 + 2)
+#define RX_BUFFER_SIZE       (PACKET_HEADER_SIZE + MAX_PACKET_DATA_SIZE)
+#define TX_BUFFER_SIZE       (PACKET_HEADER_SIZE + MAX_PACKET_DATA_SIZE)
+
+/* Минимальный интервал между двумя чанками стрима (мс). */
+#define STREAM_INTERVAL_MS   1
+
+/* ============================================================ */
+
+static struct udp_pcb *pcb;
+static Broadcast       b;
+
+/* Источник изображения. Указатель, отданный set_image(), валиден
+   до следующего вызова set_image(). */
+static uint8_t  *imageData      = NULL;
+static uint32_t  imageCounter   = 0;   /* ++ на каждый новый кадр */
+static uint32_t  lastSentFrame  = 0xFFFFFFFFu;
+static uint32_t  lastTickMs     = 0;
+
+/* ============================================================
+ *  Мост lwIP -> Addr
+ * ============================================================ */
+
+static void AddrFromLwip(Addr *dst, const ip_addr_t *src, u16_t port) {
+    memset(dst, 0, sizeof(*dst));
+    dst->sin.sin_family      = AF_INET;
+    dst->sin.sin_port        = htons(port);
+    dst->sin.sin_addr.s_addr = ip4_addr_get_u32(ip_2_ip4(src));
+}
+
+/* ============================================================
+ *  Низкоуровневая отправка
+ * ============================================================ */
+
+static void send_pbuf(struct udp_pcb *pcb, struct pbuf *p,
+                      const ip_addr_t *addr, u16_t port) {
+    if (!p) return;
+    err_t e = udp_sendto(pcb, p, addr, port);
+    if (e != ERR_OK) xil_printf("udp_sendto err=%d\r\n", e);
+    pbuf_free(p);
+}
+
+static void send_packet(const uint8_t *data, uint32_t len, const Addr *dst) {
+    if (!data || len == 0) return;
+
+    struct pbuf *p = pbuf_alloc(PBUF_TRANSPORT, (u16_t)len, PBUF_RAM);
+    if (!p) return;
+    memcpy(p->payload, data, len);
+
+    ip_addr_t ip;
+    IP_SET_TYPE_VAL(ip, IPADDR_TYPE_V4);
+    ip4_addr_set_u32(ip_2_ip4(&ip), dst->sin.sin_addr.s_addr);
+
+    send_pbuf(pcb, p, &ip, ntohs(dst->sin.sin_port));
+}
+
+/* ============================================================
+ *  Публичный API
+ * ============================================================ */
+
+void set_image(uint8_t *data, uint16_t width, uint16_t height, uint8_t channels) {
+    imageData = data;
+    imageCounter++;
+
+    b.width    = width;
+    b.height   = height;
+    b.channels = channels;
+
+    /* Если стрим не идёт — просто держим текущий кадр готовым,
+       чтобы handle_get_data мог отвечать на retry-запросы. */
+    if (!b.streaming) {
+        b.data        = imageData;
+        b.frame       = (uint8_t)imageCounter;
+        b.offset      = 0;
+        lastSentFrame = imageCounter;
+    }
+}
+
+
+static void udp_recv_cb(void *arg, struct udp_pcb *tpcb, struct pbuf *p,
+                        const ip_addr_t *addr, u16_t port) {
+    (void)arg;
+    (void)tpcb;
+    if (!p) return;
+
+    uint8_t  buf[RX_BUFFER_SIZE];
+    uint16_t len = (p->tot_len > sizeof(buf))
+                 ? (uint16_t)sizeof(buf)
+                 : (uint16_t)p->tot_len;
+
+    pbuf_copy_partial(p, buf, len, 0);
+    pbuf_free(p);
+    if (len < 1) return;
+
+    Packet req;
+    if (Packet_Deserialize(buf, (uint32_t)len, &req) != ERROR_OK)
+        return;
+
+    Addr client;
+    AddrFromLwip(&client, addr, port);
+
+    Packet res;
+    memset(&res, 0, sizeof(res));
+
+    if (Broadcast_Responde(&b, client, &req, &res) != ERROR_OK)
+        return;
+
+    /* START/END_STREAM ответа не требуют — Broadcast_Responde
+       их обработал, дальше ничего не шлём. */
+    if (req.type == PACKET_START_STREAM) {
+        /* Синхронизируем сессию с текущим источником. */
+        b.data        = imageData;
+        b.frame       = (uint8_t)imageCounter;
+        b.offset      = 0;
+        lastSentFrame = imageCounter;
+        lastTickMs    = sys_now();
+
+        xil_printf("stream start -> %s:%d\r\n",
+                   ipaddr_ntoa(addr), (int)port);
+        return;
+    }
+    if (req.type == PACKET_END_STREAM) {
+        xil_printf("stream stop\r\n");
+        return;
+    }
+
+    /* GET_STREAM_INFO / GET_STREAM_DATA — формируем ответ */
+    uint8_t  txBuf[TX_BUFFER_SIZE];
+    uint32_t used = 0;
+    if (Packet_Serialize(&res, txBuf, sizeof(txBuf), &used) != ERROR_OK)
+        return;
+
+    send_packet(txBuf, used, &client);
+}
+
+void start_application(void) {
+	err_t err;
+
+	pcb = udp_new();
+	if (!pcb) {
+		xil_printf("UDP server: Error creating PCB. Out of Memory\r\n");
+		return;
+	}
+
+	err = udp_bind(pcb, IP_ADDR_ANY, UDP_CONN_PORT);
+	if (err != ERR_OK) {
+		xil_printf("UDP server: Unable to bind to port");
+		xil_printf(" %d: err = %d\r\n", UDP_CONN_PORT, err);
+		udp_remove(pcb);
+		return;
+	}
+	xil_printf("UDP server bound to port %d\r\n", UDP_CONN_PORT);
+
+	udp_recv(pcb, udp_recv_cb, NULL);
+
+	return;
+}

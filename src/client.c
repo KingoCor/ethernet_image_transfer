@@ -1,215 +1,228 @@
-#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <errno.h>
-#include <getopt.h>
-#include <time.h>
+#include <stdint.h>
 
-#define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "stb_image_write.h"
+#include <raylib.h>
 
 #include "error.h"
 #include "socket.h"
 #include "protocol.h"
 
-#define DEFAULT_SERVER_IP   "127.0.0.1"
-#define DEFAULT_SERVER_PORT 12345
-#define DEFAULT_LOCAL_IP    "0.0.0.0"
-#define DEFAULT_LOCAL_PORT  12346
-#define DEFAULT_TIMEOUT_MS  50
-#define DEFAULT_FRAMES      30
-#define DEFAULT_OUTPUT      "received.png"
+#define SERVER_IP        "127.0.0.1"
+#define SERVER_PORT      12345
+#define LOCAL_IP         "0.0.0.0"
+#define LOCAL_PORT       12346
+#define TIMEOUT_MS       1
+#define HANDSHAKE_TRIES  30
+#define HANDSHAKE_WAIT   0.1
 
-typedef struct {
-    const char *server_ip;
-    int         server_port;
-    const char *local_ip;
-    int         local_port;
-    int         timeout_ms;
-    int         frames;
-    const char *output;
-} Config;
+#define SHOW_SCALE       3
 
-static void PrintUsage(const char *prog) {
-    printf(
-        "Usage: %s [OPTIONS]\n"
-        "\n"
-        "Options:\n"
-        "  -s, --server-ip <IP>     Server IP address (default: %s)\n"
-        "  -p, --server-port <PORT> Server port       (default: %d)\n"
-        "  -l, --local-ip <IP>      Local bind IP     (default: %s)\n"
-        "  -b, --local-port <PORT>  Local bind port   (default: %d)\n"
-        "  -t, --timeout <MS>       Socket timeout ms (default: %d)\n"
-        "  -n, --frames <N>         Number of frames  (default: %d)\n"
-        "  -o, --output <FILE>      Output PNG file   (default: %s)\n"
-        "  -h, --help               Show this help\n",
-        prog,
-        DEFAULT_SERVER_IP, DEFAULT_SERVER_PORT,
-        DEFAULT_LOCAL_IP,  DEFAULT_LOCAL_PORT,
-        DEFAULT_TIMEOUT_MS, DEFAULT_FRAMES, DEFAULT_OUTPUT
-	);
-}
+int main(void) {
+    if (Socket_Init() != ERROR_OK) {
+        fprintf(stderr, "Socket_Init failed\n");
+        return 1;
+    }
 
-static int ParseInt(const char *s, int *out) {
-    char *end = NULL;
-    errno = 0;
-    long v = strtol(s, &end, 10);
-    if (errno != 0 || end == s || *end != '\0' || v < 0 || v > 65535)
-        return -1;
-    *out = (int)v;
-    return 0;
-}
+    InitWindow(640, 700, "PROTOCOL — client");
 
-static int ParseArgs(int argc, char **argv, Config *cfg) {
-    cfg->server_ip  = DEFAULT_SERVER_IP;
-    cfg->server_port = DEFAULT_SERVER_PORT;
-    cfg->local_ip   = DEFAULT_LOCAL_IP;
-    cfg->local_port = DEFAULT_LOCAL_PORT;
-    cfg->timeout_ms = DEFAULT_TIMEOUT_MS;
-    cfg->frames     = DEFAULT_FRAMES;
-    cfg->output     = DEFAULT_OUTPUT;
+    Socket sock;
+    Addr   localAddr, serverAddr;
 
-    static struct option long_opts[] = {
-        {"server-ip",   required_argument, 0, 's'},
-        {"server-port", required_argument, 0, 'p'},
-        {"local-ip",    required_argument, 0, 'l'},
-        {"local-port",  required_argument, 0, 'b'},
-        {"timeout",     required_argument, 0, 't'},
-        {"frames",      required_argument, 0, 'n'},
-        {"output",      required_argument, 0, 'o'},
-        {"help",        no_argument,       0, 'h'},
-        {0, 0, 0, 0}
-    };
+    if (Socket_Open(&sock) != ERROR_OK) {
+        fprintf(stderr, "Socket_Open failed\n");
+        goto closeWindow;
+    }
 
-    int opt;
-    while ((opt = getopt_long(argc, argv, "s:p:l:b:t:n:o:h", long_opts, NULL)) != -1) {
-        switch (opt) {
-            case 's': cfg->server_ip = optarg; break;
-            case 'l': cfg->local_ip  = optarg; break;
-            case 'o': cfg->output    = optarg; break;
+    Socket_SetTimeout(&sock, TIMEOUT_MS);
 
-            case 'p':
-                if (ParseInt(optarg, &cfg->server_port) != 0) {
-                    printf("Invalid --server-port: %s\n", optarg);
-                    return -1;
-                }
-                break;
-            case 'b':
-                if (ParseInt(optarg, &cfg->local_port) != 0) {
-                    printf("Invalid --local-port: %s\n", optarg);
-                    return -1;
-                }
-                break;
-            case 't':
-                if (ParseInt(optarg, &cfg->timeout_ms) != 0) {
-                    printf("Invalid --timeout: %s\n", optarg);
-                    return -1;
-                }
-                break;
-            case 'n':
-                if (ParseInt(optarg, &cfg->frames) != 0 || cfg->frames <= 0) {
-                    printf("Invalid --frames: %s\n", optarg);
-                    return -1;
-                }
-                break;
+    if (Addr_SetIp(&localAddr, LOCAL_IP) != ERROR_OK || Addr_SetPort(&localAddr, LOCAL_PORT) != ERROR_OK) {
+        fprintf(stderr, "Local addr setup failed\n");
+        goto closeSocket;
+    }
 
-            case 'h':
-                PrintUsage(argv[0]);
-                exit(0);
-            case '?':
-            default:
-                PrintUsage(argv[0]);
-                return -1;
+    if (Socket_Bind(&sock, &localAddr) != ERROR_OK) {
+        fprintf(stderr, "Bind failed\n");
+        goto closeSocket;
+    }
+
+    if (Addr_SetIp(&serverAddr, SERVER_IP) != ERROR_OK || Addr_SetPort(&serverAddr, SERVER_PORT) != ERROR_OK) {
+        fprintf(stderr, "Server addr setup failed\n");
+        goto closeSocket;
+    }
+
+    if (Socket_Connect(&sock, &serverAddr) != ERROR_OK) {
+        fprintf(stderr, "Connect failed\n");
+        goto closeSocket;
+    }
+
+    uint8_t rxBuffer[2048];
+    uint8_t txBuffer[2048];
+    uint32_t used = 0;
+    int      sentLen = 0;
+
+    Packet request = {0};
+    request.type = PACKET_GET_STREAM_INFO;
+    Packet_Serialize(&request, txBuffer, (uint32_t)sizeof(txBuffer), &used);
+
+    Broadcast broadcast = {0};
+    int gotInfo = 0;
+
+    for (int attempt = 0; attempt<HANDSHAKE_TRIES && !gotInfo; ++attempt) {
+        Socket_Send(&sock, (const char *)txBuffer, (int)used, &sentLen);
+
+        double deadline = GetTime()+HANDSHAKE_WAIT;
+        while (GetTime()<deadline && !gotInfo) {
+            int receivedLen = 0;
+            Error err = Socket_Recv(&sock, (char *)rxBuffer, (int)sizeof(rxBuffer), &receivedLen);
+            if (err != ERROR_OK) {
+                WaitTime(0.001);
+                continue;
+            }
+            if (receivedLen <= 0) continue;
+
+            Packet response;
+            if (Packet_Deserialize(rxBuffer, (uint32_t)receivedLen, &response) != ERROR_OK)
+                continue;
+            if (response.type != PACKET_SET_STREAM_INFO)
+                continue;
+
+            broadcast.width    = response.info.width;
+            broadcast.height   = response.info.height;
+            broadcast.channels = response.info.channels;
+            gotInfo = 1;
         }
     }
 
-    if (optind < argc) {
-        printf("Unexpected positional arguments:");
-        for (int i = optind; i < argc; ++i)
-            printf(" %s", argv[i]);
-        printf("\n");
-        return -1;
+    if (!gotInfo) {
+        fprintf(stderr, "client: no SET_STREAM_INFO from server\n");
+        goto closeSocket;
     }
+
+    uint32_t frameSize = (uint32_t)broadcast.width*broadcast.height*broadcast.channels;
+
+    broadcast.data = (uint8_t *)malloc(frameSize);
+    if (!broadcast.data) {
+        fprintf(stderr, "Out of memory\n");
+        goto closeSocket;
+    }
+    memset(broadcast.data, 0, frameSize);
+
+    broadcast.frame     = 0xFF;
+    broadcast.offset    = 0;
+    broadcast.streaming = 1;
+
+    request.type = PACKET_START_STREAM;
+    Packet_Serialize(&request, txBuffer, (uint32_t)sizeof(txBuffer), &used);
+    Socket_Send(&sock, (const char *)txBuffer, (int)used, &sentLen);
+
+    /* текстура, отображающая принимаемый кадр */
+    Image frameImage = {
+        .data    = broadcast.data,
+        .width   = broadcast.width,
+        .height  = broadcast.height,
+        .mipmaps = 1,
+        .format  = (broadcast.channels == 3)
+                       ? PIXELFORMAT_UNCOMPRESSED_R8G8B8
+                       : PIXELFORMAT_UNCOMPRESSED_R8G8B8A8
+    };
+    Texture2D frameTexture = LoadTextureFromImage(frameImage);
+    SetTextureFilter(frameTexture, TEXTURE_FILTER_POINT);
+
+    uint8_t  expectedFrame  = 0xFF;
+    uint32_t expectedOffset = 0;
+    int      framesReceived = 0;
+    uint32_t retriesSent    = 0;
+
+    SetTargetFPS(60);
+
+    while (!WindowShouldClose()) {
+        for (;;) {
+            int receivedLen = 0;
+            Error err = Socket_Recv(&sock, (char *)rxBuffer, (int)sizeof(rxBuffer), &receivedLen);
+            if (err != ERROR_OK || receivedLen <= 0) break;
+
+            Packet response;
+            if (Packet_Deserialize(rxBuffer, (uint32_t)receivedLen, &response) != ERROR_OK)
+                continue;
+
+            if (response.type == PACKET_SET_STREAM_DATA) {
+                uint8_t  newFrame = (uint8_t)response.data.frame;
+                uint32_t start    = response.data.start;
+                uint32_t length   = response.data.size;
+
+                if (newFrame != expectedFrame) {
+                    expectedFrame  = newFrame;
+                    expectedOffset = 0;
+                }
+
+                if (start > expectedOffset) {
+                    uint32_t gap = start - expectedOffset;
+                    if (gap > 0xFFFF) gap = 0xFFFF;
+
+                    Packet retry = {0};
+                    retry.type       = PACKET_GET_STREAM_DATA;
+                    retry.data.frame = response.data.frame;
+                    retry.data.start = expectedOffset;
+                    retry.data.size  = (uint16_t)gap;
+
+                    uint32_t retryUsed = 0;
+                    if (Packet_Serialize(&retry, txBuffer,
+                                         (uint32_t)sizeof(txBuffer),
+                                         &retryUsed) == ERROR_OK) {
+                        int retrySent = 0;
+                        Socket_Send(&sock, (const char *)txBuffer,
+                                    (int)retryUsed, &retrySent);
+                        retriesSent++;
+                    }
+                }
+                if (start+length>expectedOffset)
+                    expectedOffset = start+length;
+            }
+
+            int frameReceived = 0;
+            Broadcast_Receive(&broadcast, &response, &frameReceived);
+            if (frameReceived)
+                framesReceived++;
+        }
+
+        UpdateTexture(frameTexture, broadcast.data);
+
+        BeginDrawing();
+        ClearBackground((Color){20, 20, 26, 255});
+
+		DrawTexturePro(
+			frameTexture, 
+			(Rectangle){0,0,broadcast.width,broadcast.height}, 
+			(Rectangle){0,0,640,512}, 
+			(Vector2){0,0}, 
+			0,
+			WHITE
+		);
+
+        int infoY = 512+12;
+        DrawText("CLIENT", 10, infoY, 22, RAYWHITE);
+        DrawText(TextFormat("frame: %d", broadcast.frame), 10, infoY + 28, 18, LIGHTGRAY);
+        DrawText(TextFormat("received: %u / %u", broadcast.offset, frameSize), 10, infoY + 50, 18, LIGHTGRAY);
+        DrawText(TextFormat("frames rx: %d", framesReceived), 10, infoY + 72, 18, LIGHTGRAY);
+        DrawText(TextFormat("retries: %u", retriesSent), 10, infoY + 94, 18, LIGHTGRAY);
+        DrawFPS(10, infoY + 116);
+
+        EndDrawing();
+    }
+
+    request.type = PACKET_END_STREAM;
+    Packet_Serialize(&request, txBuffer, (uint32_t)sizeof(txBuffer), &used);
+    Socket_Send(&sock, (const char *)txBuffer, (int)used, &sentLen);
+
+    UnloadTexture(frameTexture);
+    free(broadcast.data);
+
+closeSocket:
+    Socket_Close(&sock);
+closeWindow:
+    CloseWindow();
+    Socket_Deinit();
     return 0;
-}
-
-static void Exit(Socket *s, ImageTranferer *img, int code) {
-    if (img) if (img->data) free(img->data);
-    Socket_Close(s);
-	Socket_Deinit();
-    exit(code);
-}
-
-int main(int argc, char **argv) {
-    Config cfg;
-    if (ParseArgs(argc, argv, &cfg) != 0)
-        return 2;
-
-	/*
-    printf("Config: server=%s:%d local=%s:%d timeout=%dms frames=%d output=%s\n",
-    	cfg.server_ip, cfg.server_port, cfg.local_ip,  cfg.local_port, cfg.timeout_ms, cfg.frames, cfg.output);
-	*/
-
-    Socket s;
-    Addr local, server;
-
-    if (Socket_Init() != ERROR_OK) {
-        printf("Socket_Init failed\n");
-        return 1;
-    }
-    if (Socket_Open(&s) != ERROR_OK) {
-        printf("Socket_Open failed\n");
-        Exit(&s, NULL, 1);
-    }
-    if (Socket_SetTimeout(&s, cfg.timeout_ms)) {
-        printf("Socket_SetTimeout failed\n");
-        Exit(&s, NULL, 1);
-    }
-
-    Addr_SetIp(&local, cfg.local_ip);
-    Addr_SetPort(&local, (unsigned short)cfg.local_port);
-    if (Socket_Bind(&s, &local) != ERROR_OK) {
-        printf("Bind %s:%d failed\n", cfg.local_ip, cfg.local_port);
-        Exit(&s, NULL, 1);
-    }
-
-    Addr_SetIp(&server, cfg.server_ip);
-    Addr_SetPort(&server, (unsigned short)cfg.server_port);
-    if (Socket_Connect(&s, &server) != ERROR_OK) {
-        printf("Connect to %s:%d failed\n", cfg.server_ip, cfg.server_port);
-        Exit(&s, NULL, 1);
-    }
-
-    ImageTranferer img;
-    img.data = malloc(1024 * 1024 * 3);
-    img.dataCapacity = 1024 * 1024 * 3;
-    if (!img.data) {
-        printf("Out of memory\n");
-        Exit(&s, NULL, 1);
-    }
-
-    int count = 0;
-    printf("starting transfer\n");
-
-    struct timespec start, end;
-    clock_gettime(CLOCK_MONOTONIC, &start);
-    for (int i = 0; i < cfg.frames; ++i) {
-        Error err = ImageTranferer_Req(&img, &s, -1);
-        if (!err) count += 1;
-    }
-    clock_gettime(CLOCK_MONOTONIC, &end);
-    printf("transfer ended\n");
-
-    double time = (end.tv_sec-start.tv_sec)+(end.tv_nsec-start.tv_nsec)/1e9;
-    printf("Received %d/%d in %fs\n", count, cfg.frames, time);
-
-    int success = stbi_write_png(cfg.output, img.width, img.height, img.channels, img.data, 0);
-    if (!success) {
-        printf("Failed to save image %s\n", cfg.output);
-        Exit(&s, &img, 1);
-    }
-    printf("Image saved as %s\n", cfg.output);
-
-    Exit(&s, &img, 0);
 }

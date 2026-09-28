@@ -11515,3 +11515,216 @@ Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.]. Thread: Worker-1: Launch
 
 !ENTRY com.xilinx.sdk.utils 0 0 2026-09-23 14:25:58.177
 !MESSAGE XSCT command with result: [disconnect tcfchan#2], Result: [null, ]. Thread: Thread-185
+!SESSION 2026-09-28 13:56:29.511 -----------------------------------------------
+eclipse.buildId=2020.2
+java.version=11.0.2
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=ru_RU
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.ui 4 4 2026-09-28 13:56:40.305
+!MESSAGE Plug-in 'org.eclipse.ui.editors' contributed an invalid Menu Extension (Path: 'navigate' is invalid): org.eclipse.ui.edit.text.gotoLastEditPosition
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 13:56:46.849
+!MESSAGE XSCT Command: [plnx-install-path  ; ::scw::scw_mode gui], Thread: Thread-11
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 13:56:46.850
+!MESSAGE XSCT Command: [set sdk::sdk_chan tcfchan#0], Thread: Thread-18
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 13:56:46.853
+!MESSAGE XSCT command with result: [set sdk::sdk_chan tcfchan#0], Result: [null, tcfchan#0]. Thread: Thread-18
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 13:56:46.855
+!MESSAGE XSCT command with result: [plnx-install-path  ; ::scw::scw_mode gui], Result: [null, ]. Thread: Thread-11
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 13:56:46.855
+!MESSAGE XSCT Command: [setws /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga], Thread: Thread-18
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 13:56:46.858
+!MESSAGE XSCT command with result: [setws /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga], Result: [null, ]. Thread: Thread-18
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 13:56:49.311
+!MESSAGE XSCT Command: [::hsi::utils::init_repo], Thread: Worker-5: Initializing s/w repositories
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 13:56:50.148
+!MESSAGE XSCT command with result: [::hsi::utils::init_repo], Result: [null, ]. Thread: Worker-5: Initializing s/w repositories
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 13:56:50.150
+!MESSAGE XSCT Command: [set query_var1 $::env(RDI_DATADIR)], Thread: Worker-5: Initializing s/w repositories
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 13:56:50.152
+!MESSAGE XSCT command with result: [set query_var1 $::env(RDI_DATADIR)], Result: [null, /home/alexey/Xilinx/Vitis/2020.2/data]. Thread: Worker-5: Initializing s/w repositories
+!SESSION 2026-09-28 16:00:23.099 -----------------------------------------------
+eclipse.buildId=2020.2
+java.version=11.0.2
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=ru_RU
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.ui 4 4 2026-09-28 16:00:42.273
+!MESSAGE Plug-in 'org.eclipse.ui.editors' contributed an invalid Menu Extension (Path: 'navigate' is invalid): org.eclipse.ui.edit.text.gotoLastEditPosition
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:00:54.803
+!MESSAGE XSCT Command: [plnx-install-path  ; ::scw::scw_mode gui], Thread: Thread-11
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:00:54.804
+!MESSAGE XSCT Command: [set sdk::sdk_chan tcfchan#0], Thread: Thread-18
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:00:54.814
+!MESSAGE XSCT command with result: [set sdk::sdk_chan tcfchan#0], Result: [null, tcfchan#0]. Thread: Thread-18
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:00:54.816
+!MESSAGE XSCT command with result: [plnx-install-path  ; ::scw::scw_mode gui], Result: [null, ]. Thread: Thread-11
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:00:54.818
+!MESSAGE XSCT Command: [setws /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga], Thread: Thread-18
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:00:54.823
+!MESSAGE XSCT command with result: [setws /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga], Result: [null, ]. Thread: Thread-18
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:00:59.249
+!MESSAGE XSCT Command: [::hsi::utils::init_repo], Thread: Worker-5: Initializing s/w repositories
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:00:59.621
+!MESSAGE XSCT command with result: [::hsi::utils::init_repo], Result: [null, ]. Thread: Worker-5: Initializing s/w repositories
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:00:59.623
+!MESSAGE XSCT Command: [set query_var1 $::env(RDI_DATADIR)], Thread: Worker-5: Initializing s/w repositories
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:00:59.629
+!MESSAGE XSCT command with result: [set query_var1 $::env(RDI_DATADIR)], Result: [null, /home/alexey/Xilinx/Vitis/2020.2/data]. Thread: Worker-5: Initializing s/w repositories
+
+!ENTRY org.eclipse.launchbar.core 2 0 2026-09-28 16:02:18.768
+!MESSAGE Enablement expression is missing for descriptor type org.eclipse.cdt.debug.core.coreBuildDescriptorType
+
+!ENTRY org.eclipse.launchbar.core 2 0 2026-09-28 16:02:18.770
+!MESSAGE Enablement expression is missing for config provider for org.eclipse.cdt.debug.core.coreBuildDescriptorType
+
+!ENTRY org.eclipse.launchbar.core 2 0 2026-09-28 16:02:18.771
+!MESSAGE Enablement expression is missing for config provider for org.eclipse.cdt.debug.core.coreBuildDescriptorType
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:52:39.451
+!MESSAGE XSCT Command: [::hsi::utils::openhw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa], Thread: Worker-14: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:52:43.087
+!MESSAGE XSCT command with result: [::hsi::utils::openhw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa], Result: [null, ]. Thread: Worker-14: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:52:43.101
+!MESSAGE XSCT Command: [ ::hsi::utils::set_current_hw_sw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss ], Thread: Worker-14: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:52:43.110
+!MESSAGE XSCT command with result: [ ::hsi::utils::set_current_hw_sw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss ], Result: [null, ]. Thread: Worker-14: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:52:43.111
+!MESSAGE XSCT Command: [::hsi::utils::get_hw_sw_details -json /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-14: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:52:43.118
+!MESSAGE XSCT command with result: [::hsi::utils::get_hw_sw_details -json /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss], Result: [null, {"procname": "ps7_cortexa9_0",
+"osname": "standalone",
+"osver": "7.3",
+}]. Thread: Worker-14: Build Project
+
+!ENTRY com.xilinx.sdk.utils 1 0 2026-09-28 16:52:43.120
+!MESSAGE Generating MD5 hash for file: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss ...
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:52:43.137
+!MESSAGE XSCT Command: [::hsi::utils::closesw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-14: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:52:43.140
+!MESSAGE XSCT command with result: [::hsi::utils::closesw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss], Result: [null, ]. Thread: Worker-14: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:55:00.376
+!MESSAGE XSCT Command: [ ::hsi::utils::set_current_hw_sw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss ], Thread: Worker-13: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:55:00.386
+!MESSAGE XSCT command with result: [ ::hsi::utils::set_current_hw_sw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss ], Result: [null, ]. Thread: Worker-13: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:55:00.388
+!MESSAGE XSCT Command: [::hsi::utils::get_hw_sw_details -json /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-13: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:55:00.393
+!MESSAGE XSCT command with result: [::hsi::utils::get_hw_sw_details -json /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss], Result: [null, {"procname": "ps7_cortexa9_0",
+"osname": "standalone",
+"osver": "7.3",
+}]. Thread: Worker-13: Build Project
+
+!ENTRY com.xilinx.sdk.utils 1 0 2026-09-28 16:55:00.394
+!MESSAGE Generating MD5 hash for file: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss ...
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:55:00.400
+!MESSAGE XSCT Command: [::hsi::utils::closesw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-13: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:55:00.404
+!MESSAGE XSCT command with result: [::hsi::utils::closesw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss], Result: [null, ]. Thread: Worker-13: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:56:21.238
+!MESSAGE XSCT Command: [ ::hsi::utils::set_current_hw_sw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss ], Thread: Worker-17: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:56:21.298
+!MESSAGE XSCT command with result: [ ::hsi::utils::set_current_hw_sw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss ], Result: [null, ]. Thread: Worker-17: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:56:21.302
+!MESSAGE XSCT Command: [::hsi::utils::get_hw_sw_details -json /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-17: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:56:21.308
+!MESSAGE XSCT command with result: [::hsi::utils::get_hw_sw_details -json /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss], Result: [null, {"procname": "ps7_cortexa9_0",
+"osname": "standalone",
+"osver": "7.3",
+}]. Thread: Worker-17: Build Project
+
+!ENTRY com.xilinx.sdk.utils 1 0 2026-09-28 16:56:21.310
+!MESSAGE Generating MD5 hash for file: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss ...
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:56:21.314
+!MESSAGE XSCT Command: [::hsi::utils::closesw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-17: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:56:21.317
+!MESSAGE XSCT command with result: [::hsi::utils::closesw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss], Result: [null, ]. Thread: Worker-17: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:57:02.408
+!MESSAGE XSCT Command: [ ::hsi::utils::set_current_hw_sw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss ], Thread: Worker-12: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:57:02.418
+!MESSAGE XSCT command with result: [ ::hsi::utils::set_current_hw_sw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss ], Result: [null, ]. Thread: Worker-12: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:57:02.419
+!MESSAGE XSCT Command: [::hsi::utils::get_hw_sw_details -json /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-12: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:57:02.423
+!MESSAGE XSCT command with result: [::hsi::utils::get_hw_sw_details -json /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss], Result: [null, {"procname": "ps7_cortexa9_0",
+"osname": "standalone",
+"osver": "7.3",
+}]. Thread: Worker-12: Build Project
+
+!ENTRY com.xilinx.sdk.utils 1 0 2026-09-28 16:57:02.424
+!MESSAGE Generating MD5 hash for file: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss ...
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:57:02.426
+!MESSAGE XSCT Command: [::hsi::utils::closesw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-12: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:57:02.429
+!MESSAGE XSCT command with result: [::hsi::utils::closesw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss], Result: [null, ]. Thread: Worker-12: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:57:32.817
+!MESSAGE XSCT Command: [ ::hsi::utils::set_current_hw_sw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss ], Thread: Worker-10: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:57:32.884
+!MESSAGE XSCT command with result: [ ::hsi::utils::set_current_hw_sw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss ], Result: [null, ]. Thread: Worker-10: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:57:32.887
+!MESSAGE XSCT Command: [::hsi::utils::get_hw_sw_details -json /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-10: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:57:32.893
+!MESSAGE XSCT command with result: [::hsi::utils::get_hw_sw_details -json /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss], Result: [null, {"procname": "ps7_cortexa9_0",
+"osname": "standalone",
+"osver": "7.3",
+}]. Thread: Worker-10: Build Project
+
+!ENTRY com.xilinx.sdk.utils 1 0 2026-09-28 16:57:32.894
+!MESSAGE Generating MD5 hash for file: /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss ...
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:57:32.896
+!MESSAGE XSCT Command: [::hsi::utils::closesw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-10: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2026-09-28 16:57:32.899
+!MESSAGE XSCT command with result: [::hsi::utils::closesw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/sw/zynq_wrapper/standalone_ps7_cortexa9_0/system.mss], Result: [null, ]. Thread: Worker-10: Build Project
