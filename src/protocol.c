@@ -24,15 +24,15 @@ static uint32_t read_u32(const uint8_t *buff) {
          | ((uint32_t)buff[3] << 24);
 }
 
-Error Packet_Serialize(const Packet *packetPtr, uint8_t *buff, uint32_t size, uint32_t *sizeUsed) {
-    if (!packetPtr || !buff) return ERROR_ARG;
+Error Packet_Serialize(const Packet *p, uint8_t *buff, uint32_t size, uint32_t *sizeUsed) {
+    if (!p || !buff) return ERROR_ARG;
     if (size < 1) return ERROR_ARG;
-    if (packetPtr->type > PACKET_SET_STREAM_DATA) return ERROR_ARG;
+    if (p->type > PACKET_SET_STREAM_DATA) return ERROR_ARG;
 
-    buff[0] = (uint8_t)packetPtr->type;
+    buff[0] = (uint8_t)p->type;
     uint32_t offset = 1;
 
-    switch (packetPtr->type) {
+    switch (p->type) {
 
     case PACKET_GET_STREAM_INFO:
         if (sizeUsed) *sizeUsed = offset;
@@ -40,9 +40,9 @@ Error Packet_Serialize(const Packet *packetPtr, uint8_t *buff, uint32_t size, ui
 
     case PACKET_SET_STREAM_INFO:
         if (size < offset + 5) return ERROR_ARG;
-        write_u16(&buff[offset], packetPtr->info.width);  offset += 2;
-        write_u16(&buff[offset], packetPtr->info.height); offset += 2;
-        buff[offset++] = packetPtr->info.channels;
+        write_u16(&buff[offset], p->info.width);  offset += 2;
+        write_u16(&buff[offset], p->info.height); offset += 2;
+        buff[offset++] = p->info.channels;
         if (sizeUsed) *sizeUsed = offset;
         return ERROR_OK;
 
@@ -56,21 +56,21 @@ Error Packet_Serialize(const Packet *packetPtr, uint8_t *buff, uint32_t size, ui
 
     case PACKET_GET_STREAM_DATA:
         if (size < offset + 10) return ERROR_ARG;
-        write_u32(&buff[offset], packetPtr->data.frame); offset += 4;
-        write_u32(&buff[offset], packetPtr->data.start); offset += 4;
-        write_u16(&buff[offset], packetPtr->data.size);  offset += 2;
+        write_u32(&buff[offset], p->data.frame); offset += 4;
+        write_u32(&buff[offset], p->data.start); offset += 4;
+        write_u16(&buff[offset], p->data.size);  offset += 2;
         if (sizeUsed) *sizeUsed = offset;
         return ERROR_OK;
 
     case PACKET_SET_STREAM_DATA:
-        if (packetPtr->data.size > 0 && !packetPtr->data.data) return ERROR_ARG;
-        if (size < offset + 10u + packetPtr->data.size) return ERROR_ARG;
-        write_u32(&buff[offset], packetPtr->data.frame); offset += 4;
-        write_u32(&buff[offset], packetPtr->data.start); offset += 4;
-        write_u16(&buff[offset], packetPtr->data.size);  offset += 2;
-        if (packetPtr->data.size) {
-            memcpy(&buff[offset], packetPtr->data.data, packetPtr->data.size);
-            offset += packetPtr->data.size;
+        if (p->data.size > 0 && !p->data.data) return ERROR_ARG;
+        if (size < offset + 10u + p->data.size) return ERROR_ARG;
+        write_u32(&buff[offset], p->data.frame); offset += 4;
+        write_u32(&buff[offset], p->data.start); offset += 4;
+        write_u16(&buff[offset], p->data.size);  offset += 2;
+        if (p->data.size) {
+            memcpy(&buff[offset], p->data.data, p->data.size);
+            offset += p->data.size;
         }
         if (sizeUsed) *sizeUsed = offset;
         return ERROR_OK;
@@ -79,26 +79,26 @@ Error Packet_Serialize(const Packet *packetPtr, uint8_t *buff, uint32_t size, ui
     return ERROR_ARG;
 }
 
-Error Packet_Deserialize(const uint8_t *buff, uint32_t size, Packet *packetPtr) {
-    if (!buff || !packetPtr) return ERROR_ARG;
+Error Packet_Deserialize(const uint8_t *buff, uint32_t size, Packet *p) {
+    if (!buff || !p) return ERROR_ARG;
     if (size<1) return ERROR_ARG;
 
     uint8_t rawType = buff[0];
     if (rawType > PACKET_SET_STREAM_DATA) return ERROR_READ;
 
-    packetPtr->type = (PacketType)rawType;
+    p->type = (PacketType)rawType;
     uint32_t offset = 1;
 
-    switch (packetPtr->type) {
+    switch (p->type) {
 
     case PACKET_GET_STREAM_INFO:
         return ERROR_OK;
 
     case PACKET_SET_STREAM_INFO:
         if (size < offset + 5) return ERROR_READ;
-        packetPtr->info.width    = read_u16(&buff[offset]); offset += 2;
-        packetPtr->info.height   = read_u16(&buff[offset]); offset += 2;
-        packetPtr->info.channels = buff[offset++];
+        p->info.width    = read_u16(&buff[offset]); offset += 2;
+        p->info.height   = read_u16(&buff[offset]); offset += 2;
+        p->info.channels = buff[offset++];
         return ERROR_OK;
 
     case PACKET_START_STREAM:
@@ -109,31 +109,31 @@ Error Packet_Deserialize(const uint8_t *buff, uint32_t size, Packet *packetPtr) 
 
     case PACKET_GET_STREAM_DATA:
         if (size < offset + 10) return ERROR_READ;
-        packetPtr->data.frame = read_u32(&buff[offset]); offset += 4;
-        packetPtr->data.start = read_u32(&buff[offset]); offset += 4;
-        packetPtr->data.size  = read_u16(&buff[offset]); offset += 2;
-        packetPtr->data.data  = NULL;
+        p->data.frame = read_u32(&buff[offset]); offset += 4;
+        p->data.start = read_u32(&buff[offset]); offset += 4;
+        p->data.size  = read_u16(&buff[offset]); offset += 2;
+        p->data.data  = NULL;
         return ERROR_OK;
 
     case PACKET_SET_STREAM_DATA:
         if (size < offset + 10) return ERROR_READ;
-        packetPtr->data.frame = read_u32(&buff[offset]); offset += 4;
-        packetPtr->data.start = read_u32(&buff[offset]); offset += 4;
-        packetPtr->data.size  = read_u16(&buff[offset]); offset += 2;
+        p->data.frame = read_u32(&buff[offset]); offset += 4;
+        p->data.start = read_u32(&buff[offset]); offset += 4;
+        p->data.size  = read_u16(&buff[offset]); offset += 2;
 
-        if (packetPtr->data.size == 0) {
-            packetPtr->data.data = NULL;
+        if (p->data.size == 0) {
+            p->data.data = NULL;
             return ERROR_OK;
         }
-        if (size < offset + packetPtr->data.size) return ERROR_READ;
-        packetPtr->data.data = (uint8_t *)&buff[offset];
+        if (size < offset + p->data.size) return ERROR_READ;
+        p->data.data = (uint8_t *)&buff[offset];
         return ERROR_OK;
     }
 
     return ERROR_READ;
 }
 
-static uint32_t broadcast_FrameSize(const Broadcast *b) {
+static uint32_t Broadcast_FrameSize(const Broadcast *b) {
     return (uint32_t)b->width
          * (uint32_t)b->height
          * (uint32_t)b->channels;
@@ -164,7 +164,7 @@ Error Broadcast_Responde(Broadcast *b, Addr addr, const Packet *req, Packet *res
 		case PACKET_GET_STREAM_DATA: {
 			if (!res || !b->data) return ERROR_ARG;
 
-			uint32_t frameSize = broadcast_FrameSize(b);
+			uint32_t frameSize = Broadcast_FrameSize(b);
 			if (frameSize == 0) return ERROR_ARG;
 
 			uint32_t start = req->data.start;
@@ -186,12 +186,12 @@ Error Broadcast_Responde(Broadcast *b, Addr addr, const Packet *req, Packet *res
     }
 }
 
-Error Broadcast_Sream(Broadcast *b, Packet *packetPtr) {
-    if (!b || !packetPtr) return ERROR_ARG;
+Error Broadcast_Stream(Broadcast *b, Packet *p) {
+    if (!b || !p) return ERROR_ARG;
     if (!b->streaming) return ERROR_ARG;
     if (!b->data) return ERROR_ARG;
 
-    uint32_t frameSize = broadcast_FrameSize(b);
+    uint32_t frameSize = Broadcast_FrameSize(b);
 
     if (frameSize==0) return ERROR_ARG;
     if (b->offset>=frameSize)  return ERROR_READ;
@@ -199,68 +199,82 @@ Error Broadcast_Sream(Broadcast *b, Packet *packetPtr) {
     uint32_t remaining = frameSize-b->offset;
     uint16_t size = (remaining>MAX_PACKET_DATA_SIZE) ? (uint16_t)MAX_PACKET_DATA_SIZE : (uint16_t)remaining;
 
-    packetPtr->type       = PACKET_SET_STREAM_DATA;
-    packetPtr->data.frame = b->frame;
-    packetPtr->data.start = b->offset;
-    packetPtr->data.size  = size;
-    packetPtr->data.data  = b->data+b->offset;
+    p->type       = PACKET_SET_STREAM_DATA;
+    p->data.frame = b->frame;
+    p->data.start = b->offset;
+    p->data.size  = size;
+    p->data.data  = b->data+b->offset;
 
     b->offset += size;
 
     return ERROR_OK;
 }
 
-Error Broadcast_Receive(Broadcast *b, const Packet *p, int *frameReceived) {
+Error Broadcast_Receive(Broadcast *b, const Packet *p, int *frameReceived, Packet *request) {
     if (!b) return ERROR_ARG;
     if (frameReceived) *frameReceived = 0;
+    if (request) memset(request, 0, sizeof(*request));
     if (!b->data) return ERROR_ARG;
 
     switch (p->type) {
-    case PACKET_SET_STREAM_INFO:
-        b->width     = p->info.width;
-        b->height    = p->info.height;
-        b->channels  = p->info.channels;
-        return ERROR_OK;
+        case PACKET_SET_STREAM_INFO:
+            b->width     = p->info.width;
+            b->height    = p->info.height;
+            b->channels  = p->info.channels;
+            return ERROR_OK;
 
-    case PACKET_SET_STREAM_DATA: {
-        uint32_t frameSize = broadcast_FrameSize(b);
-        if (frameSize == 0) return ERROR_ARG;
+        case PACKET_SET_STREAM_DATA: {
+            uint32_t frameSize = Broadcast_FrameSize(b);
+            if (frameSize == 0) return ERROR_ARG;
 
-        uint8_t newFrame = (uint8_t)p->data.frame;
+            uint8_t newFrame = (uint8_t)p->data.frame;
 
-        if (newFrame!=b->frame) {
-            b->frame  = newFrame;
-            b->offset = 0;
+            if (newFrame != b->frame) {
+                b->frame  = newFrame;
+                b->offset = 0;
+                if (frameReceived) *frameReceived = 1;
+            }
+
+            uint32_t start  = p->data.start;
+            uint32_t length = p->data.size;
+
+            if (start >= frameSize) return ERROR_READ;
+            if (start + length > frameSize) length = frameSize - start;
+
+            if (start > b->offset && request) {
+                uint32_t gapStart = b->offset;
+                uint32_t gapSize  = start - b->offset;
+                if (gapSize > MAX_PACKET_DATA_SIZE)
+                    gapSize = MAX_PACKET_DATA_SIZE;
+
+                request->type       = PACKET_GET_STREAM_DATA;
+                request->data.frame = b->frame;
+                request->data.start = gapStart;
+                request->data.size  = (uint16_t)gapSize;
+                request->data.data  = NULL;
+            }
+
+            if (p->data.data && length) {
+                memcpy(b->data + start, p->data.data, length);
+            }
+
+            if (start + length > b->offset) {
+                b->offset = start + length;
+            }
+
+            if (b->offset >= frameSize) {
+                if (frameReceived) *frameReceived = 1;
+            }
+
+            return ERROR_OK;
+        }
+
+        case PACKET_END_STREAM:
+            b->streaming = 0;
             if (frameReceived) *frameReceived = 1;
-        }
+            return ERROR_OK;
 
-        uint32_t start = p->data.start;
-        uint32_t length = p->data.size;
-
-        if (start>=frameSize) return ERROR_READ;
-        if (start+length>frameSize) length = frameSize-start;
-
-        if (p->data.data && length) {
-            memcpy(b->data+start, p->data.data, length);
-        }
-
-        if (start+length>b->offset) {
-            b->offset = start+length;
-        }
-
-        if (b->offset >= frameSize) {
-            if (frameReceived) *frameReceived = 1;
-        }
-
-        return ERROR_OK;
-    }
-
-    case PACKET_END_STREAM:
-        b->streaming = 0;
-        if (frameReceived) *frameReceived = 1;
-        return ERROR_OK;
-
-    default:
-        return ERROR_ARG;
+        default:
+            return ERROR_ARG;
     }
 }

@@ -9,6 +9,7 @@
 #define MAX_PACKET_DATA_SIZE 1024
 
 typedef enum {
+	PACKET_NONE,
 	PACKET_GET_STREAM_INFO,
 	PACKET_SET_STREAM_INFO,
 	PACKET_START_STREAM,
@@ -53,7 +54,7 @@ typedef struct {
 } Broadcast;
 
 Error Broadcast_Responde(Broadcast *b, Addr addr, const Packet *req, Packet *res);
-Error Broadcast_Sream(Broadcast *b, Packet *p);
-Error Broadcast_Receive(Broadcast *b, const Packet *p, int *frameReceived);
+Error Broadcast_Stream(Broadcast *b, Packet *p);
+Error Broadcast_Receive(Broadcast *b, const Packet *p, int *frameReceived, Packet *request);
 
 #endif
