@@ -1140,3 +1140,1052 @@ con
 16:56:21 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
 16:57:02 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
 16:57:32 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+11:08:57 INFO  : Launching XSCT server: xsct -n  -interactive /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/temp_xsdb_launch_script.tcl
+11:09:01 INFO  : XSCT server has started successfully.
+11:09:02 INFO  : plnx-install-location is set to ''
+11:09:02 INFO  : Successfully done setting XSCT server connection channel  
+11:09:02 INFO  : Successfully done setting workspace for the tool. 
+11:09:03 INFO  : Platform repository initialization has completed.
+11:09:04 INFO  : Registering command handlers for Vitis TCF services
+11:09:04 INFO  : Successfully done query RDI_DATADIR 
+12:23:33 INFO  : Result from executing command 'getProjects': zynq_wrapper
+12:23:33 INFO  : Result from executing command 'getPlatforms': zynq_wrapper|/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/zynq_wrapper.xpfm
+12:23:36 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+12:24:04 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+12:24:04 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+12:24:04 INFO  : 'jtag frequency' command is executed.
+12:24:04 INFO  : Context for 'APU' is selected.
+12:24:05 INFO  : System reset is completed.
+12:24:08 INFO  : 'after 3000' command is executed.
+12:24:08 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+12:24:10 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+12:24:10 INFO  : Context for 'APU' is selected.
+12:24:10 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+12:24:10 INFO  : 'configparams force-mem-access 1' command is executed.
+12:24:10 INFO  : Context for 'APU' is selected.
+12:24:10 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+12:24:11 INFO  : 'ps7_init' command is executed.
+12:24:11 INFO  : 'ps7_post_config' command is executed.
+12:24:11 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+12:24:11 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+12:24:11 INFO  : 'configparams force-mem-access 0' command is executed.
+12:24:11 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+12:24:11 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+12:24:11 INFO  : 'con' command is executed.
+12:24:11 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+12:24:11 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+12:50:21 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+12:50:32 INFO  : Disconnected from the channel tcfchan#2.
+12:50:33 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+12:50:33 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+12:50:33 INFO  : 'jtag frequency' command is executed.
+12:50:33 INFO  : Context for 'APU' is selected.
+12:50:33 INFO  : System reset is completed.
+12:50:36 INFO  : 'after 3000' command is executed.
+12:50:36 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+12:50:39 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+12:50:39 INFO  : Context for 'APU' is selected.
+12:50:39 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+12:50:39 INFO  : 'configparams force-mem-access 1' command is executed.
+12:50:39 INFO  : Context for 'APU' is selected.
+12:50:39 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+12:50:39 INFO  : 'ps7_init' command is executed.
+12:50:39 INFO  : 'ps7_post_config' command is executed.
+12:50:39 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+12:50:40 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+12:50:40 INFO  : 'configparams force-mem-access 0' command is executed.
+12:50:40 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+12:50:40 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+12:50:40 INFO  : 'con' command is executed.
+12:50:40 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+12:50:40 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+12:51:50 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+12:51:57 INFO  : Disconnected from the channel tcfchan#3.
+12:51:58 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+12:51:58 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+12:51:58 INFO  : 'jtag frequency' command is executed.
+12:51:58 INFO  : Context for 'APU' is selected.
+12:51:58 INFO  : System reset is completed.
+12:52:01 INFO  : 'after 3000' command is executed.
+12:52:01 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+12:52:03 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+12:52:03 INFO  : Context for 'APU' is selected.
+12:52:03 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+12:52:03 INFO  : 'configparams force-mem-access 1' command is executed.
+12:52:03 INFO  : Context for 'APU' is selected.
+12:52:03 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+12:52:04 INFO  : 'ps7_init' command is executed.
+12:52:04 INFO  : 'ps7_post_config' command is executed.
+12:52:04 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+12:52:04 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+12:52:04 INFO  : 'configparams force-mem-access 0' command is executed.
+12:52:04 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+12:52:04 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+12:52:04 INFO  : 'con' command is executed.
+12:52:04 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+12:52:04 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+13:25:43 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+13:25:56 INFO  : Disconnected from the channel tcfchan#4.
+13:25:57 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+13:25:57 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+13:25:57 INFO  : 'jtag frequency' command is executed.
+13:25:57 INFO  : Context for 'APU' is selected.
+13:25:57 INFO  : System reset is completed.
+13:26:00 INFO  : 'after 3000' command is executed.
+13:26:00 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+13:26:02 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+13:26:02 INFO  : Context for 'APU' is selected.
+13:26:02 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+13:26:02 INFO  : 'configparams force-mem-access 1' command is executed.
+13:26:02 INFO  : Context for 'APU' is selected.
+13:26:02 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+13:26:03 INFO  : 'ps7_init' command is executed.
+13:26:03 INFO  : 'ps7_post_config' command is executed.
+13:26:03 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+13:26:03 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+13:26:03 INFO  : 'configparams force-mem-access 0' command is executed.
+13:26:03 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+13:26:03 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+13:26:03 INFO  : 'con' command is executed.
+13:26:03 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+13:26:03 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+13:38:35 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+13:38:45 INFO  : Disconnected from the channel tcfchan#5.
+13:38:46 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+13:38:46 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+13:38:46 INFO  : 'jtag frequency' command is executed.
+13:38:46 INFO  : Context for 'APU' is selected.
+13:38:46 INFO  : System reset is completed.
+13:38:49 INFO  : 'after 3000' command is executed.
+13:38:49 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+13:38:52 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+13:38:52 INFO  : Context for 'APU' is selected.
+13:38:52 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+13:38:52 INFO  : 'configparams force-mem-access 1' command is executed.
+13:38:52 INFO  : Context for 'APU' is selected.
+13:38:52 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+13:38:52 INFO  : 'ps7_init' command is executed.
+13:38:52 INFO  : 'ps7_post_config' command is executed.
+13:38:52 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+13:38:53 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+13:38:53 INFO  : 'configparams force-mem-access 0' command is executed.
+13:38:53 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+13:38:53 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+13:38:53 INFO  : 'con' command is executed.
+13:38:53 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+13:38:53 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+13:45:17 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+13:45:22 INFO  : Disconnected from the channel tcfchan#6.
+13:45:23 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+13:45:23 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+13:45:23 INFO  : 'jtag frequency' command is executed.
+13:45:23 INFO  : Context for 'APU' is selected.
+13:45:23 INFO  : System reset is completed.
+13:45:26 INFO  : 'after 3000' command is executed.
+13:45:26 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+13:45:29 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+13:45:29 INFO  : Context for 'APU' is selected.
+13:45:29 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+13:45:29 INFO  : 'configparams force-mem-access 1' command is executed.
+13:45:29 INFO  : Context for 'APU' is selected.
+13:45:29 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+13:45:29 INFO  : 'ps7_init' command is executed.
+13:45:29 INFO  : 'ps7_post_config' command is executed.
+13:45:29 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+13:45:30 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+13:45:30 INFO  : 'configparams force-mem-access 0' command is executed.
+13:45:30 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+13:45:30 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+13:45:30 INFO  : 'con' command is executed.
+13:45:30 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+13:45:30 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+13:46:17 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+13:46:20 INFO  : Disconnected from the channel tcfchan#7.
+13:46:21 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+13:46:21 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+13:46:21 INFO  : 'jtag frequency' command is executed.
+13:46:21 INFO  : Context for 'APU' is selected.
+13:46:21 INFO  : System reset is completed.
+13:46:24 INFO  : 'after 3000' command is executed.
+13:46:24 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+13:46:26 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+13:46:27 INFO  : Context for 'APU' is selected.
+13:46:27 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+13:46:27 INFO  : 'configparams force-mem-access 1' command is executed.
+13:46:27 INFO  : Context for 'APU' is selected.
+13:46:27 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+13:46:27 INFO  : 'ps7_init' command is executed.
+13:46:27 INFO  : 'ps7_post_config' command is executed.
+13:46:27 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+13:46:27 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+13:46:27 INFO  : 'configparams force-mem-access 0' command is executed.
+13:46:27 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+13:46:27 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+13:46:27 INFO  : 'con' command is executed.
+13:46:27 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+13:46:27 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+14:39:36 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+14:40:37 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+14:41:27 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+14:41:59 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+14:42:18 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+14:42:35 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+14:43:08 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+14:43:13 INFO  : Disconnected from the channel tcfchan#8.
+14:43:14 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+14:43:14 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+14:43:14 INFO  : 'jtag frequency' command is executed.
+14:43:14 INFO  : Context for 'APU' is selected.
+14:43:14 INFO  : System reset is completed.
+14:43:17 INFO  : 'after 3000' command is executed.
+14:43:18 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+14:43:20 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+14:43:20 INFO  : Context for 'APU' is selected.
+14:43:20 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+14:43:20 INFO  : 'configparams force-mem-access 1' command is executed.
+14:43:20 INFO  : Context for 'APU' is selected.
+14:43:20 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+14:43:20 INFO  : 'ps7_init' command is executed.
+14:43:20 INFO  : 'ps7_post_config' command is executed.
+14:43:20 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+14:43:21 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+14:43:21 INFO  : 'configparams force-mem-access 0' command is executed.
+14:43:21 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+14:43:21 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+14:43:21 INFO  : 'con' command is executed.
+14:43:21 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+14:43:21 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+14:54:11 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+14:54:15 INFO  : Disconnected from the channel tcfchan#9.
+14:54:16 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+14:54:17 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+14:54:17 INFO  : 'jtag frequency' command is executed.
+14:54:17 INFO  : Context for 'APU' is selected.
+14:54:17 INFO  : System reset is completed.
+14:54:20 INFO  : 'after 3000' command is executed.
+14:54:20 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+14:54:22 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+14:54:22 INFO  : Context for 'APU' is selected.
+14:54:22 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+14:54:22 INFO  : 'configparams force-mem-access 1' command is executed.
+14:54:22 INFO  : Context for 'APU' is selected.
+14:54:22 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+14:54:23 INFO  : 'ps7_init' command is executed.
+14:54:23 INFO  : 'ps7_post_config' command is executed.
+14:54:23 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+14:54:24 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+14:54:24 INFO  : 'configparams force-mem-access 0' command is executed.
+14:54:24 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+14:54:24 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+14:54:24 INFO  : 'con' command is executed.
+14:54:24 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+14:54:24 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+14:56:01 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+14:56:06 INFO  : Disconnected from the channel tcfchan#10.
+14:56:07 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+14:56:08 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+14:56:08 INFO  : 'jtag frequency' command is executed.
+14:56:08 INFO  : Context for 'APU' is selected.
+14:56:08 INFO  : System reset is completed.
+14:56:11 INFO  : 'after 3000' command is executed.
+14:56:11 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+14:56:13 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+14:56:13 INFO  : Context for 'APU' is selected.
+14:56:13 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+14:56:13 INFO  : 'configparams force-mem-access 1' command is executed.
+14:56:13 INFO  : Context for 'APU' is selected.
+14:56:13 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+14:56:14 INFO  : 'ps7_init' command is executed.
+14:56:14 INFO  : 'ps7_post_config' command is executed.
+14:56:14 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+14:56:15 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+14:56:15 INFO  : 'configparams force-mem-access 0' command is executed.
+14:56:15 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+14:56:15 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+14:56:15 INFO  : 'con' command is executed.
+14:56:15 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+14:56:15 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+14:57:07 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+14:57:11 INFO  : Disconnected from the channel tcfchan#11.
+14:57:12 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+14:57:13 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+14:57:13 INFO  : 'jtag frequency' command is executed.
+14:57:13 INFO  : Context for 'APU' is selected.
+14:57:13 INFO  : System reset is completed.
+14:57:16 INFO  : 'after 3000' command is executed.
+14:57:16 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+14:57:18 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+14:57:18 INFO  : Context for 'APU' is selected.
+14:57:18 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+14:57:18 INFO  : 'configparams force-mem-access 1' command is executed.
+14:57:18 INFO  : Context for 'APU' is selected.
+14:57:18 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+14:57:19 INFO  : 'ps7_init' command is executed.
+14:57:19 INFO  : 'ps7_post_config' command is executed.
+14:57:19 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+14:57:19 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+14:57:19 INFO  : 'configparams force-mem-access 0' command is executed.
+14:57:19 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+14:57:20 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+14:57:20 INFO  : 'con' command is executed.
+14:57:20 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+14:57:20 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+14:57:30 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+14:58:07 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+14:58:12 INFO  : Disconnected from the channel tcfchan#12.
+14:58:13 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+14:58:13 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+14:58:13 INFO  : 'jtag frequency' command is executed.
+14:58:13 INFO  : Context for 'APU' is selected.
+14:58:13 INFO  : System reset is completed.
+14:58:16 INFO  : 'after 3000' command is executed.
+14:58:16 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+14:58:19 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+14:58:19 INFO  : Context for 'APU' is selected.
+14:58:19 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+14:58:19 INFO  : 'configparams force-mem-access 1' command is executed.
+14:58:19 INFO  : Context for 'APU' is selected.
+14:58:19 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+14:58:19 INFO  : 'ps7_init' command is executed.
+14:58:19 INFO  : 'ps7_post_config' command is executed.
+14:58:19 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+14:58:20 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+14:58:20 INFO  : 'configparams force-mem-access 0' command is executed.
+14:58:20 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+14:58:20 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+14:58:20 INFO  : 'con' command is executed.
+14:58:20 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+14:58:20 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+15:04:40 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+15:04:49 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+15:04:58 INFO  : Disconnected from the channel tcfchan#13.
+15:04:59 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:04:59 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+15:04:59 INFO  : 'jtag frequency' command is executed.
+15:04:59 INFO  : Context for 'APU' is selected.
+15:04:59 INFO  : System reset is completed.
+15:05:02 INFO  : 'after 3000' command is executed.
+15:05:02 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+15:05:05 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+15:05:05 INFO  : Context for 'APU' is selected.
+15:05:05 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+15:05:05 INFO  : 'configparams force-mem-access 1' command is executed.
+15:05:05 INFO  : Context for 'APU' is selected.
+15:05:05 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+15:05:05 INFO  : 'ps7_init' command is executed.
+15:05:05 INFO  : 'ps7_post_config' command is executed.
+15:05:05 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:05:06 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:05:06 INFO  : 'configparams force-mem-access 0' command is executed.
+15:05:06 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:05:06 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:05:06 INFO  : 'con' command is executed.
+15:05:06 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:05:06 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+15:08:16 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+15:08:18 INFO  : Disconnected from the channel tcfchan#14.
+15:08:19 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:08:20 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+15:08:20 INFO  : 'jtag frequency' command is executed.
+15:08:20 INFO  : Context for 'APU' is selected.
+15:08:20 INFO  : System reset is completed.
+15:08:23 INFO  : 'after 3000' command is executed.
+15:08:23 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+15:08:25 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+15:08:25 INFO  : Context for 'APU' is selected.
+15:08:25 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+15:08:25 INFO  : 'configparams force-mem-access 1' command is executed.
+15:08:25 INFO  : Context for 'APU' is selected.
+15:08:25 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+15:08:26 INFO  : 'ps7_init' command is executed.
+15:08:26 INFO  : 'ps7_post_config' command is executed.
+15:08:26 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:08:26 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:08:26 INFO  : 'configparams force-mem-access 0' command is executed.
+15:08:26 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:08:26 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:08:27 INFO  : 'con' command is executed.
+15:08:27 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:08:27 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+15:10:49 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+15:10:52 INFO  : Disconnected from the channel tcfchan#15.
+15:10:53 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:10:53 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+15:10:53 INFO  : 'jtag frequency' command is executed.
+15:10:53 INFO  : Context for 'APU' is selected.
+15:10:53 INFO  : System reset is completed.
+15:10:56 INFO  : 'after 3000' command is executed.
+15:10:56 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+15:10:59 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+15:10:59 INFO  : Context for 'APU' is selected.
+15:10:59 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+15:10:59 INFO  : 'configparams force-mem-access 1' command is executed.
+15:10:59 INFO  : Context for 'APU' is selected.
+15:10:59 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+15:10:59 INFO  : 'ps7_init' command is executed.
+15:10:59 INFO  : 'ps7_post_config' command is executed.
+15:10:59 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:11:00 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:11:00 INFO  : 'configparams force-mem-access 0' command is executed.
+15:11:00 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:11:00 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:11:00 INFO  : 'con' command is executed.
+15:11:00 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:11:00 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+15:13:40 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+15:13:47 INFO  : Disconnected from the channel tcfchan#16.
+15:13:48 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:13:48 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+15:13:48 INFO  : 'jtag frequency' command is executed.
+15:13:48 INFO  : Context for 'APU' is selected.
+15:13:48 INFO  : System reset is completed.
+15:13:51 INFO  : 'after 3000' command is executed.
+15:13:51 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+15:13:54 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+15:13:54 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:13:54 INFO  : Context for 'APU' is selected.
+15:13:54 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+15:13:54 INFO  : 'configparams force-mem-access 1' command is executed.
+15:13:54 INFO  : Context for 'APU' is selected.
+15:13:54 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+15:13:54 INFO  : 'ps7_init' command is executed.
+15:13:55 INFO  : 'ps7_post_config' command is executed.
+15:13:55 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:13:55 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:13:55 INFO  : 'configparams force-mem-access 0' command is executed.
+15:13:55 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:13:55 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:13:55 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+15:13:55 INFO  : 'con' command is executed.
+15:13:55 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:13:55 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+15:13:55 INFO  : 'jtag frequency' command is executed.
+15:13:55 INFO  : Context for 'APU' is selected.
+15:13:56 INFO  : System reset is completed.
+15:13:59 INFO  : 'after 3000' command is executed.
+15:13:59 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+15:14:01 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+15:14:01 INFO  : Context for 'APU' is selected.
+15:14:01 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+15:14:01 INFO  : 'configparams force-mem-access 1' command is executed.
+15:14:01 INFO  : Context for 'APU' is selected.
+15:14:01 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+15:14:02 INFO  : 'ps7_init' command is executed.
+15:14:02 INFO  : 'ps7_post_config' command is executed.
+15:14:02 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:14:02 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:14:02 INFO  : 'configparams force-mem-access 0' command is executed.
+15:14:02 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:14:02 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:14:02 INFO  : 'con' command is executed.
+15:14:02 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:14:02 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+15:19:04 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+15:19:07 INFO  : Disconnected from the channel tcfchan#17.
+15:19:08 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:19:09 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+15:19:09 INFO  : 'jtag frequency' command is executed.
+15:19:09 INFO  : Context for 'APU' is selected.
+15:19:09 INFO  : System reset is completed.
+15:19:12 INFO  : 'after 3000' command is executed.
+15:19:12 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+15:19:14 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+15:19:14 INFO  : Context for 'APU' is selected.
+15:19:15 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+15:19:15 INFO  : 'configparams force-mem-access 1' command is executed.
+15:19:15 INFO  : Context for 'APU' is selected.
+15:19:15 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+15:19:15 INFO  : 'ps7_init' command is executed.
+15:19:15 INFO  : 'ps7_post_config' command is executed.
+15:19:15 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:19:16 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:19:16 INFO  : 'configparams force-mem-access 0' command is executed.
+15:19:16 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:19:16 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:19:16 INFO  : 'con' command is executed.
+15:19:16 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:19:16 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+15:21:30 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+15:21:33 INFO  : Disconnected from the channel tcfchan#18.
+15:21:34 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:21:35 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+15:21:35 INFO  : 'jtag frequency' command is executed.
+15:21:35 INFO  : Context for 'APU' is selected.
+15:21:35 INFO  : System reset is completed.
+15:21:38 INFO  : 'after 3000' command is executed.
+15:21:38 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+15:21:40 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+15:21:40 INFO  : Context for 'APU' is selected.
+15:21:40 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+15:21:40 INFO  : 'configparams force-mem-access 1' command is executed.
+15:21:40 INFO  : Context for 'APU' is selected.
+15:21:40 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+15:21:41 INFO  : 'ps7_init' command is executed.
+15:21:41 INFO  : 'ps7_post_config' command is executed.
+15:21:41 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:21:41 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:21:41 INFO  : 'configparams force-mem-access 0' command is executed.
+15:21:41 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:21:41 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:21:42 INFO  : 'con' command is executed.
+15:21:42 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:21:42 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+15:23:29 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+15:23:32 INFO  : Disconnected from the channel tcfchan#19.
+15:23:33 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:23:33 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+15:23:33 INFO  : 'jtag frequency' command is executed.
+15:23:33 INFO  : Context for 'APU' is selected.
+15:23:33 INFO  : System reset is completed.
+15:23:36 INFO  : 'after 3000' command is executed.
+15:23:37 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+15:23:39 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+15:23:39 INFO  : Context for 'APU' is selected.
+15:23:39 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+15:23:39 INFO  : 'configparams force-mem-access 1' command is executed.
+15:23:39 INFO  : Context for 'APU' is selected.
+15:23:39 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+15:23:39 INFO  : 'ps7_init' command is executed.
+15:23:39 INFO  : 'ps7_post_config' command is executed.
+15:23:39 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:23:40 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:23:40 INFO  : 'configparams force-mem-access 0' command is executed.
+15:23:40 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:23:40 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:23:40 INFO  : 'con' command is executed.
+15:23:40 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:23:40 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+15:24:13 INFO  : Disconnected from the channel tcfchan#20.
+15:24:14 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:24:15 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+15:24:15 INFO  : 'jtag frequency' command is executed.
+15:24:15 INFO  : Context for 'APU' is selected.
+15:24:15 INFO  : System reset is completed.
+15:24:18 INFO  : 'after 3000' command is executed.
+15:24:18 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+15:24:20 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+15:24:20 INFO  : Context for 'APU' is selected.
+15:24:21 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+15:24:21 INFO  : 'configparams force-mem-access 1' command is executed.
+15:24:21 INFO  : Context for 'APU' is selected.
+15:24:21 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+15:24:21 INFO  : 'ps7_init' command is executed.
+15:24:21 INFO  : 'ps7_post_config' command is executed.
+15:24:21 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:24:22 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:24:22 INFO  : 'configparams force-mem-access 0' command is executed.
+15:24:22 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:24:22 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:24:22 INFO  : 'con' command is executed.
+15:24:22 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:24:22 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+15:28:08 INFO  : Checking for BSP changes to sync application flags for project 'ethernet_image_transfer'...
+15:28:11 INFO  : Disconnected from the channel tcfchan#21.
+15:28:12 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:28:13 INFO  : Jtag cable 'Digilent DSDB 210014A5B25FA' is selected.
+15:28:13 INFO  : 'jtag frequency' command is executed.
+15:28:13 INFO  : Context for 'APU' is selected.
+15:28:13 INFO  : System reset is completed.
+15:28:16 INFO  : 'after 3000' command is executed.
+15:28:16 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}' command is executed.
+15:28:18 INFO  : Device configured successfully with "/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit"
+15:28:18 INFO  : Context for 'APU' is selected.
+15:28:18 INFO  : Hardware design and registers information is loaded from '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa'.
+15:28:18 INFO  : 'configparams force-mem-access 1' command is executed.
+15:28:19 INFO  : Context for 'APU' is selected.
+15:28:19 INFO  : Sourcing of '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl' is done.
+15:28:19 INFO  : 'ps7_init' command is executed.
+15:28:19 INFO  : 'ps7_post_config' command is executed.
+15:28:19 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:28:20 INFO  : The application '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:28:20 INFO  : 'configparams force-mem-access 0' command is executed.
+15:28:20 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent DSDB 210014A5B25FA" && level==0 && jtag_device_ctx=="jsn-DSDB-210014A5B25FA-23727093-0"}
+fpga -file /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/bitstream/zynq_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/zynq_wrapper/export/zynq_wrapper/hw/zynq_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow /home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer/Debug/ethernet_image_transfer.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:28:20 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:28:20 INFO  : 'con' command is executed.
+15:28:20 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:28:20 INFO  : Launch script is exported to file '/home/alexey/programming/systemverilog/ethernet_image_transfer/fpga/ethernet_image_transfer_system/_ide/scripts/debugger_ethernet_image_transfer-default.tcl'
+15:30:54 INFO  : Disconnected from the channel tcfchan#22.

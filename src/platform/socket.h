@@ -4,8 +4,18 @@
 #include "error.h"
 
 #ifdef _WIN32
-    #define WIN32_LEAN_AND_MEAN
-    #include <windows.h>
+    #ifndef WIN32_LEAN_AND_MEAN
+        #define WIN32_LEAN_AND_MEAN
+    #endif
+    #ifndef NOGDI
+        #define NOGDI              // do not pull in wingdi.h  (Rectangle)
+    #endif
+    #ifndef NOUSER
+        #define NOUSER             // do not pull in winuser.h  (CloseWindow, ShowCursor, DrawText)
+    #endif
+    #ifndef NOMINMAX
+        #define NOMINMAX
+    #endif
     #include <winsock2.h>
     #include <ws2tcpip.h>
 #else

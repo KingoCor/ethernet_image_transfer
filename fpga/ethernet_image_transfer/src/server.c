@@ -1,125 +1,173 @@
-#include "server.h"
 #include "protocol.h"
 
-#define PACKET_HEADER_SIZE   (1 + 4 + 4 + 2)
-#define RX_BUFFER_SIZE       (PACKET_HEADER_SIZE + MAX_PACKET_DATA_SIZE)
-#define TX_BUFFER_SIZE       (PACKET_HEADER_SIZE + MAX_PACKET_DATA_SIZE)
+#include "lwip/udp.h"
+#include "lwip/pbuf.h"
+#include "lwip/ip_addr.h"
+#include "xil_printf.h"
 
-static struct udp_pcb *pcb;
+#include <string.h>
 
-static Broadcast b;
+#define UDP_CONN_PORT 12345
 
-void set_image(uint8_t *data, uint16_t width, uint16_t height, uint8_t channels) {
-    b.width    = width;
-    b.height   = height;
-    b.channels = channels;
-    b.data   = data;
-	b.frame  = 0;
-	b.offset = 0;
+static struct udp_pcb *g_pcb;
+static Broadcast       g_bcast;
+static Addr            g_client;
+static int             g_hasClient;
+
+static uint8_t g_rx[64 + MAX_PACKET_DATA_SIZE];
+static uint8_t g_tx[64 + MAX_PACKET_DATA_SIZE];
+
+void PrintAddr(uint32_t ip, uint16_t port) {
+	printf("%lu.%lu.%lu.%lu:%u\r\n",
+		(ip      ) & 0xFF,
+		(ip >>  8) & 0xFF,
+		(ip >> 16) & 0xFF,
+		(ip >> 24) & 0xFF,
+		port
+	);
 }
 
-static void send_pbuf(struct udp_pcb *pcb, struct pbuf *p, const ip_addr_t *addr, u16_t port) {
-    if (!p) return;
-    err_t e = udp_sendto(pcb, p, addr, port);
-    if (e != ERR_OK) xil_printf("udp_sendto err=%d\r\n", e);
-    pbuf_free(p);
+static void addr_from_lwip(const ip_addr_t *src, u16_t port, Addr *dst) {
+    const ip4_addr_t *ip4 = ip_2_ip4(src);
+    dst->ip   = src->addr;
+    dst->port = port;
 }
 
-static err_t send_buffer(const void *data, uint16_t len,
-                         const ip_addr_t *addr, uint16_t port)
-{
-    struct pbuf *p = pbuf_alloc(PBUF_TRANSPORT, len, PBUF_RAM);
-    if (!p) return ERR_MEM;
-
-    err_t err = pbuf_take(p, data, len);
-    if (err != ERR_OK) {
-        pbuf_free(p);
-        return err;
-    }
-
-    err = udp_sendto(pcb, p, addr, port);
-    if (err != ERR_OK) {
-        xil_printf("udp_sendto err=%d\r\n", err);
-    }
-
-    pbuf_free(p);
-    return err;
+static void addr_to_lwip(const Addr *src, ip_addr_t *dst, u16_t *port) {
+    IP4_ADDR(dst,
+            (src->ip      ) & 0xFF,
+    		(src->ip >>  8) & 0xFF,
+    		(src->ip >> 16) & 0xFF,
+            (src->ip >> 24) & 0xFF);
+    *port = src->port;
 }
 
-static void udp_recv_cb(void *arg, struct udp_pcb *tpcb,
-                        struct pbuf *p, const ip_addr_t *addr, u16_t port)
-{
-    if (!p) return;
-
-    uint8_t buf[RX_BUFFER_SIZE];
-    uint16_t len = p->tot_len > sizeof(buf) ? sizeof(buf) : p->tot_len;
-    pbuf_copy_partial(p, buf, len, 0);
-    pbuf_free(p);
-
-    Packet req, res;
-    if (Packet_Deserialize(buf, (uint32_t)len, &req) != ERROR_OK)
-        return;
-
-    Addr client;
-    client.addr = *addr;
-    client.port = port;
-
-    Broadcast_Responde(&b, client, &req, &res);
-
+static void send_packet(struct udp_pcb *pcb, const Packet *p, const Addr *dst) {
     uint32_t used = 0;
-    if (Packet_Serialize(&res, buf, sizeof(buf), &used) != ERROR_OK)
-        return;
-
-    if (req.type == PACKET_START_STREAM) {
-        b.streaming = 1;
-        b.addr      = client;          // запоминаем клиента для server_tick
-        xil_printf("stream start -> %s:%d\r\n",
-                   ipaddr_ntoa(addr), (int)port);
-    } else if (req.type == PACKET_END_STREAM) {
-        xil_printf("stream stop\r\n");
-        b.streaming = 0;
+    Error err = Packet_Serialize(p, g_tx, sizeof(g_tx), &used);
+    if (err != ERROR_OK) {
+    	xil_printf("failed to seriealize, packet will not be sent\r\n");
+    	return;
     }
 
-    send_buffer(buf, (uint16_t)used, addr, port);
+    struct pbuf *pb = pbuf_alloc(PBUF_TRANSPORT, used, PBUF_RAM);
+    if (!pb) {
+    	xil_printf("failed to alloc pbuf, packet will not be sent\r\n");
+    	return;
+    }
+
+    memcpy(pb->payload, g_tx, used);
+
+    ip_addr_t ip;
+    u16_t     port;
+    addr_to_lwip(dst, &ip, &port);
+
+    err_t e = udp_sendto(pcb, pb, &ip, port);
+    if (e != ERR_OK) xil_printf("udp_sendto err=%d\r\n", e);
+
+    pbuf_free(pb);
 }
 
-void server_tick(void)
-{
-    if (!b.streaming) return;
-    if (!b.data)      return;
+void server_set_video(uint8_t *data, uint16_t width, uint16_t height, uint8_t channels) {
+    g_bcast.width    = width;
+    g_bcast.height   = height;
+    g_bcast.channels = channels;
+    g_bcast.data     = data;
+    g_bcast.frame    = 0;
+    g_bcast.offset   = 0;
+    g_bcast.streaming = 0;
+}
+
+void server_stream(void) {
+    if (!g_bcast.streaming) return;
+    if (!g_hasClient)       return;
+    if (!g_bcast.data)      return;
+
+    uint32_t frameSize = (uint32_t)g_bcast.width
+                       * (uint32_t)g_bcast.height
+                       * (uint32_t)g_bcast.channels;
+    if (frameSize == 0) return;
+
+    if (g_bcast.offset >= frameSize) {
+        g_bcast.frame++;
+        g_bcast.offset = 0;
+    }
 
     Packet p;
-    if (Broadcast_Sream(&b, &p) != ERROR_OK)
-        return;
+    Error err = Broadcast_Stream(&g_bcast, &p);
+    if (err != ERROR_OK) return;
 
-    uint8_t buf[TX_BUFFER_SIZE];
-    uint32_t used = 0;
-    if (Packet_Serialize(&p, buf, sizeof(buf), &used) != ERROR_OK)
-        return;
-
-    // Отправляем текущему стриминговому клиенту
-    send_buffer(buf, (uint16_t)used, &b.addr.addr, b.addr.port);
+    send_packet(g_pcb, &p, &g_client);
 }
 
-void start_application(void) {
-	err_t err;
+static void udp_recv_cb(void *arg, struct udp_pcb *pcb, struct pbuf *p, const ip_addr_t *addr, u16_t port) {
+    if (!p) return;
 
-	pcb = udp_new();
-	if (!pcb) {
-		xil_printf("UDP server: Error creating PCB. Out of Memory\r\n");
-		return;
-	}
+    uint16_t len = p->tot_len;
+    if (len > sizeof(g_rx)) len = sizeof(g_rx);
+    pbuf_copy_partial(p, g_rx, len, 0);
+    pbuf_free(p);
 
-	err = udp_bind(pcb, IP_ADDR_ANY, UDP_CONN_PORT);
-	if (err != ERR_OK) {
-		xil_printf("UDP server: Unable to bind to port");
-		xil_printf(" %d: err = %d\r\n", UDP_CONN_PORT, err);
-		udp_remove(pcb);
-		return;
-	}
-	xil_printf("UDP server bound to port %d\r\n", UDP_CONN_PORT);
+    if (len < 1) return;
 
-	udp_recv(pcb, udp_recv_cb, NULL);
+    Packet req;
+    Error err = Packet_Deserialize(g_rx, len, &req);
+    if (err != ERROR_OK) return;
 
-	return;
+    Addr client;
+    addr_from_lwip(addr, port, &client);
+
+    Packet res;
+    memset(&res, 0, sizeof(res));
+
+    switch (req.type) {
+    case PACKET_GET_STREAM_INFO:
+    case PACKET_GET_STREAM_DATA:
+        err = Broadcast_Responde(&g_bcast, client, &req, &res);
+        if (err != ERROR_OK) return;
+        send_packet(pcb, &res, &client);
+        break;
+
+    case PACKET_START_STREAM:
+        err = Broadcast_Responde(&g_bcast, client, &req, NULL);
+        if (err != ERROR_OK) return;
+        g_client    = client;
+        g_hasClient = 1;
+        break;
+
+    case PACKET_END_STREAM:
+        err = Broadcast_Responde(&g_bcast, client, &req, NULL);
+        if (err != ERROR_OK) return;
+        g_hasClient = 0;
+        break;
+
+    default:
+        break;
+    }
+}
+
+void server_init(void) {
+    err_t err;
+
+    memset(&g_bcast, 0, sizeof(g_bcast));
+    g_hasClient = 0;
+    g_client.ip   = 0;
+    g_client.port = 0;
+
+    g_pcb = udp_new();
+    if (!g_pcb) {
+        xil_printf("UDP server: udp_new failed\r\n");
+        return;
+    }
+
+    err = udp_bind(g_pcb, IP_ADDR_ANY, UDP_CONN_PORT);
+    if (err != ERR_OK) {
+        xil_printf("UDP server: bind failed err=%d\r\n", err);
+        udp_remove(g_pcb);
+        g_pcb = NULL;
+        return;
+    }
+
+    udp_recv(g_pcb, udp_recv_cb, NULL);
+    xil_printf("UDP server bound to port %d\r\n", UDP_CONN_PORT);
 }

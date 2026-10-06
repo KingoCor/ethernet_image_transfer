@@ -1,20 +1,19 @@
 #ifndef PROTOCOL_H
 #define PROTOCOL_H
 
-#include "lwipopts.h"
-#include "lwip/ip_addr.h"
-#include "lwip/err.h"
-#include "lwip/udp.h"
-#include "lwip/inet.h"
-#include "xil_printf.h"
-#include "platform.h"
 #include <stdint.h>
 
 #include "error.h"
 
 #define MAX_PACKET_DATA_SIZE 1024
 
+typedef struct Addr {
+    uint32_t ip;    // network byte order
+    uint16_t port;  // host byte order
+} Addr;
+
 typedef enum {
+	PACKET_NONE,
 	PACKET_GET_STREAM_INFO,
 	PACKET_SET_STREAM_INFO,
 	PACKET_START_STREAM,
@@ -48,11 +47,6 @@ Error Packet_Serialize(const Packet *p, uint8_t *buff, uint32_t size, uint32_t *
 Error Packet_Deserialize(const uint8_t *buff, uint32_t size, Packet *p);
 
 typedef struct {
-	ip_addr_t addr;
-	uint16_t port;
-} Addr;
-
-typedef struct {
 	uint16_t width;
 	uint16_t height;
 	uint8_t channels;
@@ -64,7 +58,7 @@ typedef struct {
 } Broadcast;
 
 Error Broadcast_Responde(Broadcast *b, Addr addr, const Packet *req, Packet *res);
-Error Broadcast_Sream(Broadcast *b, Packet *p);
-Error Broadcast_Receive(Broadcast *b, const Packet *p, int *frameReceived);
+Error Broadcast_Stream(Broadcast *b, Packet *p);
+Error Broadcast_Receive(Broadcast *b, const Packet *p, int *frameReceived, Packet *request);
 
 #endif

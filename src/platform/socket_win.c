@@ -38,19 +38,19 @@ Error Socket_Open(Socket *s) {
 void Socket_Close(Socket *s) {
     if (s && s->fd!=(int)INVALID_SOCKET) {
         closesocket(s->fd);
-        s->fd = INVALID_SOCKET;
+        s->fd = (int)INVALID_SOCKET;
         s->is_connected = 0;
     }
 }
 
 Error Socket_SetTimeout(Socket *s, int timeout) {
-	struct timeval tv;
-	tv.tv_sec = timeout/1000;
-	tv.tv_usec = (timeout%1000)*1000;
-	if (setsockopt(s->fd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof(tv))<0) {
-		return ERROR_INIT;
-	}
-	return ERROR_OK;
+	DWORD tv = (DWORD)timeout; // миллисекунды
+
+    if (setsockopt(s->fd, SOL_SOCKET, SO_RCVTIMEO,
+                   (const char*)&tv, sizeof(tv)) == SOCKET_ERROR) {
+        return ERROR_INIT;
+    }
+    return ERROR_OK;
 }
 
 Error Addr_SetPort(Addr *addr, int port) {

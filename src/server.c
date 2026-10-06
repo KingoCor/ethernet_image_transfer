@@ -143,7 +143,7 @@ static int ParseArgs(int argc, char **argv, Config *cfg) {
             }
             break;
         case 't':
-            rc = ParseInt(optarg, &cfg->timeout_ms, 1, 60000);
+            rc = ParseInt(optarg, &cfg->timeout_ms, 0, 60000);
             if (rc != 0) {
                 printf("Invalid --timeout: %s\n", optarg);
                 return -1;
@@ -482,6 +482,7 @@ static int StreamBlock(Server *s, const Config *cfg, uint8_t *scratch, uint32_t 
             printf("SendPacket(STREAM_DATA) failed: %d\n", err);
             break;
         }
+
     }
 
     printf("Streaming finished: %d complete frame(s)\n", framesSent);

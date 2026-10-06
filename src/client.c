@@ -352,7 +352,10 @@ static Error RecvPacket(Client *c, Packet *resp, uint8_t *scratch, uint32_t scra
     uint32_t got = 0;
 
     Error err = Socket_Recv(&c->sock, scratch, scratchSize, &got);
-    if (err != ERROR_OK) return err;
+    if (err != ERROR_OK) {
+        printf("didn't recieve info\n");
+        return err;
+    }
 
     err = Packet_Deserialize(scratch, got, resp);
     return err;
@@ -366,7 +369,10 @@ static int RequestStreamInfo(Client *c) {
 
     for (int attempt = 0; attempt < 5; ++attempt) {
         Error err = SendPacket(c, &req);
-        if (err != ERROR_OK) continue;
+        if (err != ERROR_OK) {
+            printf("can't send request for info\n");
+            continue;
+        }
 
         Packet resp;
         err = RecvPacket(c, &resp, scratch, sizeof(scratch));

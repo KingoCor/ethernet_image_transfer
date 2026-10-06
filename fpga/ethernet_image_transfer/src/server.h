@@ -14,8 +14,8 @@
 
 extern struct netif server_netif;
 
-void set_image(uint8_t *data, uint16_t width, uint16_t height, uint8_t channels);
-void start_application(void);
-void server_tick(void);
+void server_set_video(uint8_t *data, uint16_t width, uint16_t height, uint8_t channels);
+void server_init(void);
+void server_stream(void);
 
 #endif

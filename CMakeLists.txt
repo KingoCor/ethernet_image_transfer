@@ -33,6 +33,12 @@ else()
     list(APPEND PROTOCOL_SOURCES src/platform/socket_linux.c)
 endif()
 
+if(WIN32)
+    set(PLATFORM_LIBS ws2_32)
+else()
+    set(PLATFORM_LIBS "")
+endif()
+
 add_executable(client
     src/client.c
     ${PROTOCOL_SOURCES}
@@ -46,6 +52,7 @@ target_include_directories(client PRIVATE
 target_link_libraries(client PRIVATE
     raylib
     m
+    ${PLATFORM_LIBS}
 )
 
 add_executable(server
@@ -60,4 +67,5 @@ target_include_directories(server PRIVATE
 
 target_link_libraries(server PRIVATE
     m
+    ${PLATFORM_LIBS}
 )

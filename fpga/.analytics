@@ -68,3 +68,35 @@ timestamp=[2026-09-28 16:55:01], mode=BUILD, duration=0:00:01.001, duration_ms=1
 timestamp=[2026-09-28 16:56:22], mode=BUILD, duration=0:00:00.938, duration_ms=938, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
 timestamp=[2026-09-28 16:57:03], mode=BUILD, duration=0:00:00.938, duration_ms=938, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
 timestamp=[2026-09-28 16:57:33], mode=BUILD, duration=0:00:00.990, duration_ms=990, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 11:09:03], mode=WORKBENCH_START, duration=0:00:13.615, duration_ms=13615, data={}
+timestamp=[2026-10-05 11:09:03], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.051, duration_ms=51, data={}
+timestamp=[2026-10-05 11:09:05], mode=WORKBENCH_UI_INIT, duration=0:00:02.445, duration_ms=2445, data={editors_count=17, platform_editors_count=6, projects_count=4, platform_projects_count=1, active_platform_editor=false, projects=RemoteSystemsTempFiles,ethernet_image_transfer,ethernet_image_transfer_system,zynq_wrapper}
+timestamp=[2026-10-05 12:23:36], mode=PLATFORM_GENERATION, duration=0:00:20.875, duration_ms=20875, data={name=zynq_wrapper}
+timestamp=[2026-10-05 12:23:39], mode=BUILD, duration=0:00:01.088, duration_ms=1088, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 12:50:22], mode=BUILD, duration=0:00:00.532, duration_ms=532, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 12:51:50], mode=BUILD, duration=0:00:00.488, duration_ms=488, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 13:25:44], mode=BUILD, duration=0:00:00.488, duration_ms=488, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 13:38:35], mode=BUILD, duration=0:00:00.545, duration_ms=545, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 13:45:17], mode=BUILD, duration=0:00:00.486, duration_ms=486, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 13:46:17], mode=BUILD, duration=0:00:00.488, duration_ms=488, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 14:39:37], mode=BUILD, duration=0:00:00.565, duration_ms=565, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 14:40:38], mode=BUILD, duration=0:00:00.673, duration_ms=673, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 14:41:27], mode=BUILD, duration=0:00:00.577, duration_ms=577, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 14:42:00], mode=BUILD, duration=0:00:00.584, duration_ms=584, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 14:42:19], mode=BUILD, duration=0:00:00.637, duration_ms=637, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 14:42:36], mode=BUILD, duration=0:00:00.638, duration_ms=638, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 14:43:09], mode=BUILD, duration=0:00:00.987, duration_ms=987, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 14:54:12], mode=BUILD, duration=0:00:00.996, duration_ms=996, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 14:56:02], mode=BUILD, duration=0:00:00.989, duration_ms=989, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 14:57:08], mode=BUILD, duration=0:00:00.634, duration_ms=634, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 14:57:31], mode=BUILD, duration=0:00:00.637, duration_ms=637, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 14:58:08], mode=BUILD, duration=0:00:00.991, duration_ms=991, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 15:04:41], mode=BUILD, duration=0:00:00.985, duration_ms=985, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 15:04:50], mode=BUILD, duration=0:00:00.990, duration_ms=990, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 15:08:17], mode=BUILD, duration=0:00:00.984, duration_ms=984, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 15:10:50], mode=BUILD, duration=0:00:00.938, duration_ms=938, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 15:13:41], mode=BUILD, duration=0:00:00.988, duration_ms=988, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 15:19:05], mode=BUILD, duration=0:00:01.044, duration_ms=1044, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 15:21:32], mode=BUILD, duration=0:00:01.233, duration_ms=1233, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 15:23:30], mode=BUILD, duration=0:00:01.000, duration_ms=1000, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}
+timestamp=[2026-10-05 15:28:09], mode=BUILD, duration=0:00:00.988, duration_ms=988, data={name=ethernet_image_transfer, configuration=Debug, clean_build=false}

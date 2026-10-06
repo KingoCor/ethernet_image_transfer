@@ -54,7 +54,7 @@ int InitTpg() {
     XV_tpg_Set_width(&tpg, IMAGE_WIDTH);
     XV_tpg_Set_height(&tpg, IMAGE_HEIGHT);
     XV_tpg_Set_colorFormat(&tpg, XVIDC_CSF_RGB);
-    XV_tpg_Set_bckgndId(&tpg, XTPG_BKGND_DP_COLOR_RAMP);
+    XV_tpg_Set_bckgndId(&tpg, XTPG_BKGND_TEMPORAL_RAMP);
     XV_tpg_EnableAutoRestart(&tpg);
     XV_tpg_Start(&tpg);
 
@@ -138,7 +138,7 @@ int InitEthernet() {
 	netif_set_up(netif);
 
 	dhcp_start(netif);
-	dhcp_timoutcntr = 1;
+	dhcp_timoutcntr = 24;
 	while (((netif->ip_addr.addr)==0) && (dhcp_timoutcntr > 0)) xemacif_input(netif);
 
 	if (dhcp_timoutcntr<=0) {
@@ -155,9 +155,10 @@ int InitEthernet() {
 
 	print_ip_settings(&(netif->ip_addr), &(netif->netmask), &(netif->gw));
 
+	server_init();
+
 	uint8_t *data = (uint8_t *)VDMA_MEMORY_START;
-	set_image(data, IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS);
-	start_application();
+	server_set_video(data, IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS);
 
 	return XST_SUCCESS;
 }
@@ -179,7 +180,8 @@ int main() {
 			TcpSlowTmrFlag = 0;
 		}
 		xemacif_input(netif);
-		server_tick();
+
+		server_stream();
 	}
 
 	cleanup_platform();
